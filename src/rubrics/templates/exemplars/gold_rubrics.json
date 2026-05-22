@@ -1,0 +1,47 @@
+[
+  {
+    "question_type": "简答题",
+    "question": "为什么在LS-DYNA中使用ALE或Euler方法计算远场水下爆炸时，冲击波峰值压力往往比经验公式小？",
+    "reference_answer": "网格尺寸限制：远场水域范围庞大，受限于计算资源，水域网格往往划分较粗（如10cm），有限分辨率的离散单元难以精确处理冲击波的高频分量。人工粘性影响：为了连续化处理强间断的冲击波，引入的人工体积粘性会引起数值耗散，系数越大，峰值压力衰减越快。累积误差：随着传播距离增加，计算误差不断累积，导致远场压力值偏小。",
+    "criteria": [
+      {"id": "c1", "text": "明确指出远场水域网格通常划分较粗（如~10cm 量级）", "category": "Essential", "weight": 5, "sign": "positive", "criterion_type": "factual_anchor"},
+      {"id": "c2", "text": "解释粗网格无法分辨冲击波高频分量是峰值压力偏低的原因", "category": "Essential", "weight": 5, "sign": "positive", "criterion_type": "mechanism_explanation"},
+      {"id": "c3", "text": "提到人工体积粘性会导致数值耗散使峰值衰减", "category": "Essential", "weight": 5, "sign": "positive", "criterion_type": "mechanism_explanation"},
+      {"id": "c4", "text": "指出人工粘性系数越大衰减越快", "category": "Important", "weight": 3, "sign": "positive", "criterion_type": "factual_anchor"},
+      {"id": "c5", "text": "指出冲击波传播距离增加导致误差累积", "category": "Important", "weight": 3, "sign": "positive", "criterion_type": "mechanism_explanation"},
+      {"id": "c6", "text": "回答中至少给出 3 个独立的原因（网格、粘性、累积误差三类）", "category": "Important", "weight": 3, "sign": "positive", "criterion_type": "factual_anchor"},
+      {"id": "c7", "text": "回答以套话/开场白/元评论开头而无实质内容", "category": "Pitfall", "weight": 4, "sign": "negative", "criterion_type": "anti_hacking"},
+      {"id": "c8", "text": "回答篇幅冗长，包含大量与问题无关的背景铺垫或重复", "category": "Pitfall", "weight": 3, "sign": "negative", "criterion_type": "anti_hacking"}
+    ]
+  },
+  {
+    "question_type": "决策题",
+    "question": "若要模拟潜艇复合材料面板在水下爆炸下的全系统响应，但在计算资源和时间极度受限（要求数分钟内完成）时，应选择哪种耦合方法？",
+    "reference_answer": "决策：选择USA代码（Underwater Shock Analysis）。逻辑：USA基于边界元法（BEM），无需对庞大的水域进行有限元建模，计算速度比ALE快几个数量级，能在几百秒内完成远场冲击计算。",
+    "criteria": [
+      {"id": "c1", "text": "明确给出最终选择是 USA 代码", "category": "Essential", "weight": 6, "sign": "positive", "criterion_type": "decision_logic"},
+      {"id": "c2", "text": "指出 USA 基于边界元法 (BEM)", "category": "Essential", "weight": 5, "sign": "positive", "criterion_type": "factual_anchor"},
+      {"id": "c3", "text": "解释 USA 无需对水域进行有限元建模", "category": "Essential", "weight": 5, "sign": "positive", "criterion_type": "mechanism_explanation"},
+      {"id": "c4", "text": "比较 USA 与 ALE 的速度差异（quantitative：数量级快、或几百秒）", "category": "Important", "weight": 4, "sign": "positive", "criterion_type": "decision_logic"},
+      {"id": "c5", "text": "答案不应推荐 ALE 或 Lagrangian 作为首选（在该资源约束下）", "category": "Important", "weight": 3, "sign": "positive", "criterion_type": "decision_logic"},
+      {"id": "c6", "text": "给出多个并列选项而不做决定", "category": "Pitfall", "weight": 5, "sign": "negative", "criterion_type": "anti_hacking"},
+      {"id": "c7", "text": "回答以套话/开场白/元评论开头而无实质内容", "category": "Pitfall", "weight": 4, "sign": "negative", "criterion_type": "anti_hacking"},
+      {"id": "c8", "text": "回答篇幅冗长，包含大量与问题无关的背景铺垫或重复", "category": "Pitfall", "weight": 3, "sign": "negative", "criterion_type": "anti_hacking"}
+    ]
+  },
+  {
+    "question_type": "数值提取题",
+    "question": "在模拟炸药爆轰产物时，JWL状态方程中的主要参数及其物理意义是什么？",
+    "reference_answer": "核心参数：A和B为压力系数（单位GPa）；R1、R2和ω为无量纲特征常数；V为相对体积；E为爆轰产物体积内能。应用：该方程精确描述了炸药爆轰后高温高压气体产物的膨胀过程及对周围介质的做功特性。",
+    "criteria": [
+      {"id": "c1", "text": "提到 JWL 方程的核心参数包括 A 和 B（压力系数）", "category": "Essential", "weight": 5, "sign": "positive", "criterion_type": "numeric_precision"},
+      {"id": "c2", "text": "正确指出 A、B 的单位为 GPa", "category": "Essential", "weight": 5, "sign": "positive", "criterion_type": "numeric_precision"},
+      {"id": "c3", "text": "提到无量纲特征常数 R1、R2、ω", "category": "Essential", "weight": 5, "sign": "positive", "criterion_type": "numeric_precision"},
+      {"id": "c4", "text": "提到 V 为相对体积、E 为爆轰产物体积内能", "category": "Essential", "weight": 5, "sign": "positive", "criterion_type": "numeric_precision"},
+      {"id": "c5", "text": "简要说明 JWL 用于描述爆轰后气体膨胀过程", "category": "Important", "weight": 3, "sign": "positive", "criterion_type": "factual_anchor"},
+      {"id": "c6", "text": "写出数值但缺少单位或物理含义", "category": "Pitfall", "weight": 4, "sign": "negative", "criterion_type": "anti_hacking"},
+      {"id": "c7", "text": "回答以套话/开场白/元评论开头而无实质内容", "category": "Pitfall", "weight": 4, "sign": "negative", "criterion_type": "anti_hacking"},
+      {"id": "c8", "text": "回答篇幅冗长，包含大量与问题无关的背景铺垫或重复", "category": "Pitfall", "weight": 3, "sign": "negative", "criterion_type": "anti_hacking"}
+    ]
+  }
+]

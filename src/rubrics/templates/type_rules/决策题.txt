@@ -1,0 +1,7 @@
+【本题为决策题】
+- 总条目数：8-11
+- factual_anchor: 1-2 条
+- mechanism_explanation: 1-2 条
+- decision_logic: 3-4 条（Essential）。其中至少 1 条用于"明确给出选择/结论"，其余用于"论证逻辑、依据、可行性"。
+- comparative_balance: 1 条（可选，针对"为什么不选 X"的反向论证）
+- anti_hacking: 必填 2 条 Pitfall。建议追加 1 条："给出多个并列选项而不做决定"

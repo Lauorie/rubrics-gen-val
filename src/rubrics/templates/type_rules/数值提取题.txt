@@ -1,0 +1,5 @@
+【本题为数值提取题】
+- 总条目数：6-8
+- factual_anchor: 1 条
+- numeric_precision: 3-4 条（Essential）。每个关键数值/参数名独占一条；数值正确允许 ±2% 容差，单位错误判 met=false。
+- anti_hacking: 必填 2 条 Pitfall。建议追加 1 条："写出数值但缺少单位或物理含义"

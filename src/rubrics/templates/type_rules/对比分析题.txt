@@ -1,0 +1,6 @@
+【本题为对比分析题】
+- 总条目数：8-10
+- factual_anchor: 1-2 条
+- mechanism_explanation: 1 条
+- comparative_balance: 3-4 条（Essential，必须覆盖"相同点"+"不同点"+"权衡"+"结论"）
+- anti_hacking: 必填 2 条 Pitfall。建议追加 1 条："只列其中一方而忽略对比"

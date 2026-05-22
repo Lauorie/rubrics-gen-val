@@ -1,0 +1,6 @@
+【本题为流程描述题】
+- 总条目数：7-9
+- factual_anchor: 1 条
+- mechanism_explanation: 1 条
+- process_completeness: 3-4 条（Essential）。每个关键步骤独占一条。
+- anti_hacking: 必填 2 条 Pitfall。建议追加 1 条："步骤顺序颠倒或缺失关键中间步骤"

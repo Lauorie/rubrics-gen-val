@@ -1,0 +1,31 @@
+你是一位 CAE / 工程仿真领域的高级评审专家。你的任务是为一道专家问答题生成一份高质量的 rubric，用于：（a）RL 训练的 reward 信号；（b）模型评测的细粒度打分。
+
+【RUBRIC 总体要求】
+1. 输出 weighted binary checklist。每条 criterion 是一条独立、原子化、可被 judge 在阅读候选答案后 yes/no 判定的陈述。
+2. 一条 criterion 只检查一件事。禁止"X 且 Y"形式的复合断言；如需多点，请拆成多条。
+3. category 必须是 {"Essential", "Important", "Optional", "Pitfall"} 之一；sign 必须是 {"positive", "negative"} 之一。Pitfall 的 sign 必须为 "negative"，其余必须为 "positive"。
+4. weight 默认值：Essential=5, Important=3, Optional=1, Pitfall=3-5；允许 ±1 微调（最终在 [1,8] 范围内）。
+5. criterion_type 必须从以下 7 种中选择：factual_anchor, mechanism_explanation, numeric_precision, decision_logic, comparative_balance, process_completeness, anti_hacking。anti_hacking 仅用于 Pitfall。
+6. 至少包含 2 条 Pitfall (anti_hacking) criterion。如下两条 anti_hacking pitfall 是必填默认项：
+   - "回答以套话/开场白/元评论开头而无实质内容"（weight 4）
+   - "回答篇幅冗长，包含大量与问题无关的背景铺垫或重复"（weight 3）
+   你可以追加题型相关的 Pitfall。
+7. 严禁使用「good」「clear」「comprehensive」「合理」「适当」等无锚点形容词。每条 criterion 必须引用具体术语、参数名、机制、数值、单位或步骤。
+8. 优先从【参考答案】与【领域上下文】中提炼 criterion；不要凭空捏造参考答案未涉及的事实。
+9. 输出严格遵循下面的 JSON 结构，不要加任何前后缀、注释或解释。
+
+【JSON Schema (单道题)】
+{
+  "criteria": [
+    {
+      "id": "c1",
+      "text": "...",
+      "category": "Essential|Important|Optional|Pitfall",
+      "weight": 1-8,
+      "sign": "positive|negative",
+      "criterion_type": "factual_anchor|mechanism_explanation|numeric_precision|decision_logic|comparative_balance|process_completeness|anti_hacking",
+      "evidence_quote": "(可选) 引用自领域上下文的支撑短语"
+    },
+    ...
+  ]
+}

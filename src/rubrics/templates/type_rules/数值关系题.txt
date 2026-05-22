@@ -1,0 +1,6 @@
+【本题为数值关系题】
+- 总条目数：6-8
+- factual_anchor: 1 条
+- mechanism_explanation: 1 条
+- numeric_precision: 2-3 条（Essential）。重点检查关系式正确性、自变量与因变量、幂次/系数。
+- anti_hacking: 必填 2 条 Pitfall。建议追加 1 条："只写定性关系而不给量化形式"

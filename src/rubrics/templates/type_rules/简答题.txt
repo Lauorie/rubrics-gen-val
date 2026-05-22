@@ -1,0 +1,5 @@
+【本题为简答题】
+- 总条目数：8-10
+- factual_anchor: 3-5 条（必须为 Essential，对应参考答案的关键事实点）
+- mechanism_explanation: 1-2 条（对应"为什么"的机制陈述，Important）
+- anti_hacking: 必填 2 条 Pitfall
