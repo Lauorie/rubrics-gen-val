@@ -34,5 +34,5 @@ def test_save_rubrics_json_atomic_and_chinese_safe(tmp_path: Path) -> None:
 def test_save_rubrics_json_pretty_2_space_indent(tmp_path: Path) -> None:
     p = tmp_path / "out.json"
     save_rubrics_json(p, [{"a": 1}])
-    text = p.read_text()
-    assert '  "a": 1' in text  # 2-space indent, matches existing data/ JSON style
+    expected = json.dumps([{"a": 1}], ensure_ascii=False, indent=2) + "\n"
+    assert p.read_text() == expected
