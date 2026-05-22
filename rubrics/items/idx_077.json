@@ -1,0 +1,134 @@
+{
+  "question_id": "62",
+  "question": "在处理生物力学（如血液与血管）或轻质结构与水（密度接近）的FSI问题时，应避免使用哪种耦合方案？",
+  "reference_answer": "决策： 避免使用传统的松散耦合分区方案（Loosely Coupled Partitioned Schemes）。逻辑： 当流固密度接近时，“附加质量效应”会引起数值不稳定。应选择全隐式单块求解法（Monolithic approach）或引入界面Laplace稳定化矩阵。",
+  "question_type": "决策题",
+  "difficulty": "困难",
+  "scenario": "单文档多段落",
+  "source": "Benson教材第166、168页",
+  "source_grounding": {
+    "parsed_docs": [
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson"
+    ],
+    "pages": [],
+    "retrieved_chunk_ids": [
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p175-p175:c1081",
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p72-p72:c490",
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p72-p72:c491"
+    ],
+    "ground_status": "doc_only"
+  },
+  "criteria": [
+    {
+      "id": "c1",
+      "text": "明确提到“传统的松散耦合分区方案（Loosely Coupled Partitioned Schemes）”",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "Partitioned analysis approach"
+    },
+    {
+      "id": "c2",
+      "text": "明确提到“附加质量效应（Added Mass Effect）”",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "Added Mass Effects"
+    },
+    {
+      "id": "c3",
+      "text": "说明在流固密度接近时，附加质量效应会导致数值不稳定",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "Avoiding Instabilities Caused by Added Mass Effects"
+    },
+    {
+      "id": "c4",
+      "text": "明确给出最终结论：应避免使用该耦合方案",
+      "category": "Essential",
+      "weight": 6,
+      "sign": "positive",
+      "criterion_type": "decision_logic",
+      "evidence_quote": null
+    },
+    {
+      "id": "c5",
+      "text": "将该结论应用于血液-血管或轻质结构-水这类密度接近的FSI问题",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "decision_logic",
+      "evidence_quote": null
+    },
+    {
+      "id": "c6",
+      "text": "把数值不稳定作为避免松散耦合分区方案的原因",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "decision_logic",
+      "evidence_quote": null
+    },
+    {
+      "id": "c7",
+      "text": "提到全隐式单块求解法（Monolithic approach）作为替代方案",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "comparative_balance",
+      "evidence_quote": null
+    },
+    {
+      "id": "c8",
+      "text": "回答以套话/开场白/元评论开头而无实质内容",
+      "category": "Pitfall",
+      "weight": 4,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c9",
+      "text": "回答篇幅冗长，包含大量与问题无关的背景铺垫或重复",
+      "category": "Pitfall",
+      "weight": 3,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c10",
+      "text": "给出多个",
+      "category": "Pitfall",
+      "weight": 5,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c11",
+      "text": "列选项而不做决定",
+      "category": "Pitfall",
+      "weight": 5,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    }
+  ],
+  "rubric_metadata": {
+    "generation_model": "openai/gpt-5.4-mini",
+    "generation_passes": 3,
+    "n_criteria_initial": 10,
+    "n_criteria_final": 11,
+    "n_dropped_misaligned": 0,
+    "ref_answer_self_score": null,
+    "weak_answer_self_score": null,
+    "generated_at": "2026-05-22T08:27:16.555491+00:00",
+    "schema_version": "1.0"
+  },
+  "item_idx": 77
+}

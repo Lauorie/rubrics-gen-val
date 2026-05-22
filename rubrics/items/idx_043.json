@@ -1,0 +1,101 @@
+{
+  "question_id": "44",
+  "question": "对于超弹性材料（Hyperelasticity），为什么通常采用Piola-Kirchhoff应力张量而非真实应力？",
+  "reference_answer": "理论需求： 超弹性材料涉及大变形，其应力通常由应变能密度函数对变形梯度（Deformation gradient）求导得出。Piola-Kirchhoff应力建立在初始构形（Reference configuration）上，便于处理大变形下的本构描述。",
+  "question_type": "简答题",
+  "difficulty": "困难",
+  "scenario": "单文档多段落",
+  "source": "Benson教材, 第114-116页",
+  "source_grounding": {
+    "parsed_docs": [
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson"
+    ],
+    "pages": [
+      114,
+      116
+    ],
+    "retrieved_chunk_ids": [
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p115-p116:c688",
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p116-p117:c693",
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p114-p115:c687"
+    ],
+    "ground_status": "page_specific"
+  },
+  "criteria": [
+    {
+      "id": "c1",
+      "text": "指出超弹性材料通常对应大变形问题",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "超弹性材料涉及大变形"
+    },
+    {
+      "id": "c2",
+      "text": "指出超弹性材料的应力通常由应变能密度函数对变形梯度 F 求导得到",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "应力通常由应变能密度函数对变形梯度（Deformation gradient）求导得出"
+    },
+    {
+      "id": "c3",
+      "text": "指出 Piola-Kirchhoff 应力张量建立在初始构形或参考构形上",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "Piola-Kirchhoff应力建立在初始构形（Reference configuration）上"
+    },
+    {
+      "id": "c4",
+      "text": "指出采用参考构形有利于处理大变形下的本构描述",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "便于处理大变形下的本构描述"
+    },
+    {
+      "id": "c6",
+      "text": "明确把“应变能密度函数”与“变形梯度 F”联系起来，而不是只泛泛提到应力和应变",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "应力通常由应变能密度函数对变形梯度求导得出"
+    },
+    {
+      "id": "c7",
+      "text": "回答以套话/开场白/元评论开头而无实质内容",
+      "category": "Pitfall",
+      "weight": 4,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c8",
+      "text": "回答篇幅冗长，包含大量与问题无关的背景铺垫或重复",
+      "category": "Pitfall",
+      "weight": 3,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    }
+  ],
+  "rubric_metadata": {
+    "generation_model": "openai/gpt-5.4-mini",
+    "generation_passes": 3,
+    "n_criteria_initial": 8,
+    "n_criteria_final": 7,
+    "n_dropped_misaligned": 1,
+    "ref_answer_self_score": null,
+    "weak_answer_self_score": null,
+    "generated_at": "2026-05-22T07:31:08.509523+00:00",
+    "schema_version": "1.0"
+  },
+  "item_idx": 43
+}

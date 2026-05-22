@@ -1,0 +1,134 @@
+{
+  "question_id": "58",
+  "question": "在惩罚耦合（Penalty coupling）算法中，如何通过引入阻尼来改善数值表现？",
+  "reference_answer": "惩罚耦合算法在本质上表现为一个弹簧系统，其力的大小与穿透深度和弹簧刚度成正比。为了消除由于流体不可压缩性引起的界面力高频振荡，需要在惩罚力中加入一个与流体和结构相对速度成正比的粘性阻尼力。这种阻尼力可以滤除数值噪声，提高收敛特性，在处理水冲击等不可压缩流体问题时尤为关键，但在处理高度可压缩气体（如安全气囊充气）时，通常不需要此类阻尼。",
+  "question_type": "主观题",
+  "difficulty": "困难",
+  "scenario": "单文档多段落",
+  "source": "Benson教材,第64，69-71，73页",
+  "source_grounding": {
+    "parsed_docs": [
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson"
+    ],
+    "pages": [],
+    "retrieved_chunk_ids": [
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p119-p119:c705",
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p119-p119:c704",
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p76-p76:c513"
+    ],
+    "ground_status": "doc_only"
+  },
+  "criteria": [
+    {
+      "id": "c1",
+      "text": "指出惩罚耦合可视为弹簧系统，界面反力与穿透深度和弹簧刚度成正比",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "the penalty method imposes a resisting force to the slave node, proportional to its penetration through the master segment"
+    },
+    {
+      "id": "c2",
+      "text": "指出阻尼力与流体和结构的相对速度成正比",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "a viscous damping force ... proportional to the relative velocity"
+    },
+    {
+      "id": "c3",
+      "text": "指出阻尼项是加入到惩罚力中的附加力项",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "process_completeness",
+      "evidence_quote": "a damping algorithm has been added to the penalty algorithm"
+    },
+    {
+      "id": "c4",
+      "text": "说明阻尼用于抑制界面力的高频振荡",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "To eliminate ... interface force high-frequency oscillations"
+    },
+    {
+      "id": "c5",
+      "text": "说明阻尼可以滤除数值噪声",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "permits to find the theoretical results ... without numerical dissipative errors"
+    },
+    {
+      "id": "c6",
+      "text": "说明阻尼可以提高收敛特性",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "improve convergence characteristics"
+    },
+    {
+      "id": "c7",
+      "text": "指出在不可压缩流体问题中引入该阻尼更有必要",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "comparative_balance",
+      "evidence_quote": "particularly key in incompressible fluid problems"
+    },
+    {
+      "id": "c8",
+      "text": "指出在高度可压缩气体问题中通常不需要此类阻尼",
+      "category": "Optional",
+      "weight": 1,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "when dealing with highly compressible gas ... such damping is usually not needed"
+    },
+    {
+      "id": "c9",
+      "text": "把阻尼说成会放大界面高频振荡或数值噪声",
+      "category": "Pitfall",
+      "weight": 4,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c10",
+      "text": "回答以套话/开场白/元评论开头而无实质内容",
+      "category": "Pitfall",
+      "weight": 4,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c11",
+      "text": "回答篇幅冗长，包含大量与问题无关的背景铺垫或重复",
+      "category": "Pitfall",
+      "weight": 3,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    }
+  ],
+  "rubric_metadata": {
+    "generation_model": "openai/gpt-5.4-mini",
+    "generation_passes": 3,
+    "n_criteria_initial": 11,
+    "n_criteria_final": 11,
+    "n_dropped_misaligned": 0,
+    "ref_answer_self_score": null,
+    "weak_answer_self_score": null,
+    "generated_at": "2026-05-22T09:22:47.666605+00:00",
+    "schema_version": "1.0"
+  },
+  "item_idx": 57
+}

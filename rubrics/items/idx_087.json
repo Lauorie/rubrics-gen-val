@@ -1,0 +1,128 @@
+{
+  "question_id": "72",
+  "question": "在执行ALE的Advection（输运）阶段时，若追求在不产生非物理极值的前提下获得最高精度，应选择哪种算法？",
+  "reference_answer": "决策： 优先选择MUSCL算法。逻辑： MUSCL通过线性逼近提供二阶精度，且具有单调限幅器，能比常数逼近的Donor Cell算法更好地捕捉梯度，同时避免数值震荡。",
+  "question_type": "决策题",
+  "difficulty": "中等",
+  "scenario": "单文档多段落",
+  "source": "Benson教材, 第30-31页",
+  "source_grounding": {
+    "parsed_docs": [
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson"
+    ],
+    "pages": [
+      30,
+      31
+    ],
+    "retrieved_chunk_ids": [
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p30-p30:c200",
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p30-p30:c199",
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p30-p30:c195"
+    ],
+    "ground_status": "page_specific"
+  },
+  "criteria": [
+    {
+      "id": "c1",
+      "text": "明确给出最终选择是 MUSCL 算法",
+      "category": "Essential",
+      "weight": 6,
+      "sign": "positive",
+      "criterion_type": "decision_logic",
+      "evidence_quote": "优先选择MUSCL算法"
+    },
+    {
+      "id": "c2",
+      "text": "说明在追求最高精度时，MUSCL 因为提供二阶精度而优先于低阶输运格式",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "decision_logic",
+      "evidence_quote": "MUSCL通过线性逼近提供二阶精度"
+    },
+    {
+      "id": "c3",
+      "text": "说明 MUSCL 的单调限幅器用于抑制数值震荡或非物理极值",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "decision_logic",
+      "evidence_quote": "具有单调限幅器，能...避免数值震荡"
+    },
+    {
+      "id": "c4",
+      "text": "指出 MUSCL 采用线性逼近",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "MUSCL通过线性逼近"
+    },
+    {
+      "id": "c5",
+      "text": "指出 Donor Cell 算法采用常数逼近",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "常数逼近的Donor Cell算法"
+    },
+    {
+      "id": "c6",
+      "text": "比较 MUSCL 与 Donor Cell 时，说明 MUSCL 更能捕捉梯度",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "comparative_balance",
+      "evidence_quote": "能比常数逼近的Donor Cell算法更好地捕捉梯度"
+    },
+    {
+      "id": "c7",
+      "text": "回答以套话/开场白/元评论开头而无实质内容",
+      "category": "Pitfall",
+      "weight": 4,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c8",
+      "text": "回答篇幅冗长，包含大量与问题无关的背景铺垫或重复",
+      "category": "Pitfall",
+      "weight": 3,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c9",
+      "text": "给出多个",
+      "category": "Pitfall",
+      "weight": 5,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c10",
+      "text": "列算法选项而不做最终选择",
+      "category": "Pitfall",
+      "weight": 5,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    }
+  ],
+  "rubric_metadata": {
+    "generation_model": "openai/gpt-5.4-mini",
+    "generation_passes": 3,
+    "n_criteria_initial": 9,
+    "n_criteria_final": 10,
+    "n_dropped_misaligned": 0,
+    "ref_answer_self_score": null,
+    "weak_answer_self_score": null,
+    "generated_at": "2026-05-22T08:44:58.957854+00:00",
+    "schema_version": "1.0"
+  },
+  "item_idx": 87
+}

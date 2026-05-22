@@ -1,0 +1,127 @@
+{
+  "question_id": "55",
+  "question": "ALE方法与重分区（Rezoning）方法在处理网格拓扑方面有何主要区别？其精度差异体现在哪里？",
+  "reference_answer": "在ALE方法中，网格的拓扑结构在计算过程中是固定的，允许网格在保持连接关系不变的情况下进行平滑运动。相比之下，重分区方法会调用自动网格生成器，根据边界段创建具有新拓扑结构的全新网格。在精度方面，ALE方法通常优于重分区方法：因为ALE在将解从扭曲网格映射到未扭曲网格时，使用二阶平流算法可以达到二阶精度，而重分区的重新映射算法通常仅为一阶精度。",
+  "question_type": "简答题",
+  "difficulty": "简单",
+  "scenario": "单文档多段落",
+  "source": "Benson教材, 第2页",
+  "source_grounding": {
+    "parsed_docs": [
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson"
+    ],
+    "pages": [
+      2,
+      2
+    ],
+    "retrieved_chunk_ids": [
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p0-p3:c6",
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p0-p3:c5"
+    ],
+    "ground_status": "page_specific"
+  },
+  "criteria": [
+    {
+      "id": "c1",
+      "text": "ALE 方法中网格拓扑结构在计算过程中保持固定",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": null
+    },
+    {
+      "id": "c2",
+      "text": "ALE 方法允许网格在连接关系不变时进行平滑运动",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": null
+    },
+    {
+      "id": "c3",
+      "text": "重分区方法会调用自动网格生成器",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": null
+    },
+    {
+      "id": "c4",
+      "text": "重分区方法根据边界段生成新的网格拓扑",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": null
+    },
+    {
+      "id": "c5",
+      "text": "ALE 方法在解映射中使用二阶平流算法",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "numeric_precision",
+      "evidence_quote": null
+    },
+    {
+      "id": "c6",
+      "text": "重分区方法的重新映射算法通常只有一阶精度",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "numeric_precision",
+      "evidence_quote": null
+    },
+    {
+      "id": "c7",
+      "text": "解释 ALE 在将解从扭曲网格映射到未扭曲网格时采用二阶平流算法，因此映射精度达到二阶",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": null
+    },
+    {
+      "id": "c8",
+      "text": "比较时指出 ALE 的精度通常高于重分区方法",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "comparative_balance",
+      "evidence_quote": null
+    },
+    {
+      "id": "c9",
+      "text": "回答以套话/开场白/元评论开头而无实质内容",
+      "category": "Pitfall",
+      "weight": 4,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c10",
+      "text": "回答篇幅冗长，包含大量与问题无关的背景铺垫或重复",
+      "category": "Pitfall",
+      "weight": 3,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    }
+  ],
+  "rubric_metadata": {
+    "generation_model": "openai/gpt-5.4-mini",
+    "generation_passes": 3,
+    "n_criteria_initial": 10,
+    "n_criteria_final": 10,
+    "n_dropped_misaligned": 0,
+    "ref_answer_self_score": null,
+    "weak_answer_self_score": null,
+    "generated_at": "2026-05-22T09:17:36.966730+00:00",
+    "schema_version": "1.0"
+  },
+  "item_idx": 54
+}

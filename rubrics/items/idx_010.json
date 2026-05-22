@@ -1,0 +1,113 @@
+{
+  "question_id": "11",
+  "question": "在LS-DYNA的ALE算法中，Lagrangian步和Eulerian步分别负责计算什么？",
+  "reference_answer": "Lagrangian步： 网格随材料运动。计算由内力和外力（包括压力、应力、重力等）引起的加速度、速度和能量的变化。Eulerian步： 负责网格的重划分（输运阶段）。将材料从变形的网格映射（Remap）回参考网格，计算质量、动量和能量在网格间的输运。",
+  "question_type": "简答题",
+  "difficulty": "中等",
+  "scenario": "多文档多段落",
+  "source": "Benson教材，第7页; 贾宪振博士论文，第81页",
+  "source_grounding": {
+    "parsed_docs": [
+      "PhD_基于通用程序的水下爆炸及其对结构作用的数值模拟研究",
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson"
+    ],
+    "pages": [
+      7,
+      7,
+      81,
+      81
+    ],
+    "retrieved_chunk_ids": [
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p3-p19:c97",
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p3-p19:c98",
+      "PhD_基于通用程序的水下爆炸及其对结构作用的数值模拟研究:p80-p81:c250"
+    ],
+    "ground_status": "page_specific"
+  },
+  "criteria": [
+    {
+      "id": "c1",
+      "text": "指出 Lagrangian 步中网格随材料运动",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "网格随材料运动"
+    },
+    {
+      "id": "c2",
+      "text": "指出 Lagrangian 步计算由内力和外力引起的加速度、速度和能量变化",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "计算由内力和外力（包括压力、应力、重力等）引起的加速度、速度和能量的变化"
+    },
+    {
+      "id": "c3",
+      "text": "指出 Eulerian 步负责网格重划分或 Remap",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "负责网格的重划分（输运阶段）"
+    },
+    {
+      "id": "c4",
+      "text": "指出 Eulerian 步将材料从变形网格映射回参考网格",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "将材料从变形的网格映射（Remap）回参考网格"
+    },
+    {
+      "id": "c5",
+      "text": "说明 Lagrangian 步中的力学更新来自内力和外力对材料状态的推进",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "由内力和外力...引起的加速度、速度和能量的变化"
+    },
+    {
+      "id": "c6",
+      "text": "说明 Eulerian 步通过重划分或 Remap 处理网格变形后的输运阶段",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "重划分（输运阶段）"
+    },
+    {
+      "id": "c7",
+      "text": "回答以套话/开场白/元评论开头而无实质内容",
+      "category": "Pitfall",
+      "weight": 4,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c8",
+      "text": "回答篇幅冗长，包含大量与问题无关的背景铺垫或重复",
+      "category": "Pitfall",
+      "weight": 3,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    }
+  ],
+  "rubric_metadata": {
+    "generation_model": "openai/gpt-5.4-mini",
+    "generation_passes": 3,
+    "n_criteria_initial": 8,
+    "n_criteria_final": 8,
+    "n_dropped_misaligned": 0,
+    "ref_answer_self_score": null,
+    "weak_answer_self_score": null,
+    "generated_at": "2026-05-22T06:38:45.829703+00:00",
+    "schema_version": "1.0"
+  },
+  "item_idx": 10
+}

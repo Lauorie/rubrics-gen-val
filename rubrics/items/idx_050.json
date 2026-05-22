@@ -1,0 +1,116 @@
+{
+  "question_id": "51",
+  "question": "USA代码基于的“双渐近近似（DAA）”方法在处理流固耦合时有何核心逻辑？",
+  "reference_answer": "理论基础： DAA是一种时间依赖的微分方程，将流体视为声学介质。核心逻辑： 假设流体在冲击瞬间表现为高频平面波阻抗特性，而在长时间响应中表现为附加质量特性（低频）。通过这种近似，USA只需在结构湿表面建立边界元，无需划分外部水域网格。",
+  "question_type": "简答题",
+  "difficulty": "困难",
+  "scenario": "单文档多段落",
+  "source": "ThyssenKrupp论文, 第7、8页",
+  "source_grounding": {
+    "parsed_docs": [
+      "oezarmut_thyssenkrupp_Fluid-Composite_Structure-Interaction_in_Underwater_Shock_Simulations"
+    ],
+    "pages": [],
+    "retrieved_chunk_ids": [
+      "oezarmut_thyssenkrupp_Fluid-Composite_Structure-Interaction_in_Underwater_Shock_Simulations:p6-p7:c68",
+      "oezarmut_thyssenkrupp_Fluid-Composite_Structure-Interaction_in_Underwater_Shock_Simulations:p6-p6:c64",
+      "oezarmut_thyssenkrupp_Fluid-Composite_Structure-Interaction_in_Underwater_Shock_Simulations:p0-p0:c4"
+    ],
+    "ground_status": "doc_only"
+  },
+  "criteria": [
+    {
+      "id": "c1",
+      "text": "指出 DAA（doubly asymptotic approximations）是用于瞬态声学流固耦合的时间依赖微分方程",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "time dependent differential equations for the characterization of transient acoustic fluid-structure-interaction"
+    },
+    {
+      "id": "c2",
+      "text": "指出 DAA 将流体视为声学介质",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "it is based on doubly asymptotic approximations (DAAs)"
+    },
+    {
+      "id": "c3",
+      "text": "指出流体在冲击瞬间对应高频平面波阻抗特性",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "high-frequency plane-wave impedance"
+    },
+    {
+      "id": "c4",
+      "text": "指出流体在长时间响应中对应低频附加质量特性",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "long-time response ... added mass characteristics (low-frequency)"
+    },
+    {
+      "id": "c5",
+      "text": "指出 USA 只需在结构湿表面建立边界元，不需要划分外部水域网格",
+      "category": "Essential",
+      "weight": 6,
+      "sign": "positive",
+      "criterion_type": "process_completeness",
+      "evidence_quote": "boundary element method code ... only on the wet surface"
+    },
+    {
+      "id": "c6",
+      "text": "解释高频阻抗近似与低频附加质量近似共同覆盖了瞬态流固耦合的短时与长时响应",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "high-frequency ... and ... low-frequency"
+    },
+    {
+      "id": "c7",
+      "text": "解释将流体按声学介质处理后，可以用 DAA 在湿表面上完成耦合，而无需对外部水体做体网格离散",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "boundary element method code for problems involving underwater fluid-structure-interaction"
+    },
+    {
+      "id": "c8",
+      "text": "回答以套话/开场白/元评论开头而无实质内容",
+      "category": "Pitfall",
+      "weight": 4,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c9",
+      "text": "回答篇幅冗长，包含大量与问题无关的背景铺垫或重复",
+      "category": "Pitfall",
+      "weight": 3,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    }
+  ],
+  "rubric_metadata": {
+    "generation_model": "openai/gpt-5.4-mini",
+    "generation_passes": 3,
+    "n_criteria_initial": 9,
+    "n_criteria_final": 9,
+    "n_dropped_misaligned": 0,
+    "ref_answer_self_score": null,
+    "weak_answer_self_score": null,
+    "generated_at": "2026-05-22T07:40:56.948135+00:00",
+    "schema_version": "1.0"
+  },
+  "item_idx": 50
+}

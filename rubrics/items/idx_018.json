@@ -1,0 +1,119 @@
+{
+  "question_id": "19",
+  "question": "混凝土重力坝在近场爆炸下的“震塌破坏”是如何形成的？",
+  "reference_answer": "压缩应力波传至大坝下游面或坝顶等自由面时，发生反射形成强拉伸波。由于混凝土抗拉强度远低于抗压强度，导致材料受拉脱落破坏。",
+  "question_type": "主观题",
+  "difficulty": "中等",
+  "scenario": "单文档单段落",
+  "source": "混凝土重力坝论文 p505-506",
+  "source_grounding": {
+    "parsed_docs": [
+      "水下爆炸冲击荷载作用下混凝土重力坝的破坏模式"
+    ],
+    "pages": [
+      505,
+      506
+    ],
+    "retrieved_chunk_ids": [
+      "水下爆炸冲击荷载作用下混凝土重力坝的破坏模式:p5-p5:c29",
+      "水下爆炸冲击荷载作用下混凝土重力坝的破坏模式:p3-p3:c22",
+      "水下爆炸冲击荷载作用下混凝土重力坝的破坏模式:p5-p6:c34"
+    ],
+    "ground_status": "fallback_semantic"
+  },
+  "criteria": [
+    {
+      "id": "c1",
+      "text": "明确指出压缩应力波传播到坝顶或下游面等自由面",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "压缩应力波传播至坝顶"
+    },
+    {
+      "id": "c2",
+      "text": "明确指出自由面反射会形成强拉伸波",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "反射形成强拉伸波"
+    },
+    {
+      "id": "c3",
+      "text": "明确指出混凝土抗拉强度远低于抗压强度",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "混凝土抗拉强度远低于抗压强度"
+    },
+    {
+      "id": "c4",
+      "text": "解释强拉伸波会在坝顶或下游面产生拉应力",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "坝顶产生较大拉应力"
+    },
+    {
+      "id": "c5",
+      "text": "解释拉应力会使混凝土发生受拉脱落或剥落",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "导致坝顶混凝土脱落"
+    },
+    {
+      "id": "c6",
+      "text": "说明震塌破坏的表观结果是坝顶混凝土脱落或坝面震塌剥落",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "坝面的震塌破坏"
+    },
+    {
+      "id": "c7",
+      "text": "按“压缩应力波→自由面反射→强拉伸波→受拉脱落”的顺序描述形成过程",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "process_completeness",
+      "evidence_quote": "反射形成强拉伸波，导致坝顶混凝土脱落"
+    },
+    {
+      "id": "c9",
+      "text": "回答以套话/开场白/元评论开头而无实质内容",
+      "category": "Pitfall",
+      "weight": 4,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c10",
+      "text": "回答篇幅冗长，包含大量与问题无关的背景铺垫或重复",
+      "category": "Pitfall",
+      "weight": 3,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    }
+  ],
+  "rubric_metadata": {
+    "generation_model": "openai/gpt-5.4-mini",
+    "generation_passes": 3,
+    "n_criteria_initial": 10,
+    "n_criteria_final": 9,
+    "n_dropped_misaligned": 1,
+    "ref_answer_self_score": null,
+    "weak_answer_self_score": null,
+    "generated_at": "2026-05-22T06:51:40.279941+00:00",
+    "schema_version": "1.0"
+  },
+  "item_idx": 18
+}

@@ -1,0 +1,110 @@
+{
+  "question_id": "25",
+  "question": "简述“输运算法（Advection algorithms）”必须满足的三个基本要求。",
+  "reference_answer": "参考答案： 1. 守恒性（Conservation）；2. 单调性（Monotonicity，不产生新的极值）；3. 至少二阶的计算精度。",
+  "question_type": "简答题",
+  "difficulty": "中等",
+  "scenario": "单文档单段落",
+  "source": "Benson教材 p28-29",
+  "source_grounding": {
+    "parsed_docs": [
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson"
+    ],
+    "pages": [
+      28,
+      29
+    ],
+    "retrieved_chunk_ids": [
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p28-p28:c175",
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p29-p29:c179",
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p28-p28:c170"
+    ],
+    "ground_status": "page_specific"
+  },
+  "criteria": [
+    {
+      "id": "c1",
+      "text": "明确写出守恒性（Conservation）",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "1. 守恒性（Conservation）"
+    },
+    {
+      "id": "c2",
+      "text": "明确写出单调性（Monotonicity）",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "2. 单调性（Monotonicity，不产生新的极值）"
+    },
+    {
+      "id": "c3",
+      "text": "明确写出“不会产生新的极值”",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "Monotonicity，不产生新的极值"
+    },
+    {
+      "id": "c4",
+      "text": "明确写出至少二阶的计算精度",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "3. 至少二阶的计算精度"
+    },
+    {
+      "id": "c5",
+      "text": "回答至少列出三个基本要求",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "process_completeness",
+      "evidence_quote": "必须满足的三个基本要求"
+    },
+    {
+      "id": "c7",
+      "text": "解释单调性用于避免数值振荡在峰值或谷值附近产生新的极值",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": null
+    },
+    {
+      "id": "c8",
+      "text": "回答以套话/开场白/元评论开头而无实质内容",
+      "category": "Pitfall",
+      "weight": 4,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c9",
+      "text": "回答篇幅冗长，包含大量与问题无关的背景铺垫或重复",
+      "category": "Pitfall",
+      "weight": 3,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    }
+  ],
+  "rubric_metadata": {
+    "generation_model": "openai/gpt-5.4-mini",
+    "generation_passes": 3,
+    "n_criteria_initial": 9,
+    "n_criteria_final": 8,
+    "n_dropped_misaligned": 1,
+    "ref_answer_self_score": null,
+    "weak_answer_self_score": null,
+    "generated_at": "2026-05-22T07:02:44.043684+00:00",
+    "schema_version": "1.0"
+  },
+  "item_idx": 24
+}

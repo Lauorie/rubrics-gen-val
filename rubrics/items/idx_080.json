@@ -1,0 +1,137 @@
+{
+  "question_id": "65",
+  "question": "当一个多物质ALE单元内同时包含极硬材料（如钢）和极软材料（如真空/空气）时，为了防止硬材料被过度压缩，应选择哪种混合理论策略？",
+  "reference_answer": "决策： 优先压缩或扩展真空部分，或删除极小碎片。逻辑： 均分应变率混合理论在此类情况下会导致硬材料计算误差。应先让真空承担体积变化，若单元压缩到真空消失，再将剩余压缩量分配给硬材料。",
+  "question_type": "决策题",
+  "difficulty": "困难",
+  "scenario": "单文档多段落",
+  "source": "Benson教材，第23-25页",
+  "source_grounding": {
+    "parsed_docs": [
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson"
+    ],
+    "pages": [
+      23,
+      25
+    ],
+    "retrieved_chunk_ids": [
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p24-p24:c138",
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p25-p26:c152",
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p24-p24:c139"
+    ],
+    "ground_status": "page_specific"
+  },
+  "criteria": [
+    {
+      "id": "c1",
+      "text": "明确给出最终策略是优先让真空或空气部分承担压缩或扩展",
+      "category": "Essential",
+      "weight": 6,
+      "sign": "positive",
+      "criterion_type": "decision_logic",
+      "evidence_quote": null
+    },
+    {
+      "id": "c2",
+      "text": "识别该场景为多物质 ALE 单元同时包含极硬材料（如钢）和极软材料（如真空/空气）",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": null
+    },
+    {
+      "id": "c3",
+      "text": "提到均分应变率混合理论",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": null
+    },
+    {
+      "id": "c4",
+      "text": "说明当真空部分已经被压缩到消失后，剩余压缩量再分配给硬材料",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "decision_logic",
+      "evidence_quote": null
+    },
+    {
+      "id": "c5",
+      "text": "明确提到删除极小碎片是可采用的处理方式",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "decision_logic",
+      "evidence_quote": null
+    },
+    {
+      "id": "c6",
+      "text": "解释先让真空承担体积变化可以减少硬材料被过度压缩",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": null
+    },
+    {
+      "id": "c7",
+      "text": "指出均分应变率混合理论不适用于钢与真空或空气共存的 ALE 单元，因为它会引起硬材料计算误差",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "comparative_balance",
+      "evidence_quote": null
+    },
+    {
+      "id": "c8",
+      "text": "回答以套话/开场白/元评论开头而无实质内容",
+      "category": "Pitfall",
+      "weight": 4,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c9",
+      "text": "回答篇幅冗长，包含大量与问题无关的背景铺垫或重复",
+      "category": "Pitfall",
+      "weight": 3,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c10",
+      "text": "给出多个",
+      "category": "Pitfall",
+      "weight": 5,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c11",
+      "text": "列选项而不做最终决定",
+      "category": "Pitfall",
+      "weight": 5,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    }
+  ],
+  "rubric_metadata": {
+    "generation_model": "openai/gpt-5.4-mini",
+    "generation_passes": 3,
+    "n_criteria_initial": 10,
+    "n_criteria_final": 11,
+    "n_dropped_misaligned": 0,
+    "ref_answer_self_score": null,
+    "weak_answer_self_score": null,
+    "generated_at": "2026-05-22T08:32:44.372808+00:00",
+    "schema_version": "1.0"
+  },
+  "item_idx": 80
+}

@@ -1,0 +1,129 @@
+{
+  "question_id": "38",
+  "question": "为什么在水下爆炸仿真中，网格离散会导致冲击波峰值压力衰减？",
+  "reference_answer": "参考答案： 有限网格分辨率无法精确处理冲击波的高频分量；此外，为了数值稳定而引入的人工体积粘性会将强间断波头“模糊化”，导致压力峰值随传播距离虚假下降。",
+  "question_type": "简答题",
+  "difficulty": "困难",
+  "scenario": "多文档多段落",
+  "source": "贾宪振博士论文, 第87, 88页；Benson教材, 第18页",
+  "source_grounding": {
+    "parsed_docs": [
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson",
+      "PhD_基于通用程序的水下爆炸及其对结构作用的数值模拟研究"
+    ],
+    "pages": [
+      18,
+      18
+    ],
+    "retrieved_chunk_ids": [
+      "PhD_基于通用程序的水下爆炸及其对结构作用的数值模拟研究:p97-p97:c340",
+      "PhD_基于通用程序的水下爆炸及其对结构作用的数值模拟研究:p38-p38:c116",
+      "PhD_基于通用程序的水下爆炸及其对结构作用的数值模拟研究:p27-p27:c78"
+    ],
+    "ground_status": "page_specific"
+  },
+  "criteria": [
+    {
+      "id": "c1",
+      "text": "指出有限网格分辨率无法精确表示冲击波前沿",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "有限网格分辨率无法精确处理冲击波的高频分量"
+    },
+    {
+      "id": "c2",
+      "text": "指出冲击波的高频分量会受到网格离散的限制",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "有限网格分辨率无法精确处理冲击波的高频分量"
+    },
+    {
+      "id": "c3",
+      "text": "指出为数值稳定引入了人工体积粘性",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "为了数值稳定而引入的人工体积粘性"
+    },
+    {
+      "id": "c4",
+      "text": "指出人工体积粘性用于处理强间断波头",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "为了数值稳定而引入的人工体积粘性会将强间断波头模糊化"
+    },
+    {
+      "id": "c5",
+      "text": "指出冲击波峰值压力会出现虚假下降",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "导致压力峰值随传播距离虚假下降"
+    },
+    {
+      "id": "c6",
+      "text": "解释网格离散会削弱对冲击波高频分量的解析能力，从而造成峰值压力衰减",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "有限网格分辨率无法精确处理冲击波的高频分量"
+    },
+    {
+      "id": "c7",
+      "text": "解释人工体积粘性会带来数值耗散",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "人工体积粘性会将强间断波头模糊化"
+    },
+    {
+      "id": "c8",
+      "text": "把强间断波头模糊化，从而降低压力峰值",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "人工体积粘性会将强间断波头模糊化"
+    },
+    {
+      "id": "c9",
+      "text": "回答以套话/开场白/元评论开头而无实质内容",
+      "category": "Pitfall",
+      "weight": 4,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c10",
+      "text": "回答篇幅冗长，包含大量与问题无关的背景铺垫或重复",
+      "category": "Pitfall",
+      "weight": 3,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    }
+  ],
+  "rubric_metadata": {
+    "generation_model": "openai/gpt-5.4-mini",
+    "generation_passes": 3,
+    "n_criteria_initial": 9,
+    "n_criteria_final": 10,
+    "n_dropped_misaligned": 0,
+    "ref_answer_self_score": null,
+    "weak_answer_self_score": null,
+    "generated_at": "2026-05-22T07:23:09.657959+00:00",
+    "schema_version": "1.0"
+  },
+  "item_idx": 37
+}

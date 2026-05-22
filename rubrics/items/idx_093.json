@@ -1,0 +1,128 @@
+{
+  "question_id": "78",
+  "question": "当计算包含真空（Vacuum）的多物质单元时，应采取哪种混合理论以提高效率？",
+  "reference_answer": "策略： 应采用“平均应变率混合理论”，并优先压缩/扩展其中的真空部分。逻辑： 程序会先让真空承担所有的体积变化，直到真空消失，才将剩余体积变化分配给硬物质，这能有效防止硬物质（如钢）被虚假压缩。",
+  "question_type": "决策题",
+  "difficulty": "困难",
+  "scenario": "单文档单段落",
+  "source": "Benson教材, 第24页",
+  "source_grounding": {
+    "parsed_docs": [
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson"
+    ],
+    "pages": [
+      24,
+      24
+    ],
+    "retrieved_chunk_ids": [
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p24-p24:c138",
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p24-p24:c139",
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p22-p24:c137"
+    ],
+    "ground_status": "page_specific"
+  },
+  "criteria": [
+    {
+      "id": "c1",
+      "text": "明确给出最终选择是平均应变率混合理论",
+      "category": "Essential",
+      "weight": 6,
+      "sign": "positive",
+      "criterion_type": "decision_logic",
+      "evidence_quote": "应采用“平均应变率混合理论”"
+    },
+    {
+      "id": "c2",
+      "text": "提到平均应变率混合理论这一名称",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "应采用“平均应变率混合理论”"
+    },
+    {
+      "id": "c3",
+      "text": "说明优先压缩或扩展真空部分",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "并优先压缩/扩展其中的真空部分"
+    },
+    {
+      "id": "c4",
+      "text": "说明程序先让真空承担所有体积变化",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "decision_logic",
+      "evidence_quote": "程序会先让真空承担所有的体积变化"
+    },
+    {
+      "id": "c5",
+      "text": "说明剩余体积变化要等真空消失后再分配给硬物质",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "decision_logic",
+      "evidence_quote": "直到真空消失，才将剩余体积变化分配给硬物质"
+    },
+    {
+      "id": "c6",
+      "text": "相较于直接让硬物质先承受体积变化，该方法更能避免钢的虚假压缩",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "comparative_balance",
+      "evidence_quote": "这能有效防止硬物质（如钢）被虚假压缩"
+    },
+    {
+      "id": "c7",
+      "text": "给出多个",
+      "category": "Pitfall",
+      "weight": 5,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c8",
+      "text": "列选项而不明确选择平均应变率混合理论",
+      "category": "Pitfall",
+      "weight": 5,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c9",
+      "text": "回答以套话/开场白/元评论开头而无实质内容",
+      "category": "Pitfall",
+      "weight": 4,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c10",
+      "text": "回答篇幅冗长，包含大量与问题无关的背景铺垫或重复",
+      "category": "Pitfall",
+      "weight": 3,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    }
+  ],
+  "rubric_metadata": {
+    "generation_model": "openai/gpt-5.4-mini",
+    "generation_passes": 3,
+    "n_criteria_initial": 9,
+    "n_criteria_final": 10,
+    "n_dropped_misaligned": 0,
+    "ref_answer_self_score": null,
+    "weak_answer_self_score": null,
+    "generated_at": "2026-05-22T08:55:50.579529+00:00",
+    "schema_version": "1.0"
+  },
+  "item_idx": 93
+}

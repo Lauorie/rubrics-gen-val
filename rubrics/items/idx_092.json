@@ -1,0 +1,137 @@
+{
+  "question_id": "77",
+  "question": "在处理包含大型柔性瓣膜（如主动脉瓣）的流固耦合问题时，当瓣膜产生极大转动或位移，应如何决策网格更新？",
+  "reference_answer": "决策： 实施“局部或全局重构网格（Re-meshing）”。逻辑： 极大的变形会使初始ALE网格质量恶化，必须定期调用自动网格生成器进行拓扑重排，并通过重映射（Remap）保证变量连续。",
+  "question_type": "决策题",
+  "difficulty": "困难",
+  "scenario": "单文档单段落",
+  "source": "Benson教材, 第208页",
+  "source_grounding": {
+    "parsed_docs": [
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson"
+    ],
+    "pages": [
+      208,
+      208
+    ],
+    "retrieved_chunk_ids": [
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p208-p209:c1299",
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p208-p208:c1297",
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p208-p208:c1296"
+    ],
+    "ground_status": "page_specific"
+  },
+  "criteria": [
+    {
+      "id": "c1",
+      "text": "明确给出最终决策为局部或全局重构网格（Re-meshing）",
+      "category": "Essential",
+      "weight": 6,
+      "sign": "positive",
+      "criterion_type": "decision_logic",
+      "evidence_quote": "实施“局部或全局重构网格（Re-meshing）”"
+    },
+    {
+      "id": "c2",
+      "text": "指出极大转动或位移会使初始 ALE 网格质量恶化",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "极大的变形会使初始ALE网格质量恶化"
+    },
+    {
+      "id": "c3",
+      "text": "指出需要定期调用自动网格生成器",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "decision_logic",
+      "evidence_quote": "必须定期调用自动网格生成器"
+    },
+    {
+      "id": "c4",
+      "text": "指出需要进行拓扑重排（topology reordering）",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "decision_logic",
+      "evidence_quote": "进行拓扑重排"
+    },
+    {
+      "id": "c5",
+      "text": "指出通过重映射（Remap）保证变量连续",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "通过重映射（Remap）保证变量连续"
+    },
+    {
+      "id": "c6",
+      "text": "答案使用了“局部或全局重构网格（Re-meshing）”这一术语",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "局部或全局重构网格（Re-meshing）"
+    },
+    {
+      "id": "c7",
+      "text": "在极大转动或位移场景下，不应仅依赖原始 ALE 网格继续变形而不做重构",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "comparative_balance",
+      "evidence_quote": "极大的变形会使初始ALE网格质量恶化"
+    },
+    {
+      "id": "c8",
+      "text": "回答以套话/开场白/元评论开头而无实质内容",
+      "category": "Pitfall",
+      "weight": 4,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c9",
+      "text": "回答篇幅冗长，包含大量与问题无关的背景铺垫或重复",
+      "category": "Pitfall",
+      "weight": 3,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c10",
+      "text": "给出多个",
+      "category": "Pitfall",
+      "weight": 5,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c11",
+      "text": "列选项而不做决定",
+      "category": "Pitfall",
+      "weight": 5,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    }
+  ],
+  "rubric_metadata": {
+    "generation_model": "openai/gpt-5.4-mini",
+    "generation_passes": 3,
+    "n_criteria_initial": 10,
+    "n_criteria_final": 11,
+    "n_dropped_misaligned": 0,
+    "ref_answer_self_score": null,
+    "weak_answer_self_score": null,
+    "generated_at": "2026-05-22T08:53:52.790244+00:00",
+    "schema_version": "1.0"
+  },
+  "item_idx": 92
+}

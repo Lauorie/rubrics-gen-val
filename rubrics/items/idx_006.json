@@ -1,0 +1,118 @@
+{
+  "question_id": "7",
+  "question": "在ALE算法中，“算子分裂法”（Operator Splitting）是如何分解计算步骤的？",
+  "reference_answer": "第一阶段（Lagrangian步）： 网格随材料运动，计算由内力和外力引起的加速度、速度和能量变化。第二阶段（Advection/Eulerian步）： 保持网格拓扑固定或移动到新位置，计算材料在网格间的输运（Advection），将变量映射（Remap）回新网格。",
+  "question_type": "简答题",
+  "difficulty": "中等",
+  "scenario": "单文档单段落",
+  "source": "Benson教材, 第7页",
+  "source_grounding": {
+    "parsed_docs": [
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson"
+    ],
+    "pages": [
+      7,
+      7
+    ],
+    "retrieved_chunk_ids": [
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p3-p19:c97",
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p3-p19:c98"
+    ],
+    "ground_status": "page_specific"
+  },
+  "criteria": [
+    {
+      "id": "c1",
+      "text": "明确指出第一阶段是 Lagrangian 步",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "第一阶段（Lagrangian步）"
+    },
+    {
+      "id": "c2",
+      "text": "指出第一阶段中网格随材料运动",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "网格随材料运动"
+    },
+    {
+      "id": "c3",
+      "text": "指出第一阶段计算由内力和外力引起的状态量变化（如加速度、速度、能量）",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "计算由内力和外力引起的加速度、速度和能量变化"
+    },
+    {
+      "id": "c4",
+      "text": "明确指出第二阶段是 Advection/Eulerian 步",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "第二阶段（Advection/Eulerian步）"
+    },
+    {
+      "id": "c5",
+      "text": "指出第二阶段计算材料在网格间的输运（Advection）",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "计算材料在网格间的输运（Advection）"
+    },
+    {
+      "id": "c6",
+      "text": "指出第二阶段将变量映射回新网格（Remap）",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "将变量映射（Remap）回新网格"
+    },
+    {
+      "id": "c7",
+      "text": "解释算子分裂把 Lagrangian 更新与 advection/remap 更新分开处理",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "第一阶段...第二阶段..."
+    },
+    {
+      "id": "c8",
+      "text": "回答以套话/开场白/元评论开头而无实质内容",
+      "category": "Pitfall",
+      "weight": 4,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c9",
+      "text": "回答篇幅冗长，包含大量与问题无关的背景铺垫或重复",
+      "category": "Pitfall",
+      "weight": 3,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    }
+  ],
+  "rubric_metadata": {
+    "generation_model": "openai/gpt-5.4-mini",
+    "generation_passes": 3,
+    "n_criteria_initial": 9,
+    "n_criteria_final": 9,
+    "n_dropped_misaligned": 0,
+    "ref_answer_self_score": null,
+    "weak_answer_self_score": null,
+    "generated_at": "2026-05-22T06:33:31.376265+00:00",
+    "schema_version": "1.0"
+  },
+  "item_idx": 6
+}

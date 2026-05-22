@@ -1,0 +1,119 @@
+{
+  "question_id": "58",
+  "question": "水下爆炸产生的“滞后流”（Afterflow）对结构质点速度有何影响？",
+  "reference_answer": "运动特征： 冲击波扫过结构后，波头质点速度降为零，但气泡脉动会引起周围水体的持续往复运动。物理效应： 这种滞后流会导致结构进入“鞭状运动”状态（Whipping motion），在低频阶段引起结构大幅度的震荡。",
+  "question_type": "主观题",
+  "difficulty": "中等",
+  "scenario": "单文档单段落",
+  "source": "贾宪振博士论文, 第27页",
+  "source_grounding": {
+    "parsed_docs": [
+      "PhD_基于通用程序的水下爆炸及其对结构作用的数值模拟研究"
+    ],
+    "pages": [
+      27,
+      27
+    ],
+    "retrieved_chunk_ids": [
+      "PhD_基于通用程序的水下爆炸及其对结构作用的数值模拟研究:p27-p27:c78",
+      "PhD_基于通用程序的水下爆炸及其对结构作用的数值模拟研究:p27-p27:c77",
+      "PhD_基于通用程序的水下爆炸及其对结构作用的数值模拟研究:p27-p28:c79"
+    ],
+    "ground_status": "page_specific"
+  },
+  "criteria": [
+    {
+      "id": "c1",
+      "text": "明确指出冲击波扫过结构后，波头质点速度降为零",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": null
+    },
+    {
+      "id": "c2",
+      "text": "明确指出气泡脉动会引起周围水体持续往复运动",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": null
+    },
+    {
+      "id": "c3",
+      "text": "明确指出滞后流会使结构进入鞭状运动（Whipping motion）",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": null
+    },
+    {
+      "id": "c4",
+      "text": "解释滞后流的持续性来自气泡脉动",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": null
+    },
+    {
+      "id": "c5",
+      "text": "解释滞后流会使结构在冲击波之后仍保持速度变化",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": null
+    },
+    {
+      "id": "c6",
+      "text": "明确指出低频阶段会出现大幅度震荡",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": null
+    },
+    {
+      "id": "c8",
+      "text": "区分初始冲击波脉冲阶段与后续气泡脉动阶段对速度响应的不同作用",
+      "category": "Optional",
+      "weight": 1,
+      "sign": "positive",
+      "criterion_type": "comparative_balance",
+      "evidence_quote": null
+    },
+    {
+      "id": "c9",
+      "text": "回答以套话/开场白/元评论开头而无实质内容",
+      "category": "Pitfall",
+      "weight": 4,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c10",
+      "text": "回答篇幅冗长，包含大量与问题无关的背景铺垫或重复",
+      "category": "Pitfall",
+      "weight": 3,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    }
+  ],
+  "rubric_metadata": {
+    "generation_model": "openai/gpt-5.4-mini",
+    "generation_passes": 3,
+    "n_criteria_initial": 10,
+    "n_criteria_final": 9,
+    "n_dropped_misaligned": 1,
+    "ref_answer_self_score": null,
+    "weak_answer_self_score": null,
+    "generated_at": "2026-05-22T08:20:04.783091+00:00",
+    "schema_version": "1.0"
+  },
+  "item_idx": 73
+}

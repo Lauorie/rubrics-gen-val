@@ -1,0 +1,107 @@
+{
+  "question_id": "14",
+  "question": "什么是“等效质量法”？其核心计算逻辑是什么？",
+  "reference_answer": "定义： 这是一种针对LS-DYNA计算远场水下爆炸时冲击波衰减过快而提出的修正方法。逻辑： 根据经验公式（如Cole公式）反推，在仿真中使用比实际炸药量更大的“模拟质量”，使目标爆距处的冲击波峰值压力达到实验或理论水平，从而弥补粗网格导致的数值耗散。",
+  "question_type": "简答题",
+  "difficulty": "中等",
+  "scenario": "单文档单段落",
+  "source": "贾宪振博士论文 第89, 90页",
+  "source_grounding": {
+    "parsed_docs": [
+      "PhD_基于通用程序的水下爆炸及其对结构作用的数值模拟研究"
+    ],
+    "pages": [],
+    "retrieved_chunk_ids": [
+      "PhD_基于通用程序的水下爆炸及其对结构作用的数值模拟研究:p101-p101:c355",
+      "PhD_基于通用程序的水下爆炸及其对结构作用的数值模拟研究:p98-p98:c343",
+      "PhD_基于通用程序的水下爆炸及其对结构作用的数值模拟研究:p99-p100:c348"
+    ],
+    "ground_status": "doc_only"
+  },
+  "criteria": [
+    {
+      "id": "c1",
+      "text": "指出等效质量法是针对 LS-DYNA 计算远场水下爆炸时冲击波衰减过快而提出的修正方法",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "针对LS-DYNA计算远场水下爆炸时冲击波衰减过快而提出的修正方法"
+    },
+    {
+      "id": "c2",
+      "text": "明确说明等效质量的求法是根据冲击波峰值压力的经验公式反推炸药质量",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "根据冲击波峰值压力的经验公式同爆距处的冲击波峰值压力的计算值反推而求得的炸药质量"
+    },
+    {
+      "id": "c3",
+      "text": "提到经验公式可举例为 Cole 公式",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "如Cole公式"
+    },
+    {
+      "id": "c4",
+      "text": "说明仿真中使用的是比实际炸药量更大的模拟质量",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "用较大的模拟质量来模拟较小的实际质量"
+    },
+    {
+      "id": "c5",
+      "text": "说明调整模拟质量的目标是使目标爆距处的冲击波峰值压力达到实验或理论水平",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "decision_logic",
+      "evidence_quote": "使目标爆距处的冲击波峰值压力达到实验或理论水平"
+    },
+    {
+      "id": "c6",
+      "text": "说明该方法用来弥补粗网格导致的数值耗散或冲击波峰值衰减过快",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "弥补粗网格导致的数值耗散"
+    },
+    {
+      "id": "c8",
+      "text": "回答以套话/开场白/元评论开头而无实质内容",
+      "category": "Pitfall",
+      "weight": 4,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c9",
+      "text": "回答篇幅冗长，包含大量与问题无关的背景铺垫或重复",
+      "category": "Pitfall",
+      "weight": 3,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    }
+  ],
+  "rubric_metadata": {
+    "generation_model": "openai/gpt-5.4-mini",
+    "generation_passes": 3,
+    "n_criteria_initial": 9,
+    "n_criteria_final": 8,
+    "n_dropped_misaligned": 1,
+    "ref_answer_self_score": null,
+    "weak_answer_self_score": null,
+    "generated_at": "2026-05-22T06:42:41.437056+00:00",
+    "schema_version": "1.0"
+  },
+  "item_idx": 13
+}

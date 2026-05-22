@@ -1,0 +1,110 @@
+{
+  "question_id": "56",
+  "question": "为什么在流固耦合模拟中，VOF（流体体积法）通常比水平集（Level Set）方法更受青睐？",
+  "reference_answer": "这种偏好主要源于对守恒性的要求：1. 质量与能量守恒： VOF方法通过构造确保质量和能量的精确守恒，这在生产代码中至关重要。2. 稳定性影响： 水平集方法在单元层级上通常无法保证完全守恒，而在固体力学中，极小的守恒误差都可能由于金属的高体积模量而导致解的不稳定性。虽然水平集方法计算速度快且易于实现，但在处理流固界面时，VOF的守恒特性提供了更好的鲁棒性。",
+  "question_type": "简答题",
+  "difficulty": "困难",
+  "scenario": "单文档多段落",
+  "source": "Benson教材, 第1.6.5节, 第39-42页",
+  "source_grounding": {
+    "parsed_docs": [
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson"
+    ],
+    "pages": [
+      39,
+      42
+    ],
+    "retrieved_chunk_ids": [
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p40-p40:c270",
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p40-p40:c280",
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p40-p40:c268"
+    ],
+    "ground_status": "page_specific"
+  },
+  "criteria": [
+    {
+      "id": "c1",
+      "text": "指出 VOF 方法能够保证质量守恒",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "质量"
+    },
+    {
+      "id": "c2",
+      "text": "指出水平集方法在单元层级上通常无法保证完全守恒",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "单元层级上通常无法保证完全守恒"
+    },
+    {
+      "id": "c3",
+      "text": "指出金属的高体积模量会使极小的守恒误差导致解不稳定",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "金属的高体积模量"
+    },
+    {
+      "id": "c4",
+      "text": "指出 VOF 在处理流固界面时提供更好的鲁棒性",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "更好的鲁棒性"
+    },
+    {
+      "id": "c5",
+      "text": "解释生产代码中对质量与能量精确守恒的要求是偏好 VOF 的主要原因",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "在生产代码中至关重要"
+    },
+    {
+      "id": "c6",
+      "text": "比较时提到水平集方法计算速度快且易于实现，但仍因守恒性不足而不如 VOF 受青睐",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "comparative_balance",
+      "evidence_quote": "计算速度快且易于实现"
+    },
+    {
+      "id": "c7",
+      "text": "回答以套话/开场白/元评论开头而无实质内容",
+      "category": "Pitfall",
+      "weight": 4,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c8",
+      "text": "回答篇幅冗长，包含大量与问题无关的背景铺垫或重复",
+      "category": "Pitfall",
+      "weight": 3,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    }
+  ],
+  "rubric_metadata": {
+    "generation_model": "openai/gpt-5.4-mini",
+    "generation_passes": 3,
+    "n_criteria_initial": 9,
+    "n_criteria_final": 8,
+    "n_dropped_misaligned": 0,
+    "ref_answer_self_score": null,
+    "weak_answer_self_score": null,
+    "generated_at": "2026-05-22T09:18:43.199753+00:00",
+    "schema_version": "1.0"
+  },
+  "item_idx": 55
+}

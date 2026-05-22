@@ -1,0 +1,118 @@
+{
+  "question_id": "59",
+  "question": "显式时间积分（如中心差分法）的稳定性极限由什么决定？",
+  "reference_answer": "显式积分的稳定性极限遵循冯·诺依曼稳定性条件。在无阻尼的一维系统中，稳定时间步长必须小于或等于最短单元长度除以材料中的声速。物理意义上，这意味着时间步长必须小于波传播穿过该单元所需的时间。如果系统中存在阻尼，稳定时间步长会随阻尼系数的增加而进一步减小。",
+  "question_type": "主观题",
+  "difficulty": "简单",
+  "scenario": "单文档单段落",
+  "source": "Benson教材，第10-11页",
+  "source_grounding": {
+    "parsed_docs": [
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson"
+    ],
+    "pages": [
+      10,
+      11
+    ],
+    "retrieved_chunk_ids": [
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p3-p19:c98",
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p3-p19:c97"
+    ],
+    "ground_status": "page_specific"
+  },
+  "criteria": [
+    {
+      "id": "c1",
+      "text": "明确提到显式积分稳定性极限遵循冯·诺依曼稳定性条件",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "显式积分的稳定性极限遵循冯·诺依曼稳定性条件"
+    },
+    {
+      "id": "c2",
+      "text": "明确把该结论限定在无阻尼的一维系统",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "在无阻尼的一维系统中"
+    },
+    {
+      "id": "c3",
+      "text": "给出稳定时间步长与最短单元长度和材料声速的关系：Δt 小于或等于最短单元长度除以声速",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "numeric_precision",
+      "evidence_quote": "稳定时间步长必须小于或等于最短单元长度除以材料中的声速"
+    },
+    {
+      "id": "c4",
+      "text": "解释稳定性极限本质上由波在单元内传播的速度约束",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "波传播穿过该单元所需的时间"
+    },
+    {
+      "id": "c5",
+      "text": "指出时间步长必须小于波传播穿过该单元所需的时间",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "时间步长必须小于波传播穿过该单元所需的时间"
+    },
+    {
+      "id": "c6",
+      "text": "指出决定稳定极限的是最短单元尺寸，而不是平均单元尺寸",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "decision_logic",
+      "evidence_quote": "最短单元长度"
+    },
+    {
+      "id": "c7",
+      "text": "指出系统中存在阻尼时稳定时间步长会进一步减小",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "如果系统中存在阻尼，稳定时间步长会随阻尼系数的增加而进一步减小"
+    },
+    {
+      "id": "c9",
+      "text": "回答以套话/开场白/元评论开头而无实质内容",
+      "category": "Pitfall",
+      "weight": 4,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c10",
+      "text": "回答篇幅冗长，包含大量与问题无关的背景铺垫或重复",
+      "category": "Pitfall",
+      "weight": 3,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    }
+  ],
+  "rubric_metadata": {
+    "generation_model": "openai/gpt-5.4-mini",
+    "generation_passes": 3,
+    "n_criteria_initial": 10,
+    "n_criteria_final": 9,
+    "n_dropped_misaligned": 1,
+    "ref_answer_self_score": null,
+    "weak_answer_self_score": null,
+    "generated_at": "2026-05-22T09:24:37.019373+00:00",
+    "schema_version": "1.0"
+  },
+  "item_idx": 58
+}

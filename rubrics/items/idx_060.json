@@ -1,0 +1,144 @@
+{
+  "question_id": "61",
+  "question": "与传统的水下爆炸实验相比，数值模拟方法具有哪些主要的优点？",
+  "reference_answer": "成本低廉：只需相应的计算硬件和程序即可实现模拟，成本远低于实验，且个人电脑已能模拟大型工程问题。可重复性：对于水下爆炸这种破坏性过程，数值模拟可以多次重复进行，弥补了实验无法重复的不足。易操作性：数值模拟在室内计算平台完成，而实验需在外场进行并耗费大量人力物力。物理图景再现性：能直观展现物理过程和模型各部分响应，而实验受测试系统局限只能获得部分图景。过程参量数据丰富：可获得大量过程量数据及曲线，有助于深刻反映物理本质。",
+  "question_type": "主观题",
+  "difficulty": "简单",
+  "scenario": "单文档多段落",
+  "source": "贾宪振博士论文，第2页",
+  "source_grounding": {
+    "parsed_docs": [
+      "PhD_基于通用程序的水下爆炸及其对结构作用的数值模拟研究"
+    ],
+    "pages": [
+      2,
+      2
+    ],
+    "retrieved_chunk_ids": [
+      "PhD_基于通用程序的水下爆炸及其对结构作用的数值模拟研究:p0-p12:c17"
+    ],
+    "ground_status": "page_specific"
+  },
+  "criteria": [
+    {
+      "id": "c1",
+      "text": "明确指出数值模拟的成本低廉",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "只需相应的计算硬件和程序即可实现模拟，成本远低于实验"
+    },
+    {
+      "id": "c2",
+      "text": "只需相应的计算硬件和程序即可实现模拟",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "只需相应的计算硬件和程序即可实现模拟，成本远低于实验"
+    },
+    {
+      "id": "c3",
+      "text": "明确指出数值模拟的可重复性，即对水下爆炸这种破坏性过程可以多次重复进行",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "对于水下爆炸这种破坏性过程，数值模拟可以多次重复进行"
+    },
+    {
+      "id": "c4",
+      "text": "明确指出数值模拟可以获得大量过程量数据及曲线",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "可获得大量过程量数据及曲线"
+    },
+    {
+      "id": "c5",
+      "text": "解释数值模拟在室内计算平台完成，而实验通常需在外场进行",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "数值模拟在室内计算平台完成，而实验需在外场进行并耗费大量人力物力"
+    },
+    {
+      "id": "c6",
+      "text": "耗费大量人力物力",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "数值模拟在室内计算平台完成，而实验需在外场进行并耗费大量人力物力"
+    },
+    {
+      "id": "c7",
+      "text": "说明数值模拟能够直观展现物理过程和模型各部分响应",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "能直观展现物理过程和模型各部分响应"
+    },
+    {
+      "id": "c8",
+      "text": "说明实验受测试系统局限只能获得部分图景，而数值模拟可用于再现更完整的物理图景",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "实验受测试系统局限只能获得部分图景"
+    },
+    {
+      "id": "c9",
+      "text": "回答至少覆盖 4 项不同优点：成本低廉、可重复性、易操作性、物理图景再现性、过程参量数据丰富",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "process_completeness",
+      "evidence_quote": "成本低廉；可重复性；易操作性；物理图景再现性；过程参量数据丰富"
+    },
+    {
+      "id": "c10",
+      "text": "回答明确以“与传统水下爆炸实验相比”的对照方式呈现数值模拟优点",
+      "category": "Optional",
+      "weight": 1,
+      "sign": "positive",
+      "criterion_type": "comparative_balance",
+      "evidence_quote": null
+    },
+    {
+      "id": "c11",
+      "text": "回答以套话/开场白/元评论开头而无实质内容",
+      "category": "Pitfall",
+      "weight": 4,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c12",
+      "text": "回答篇幅冗长，包含大量与问题无关的背景铺垫或重复",
+      "category": "Pitfall",
+      "weight": 3,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    }
+  ],
+  "rubric_metadata": {
+    "generation_model": "openai/gpt-5.4-mini",
+    "generation_passes": 3,
+    "n_criteria_initial": 10,
+    "n_criteria_final": 12,
+    "n_dropped_misaligned": 0,
+    "ref_answer_self_score": null,
+    "weak_answer_self_score": null,
+    "generated_at": "2026-05-22T09:28:34.528396+00:00",
+    "schema_version": "1.0"
+  },
+  "item_idx": 60
+}

@@ -1,0 +1,101 @@
+{
+  "question_id": "67",
+  "question": "简述Taylor平板理论推导中的主要假设条件。",
+  "reference_answer": "射线理论：推导过程基于射线理论。反射等值：假设入射波压力与反射波压力相等，且入射波与反射波波形一致。材料适用性：适用于钢质等高阻抗材料（反射率接近100%），不直接适用于吸收声波的声学材料。",
+  "question_type": "简答题",
+  "difficulty": "简单",
+  "scenario": "单文档多段落",
+  "source": "贾宪振博士论文，第57-58页，140页",
+  "source_grounding": {
+    "parsed_docs": [
+      "PhD_基于通用程序的水下爆炸及其对结构作用的数值模拟研究"
+    ],
+    "pages": [
+      57,
+      58
+    ],
+    "retrieved_chunk_ids": [
+      "PhD_基于通用程序的水下爆炸及其对结构作用的数值模拟研究:p57-p57:c174",
+      "PhD_基于通用程序的水下爆炸及其对结构作用的数值模拟研究:p57-p57:c176",
+      "PhD_基于通用程序的水下爆炸及其对结构作用的数值模拟研究:p58-p58:c178"
+    ],
+    "ground_status": "page_specific"
+  },
+  "criteria": [
+    {
+      "id": "c1",
+      "text": "明确指出 Taylor 平板理论的推导基于射线理论",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "射线理论：推导过程基于射线理论。"
+    },
+    {
+      "id": "c2",
+      "text": "明确指出入射波压力与反射波压力相等",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "假设入射波压力与反射波压力相等"
+    },
+    {
+      "id": "c3",
+      "text": "明确指出入射波与反射波波形一致",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "且入射波与反射波波形一致"
+    },
+    {
+      "id": "c4",
+      "text": "明确指出 Taylor 平板理论适用于钢质等高阻抗材料",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "适用于钢质等高阻抗材料"
+    },
+    {
+      "id": "c6",
+      "text": "指出该理论不直接适用于吸收声波的声学材料",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "不直接适用于吸收声波的声学材料"
+    },
+    {
+      "id": "c7",
+      "text": "回答以套话/开场白/元评论开头而无实质内容",
+      "category": "Pitfall",
+      "weight": 4,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c8",
+      "text": "回答篇幅冗长，包含大量与问题无关的背景铺垫或重复",
+      "category": "Pitfall",
+      "weight": 3,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    }
+  ],
+  "rubric_metadata": {
+    "generation_model": "openai/gpt-5.4-mini",
+    "generation_passes": 3,
+    "n_criteria_initial": 8,
+    "n_criteria_final": 7,
+    "n_dropped_misaligned": 1,
+    "ref_answer_self_score": null,
+    "weak_answer_self_score": null,
+    "generated_at": "2026-05-22T09:38:17.192998+00:00",
+    "schema_version": "1.0"
+  },
+  "item_idx": 66
+}

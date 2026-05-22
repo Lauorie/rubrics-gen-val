@@ -1,0 +1,118 @@
+{
+  "question_id": "34",
+  "question": "简述单点集成单元中“沙漏模式”（Hourglass modes）产生的根本原因。",
+  "reference_answer": "当使用单点高斯积分时，某些变形模式（如 keystone 或 hourglass）下单元的应变为零，导致应力张量无法产生抵抗这些变形的抗力，产生零能量振荡。",
+  "question_type": "简答题",
+  "difficulty": "困难",
+  "scenario": "单文档多段落",
+  "source": "Benson教材, 第1.4.4节, 第14-15页",
+  "source_grounding": {
+    "parsed_docs": [
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson"
+    ],
+    "pages": [
+      14,
+      15
+    ],
+    "retrieved_chunk_ids": [
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p3-p19:c97",
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p3-p19:c98"
+    ],
+    "ground_status": "page_specific"
+  },
+  "criteria": [
+    {
+      "id": "c1",
+      "text": "明确指出问题发生在单点高斯积分或单点积分单元中",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": null
+    },
+    {
+      "id": "c2",
+      "text": "指出某些变形模式，如 hourglass 或 keystone，在积分点处会出现零应变",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": null
+    },
+    {
+      "id": "c3",
+      "text": "指出在这些变形模式下应力张量无法产生抵抗这些变形的抗力",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": null
+    },
+    {
+      "id": "c4",
+      "text": "指出其结果是零能量振荡或零能量模态",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": null
+    },
+    {
+      "id": "c5",
+      "text": "解释根本原因是欠积分：单个积分点无法识别或约束这些非物理变形模式",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": null
+    },
+    {
+      "id": "c6",
+      "text": "给出零应变、零应力、无恢复力、零能量之间的因果链条",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": null
+    },
+    {
+      "id": "c7",
+      "text": "回答以套话/开场白/元评论开头而无实质内容",
+      "category": "Pitfall",
+      "weight": 4,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c8",
+      "text": "回答篇幅冗长，包含大量与问题无关的背景铺垫或重复",
+      "category": "Pitfall",
+      "weight": 3,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c9",
+      "text": "将根因归结为网格过粗，而没有提到单点高斯积分或欠积分",
+      "category": "Pitfall",
+      "weight": 4,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    }
+  ],
+  "rubric_metadata": {
+    "generation_model": "openai/gpt-5.4-mini",
+    "generation_passes": 3,
+    "n_criteria_initial": 9,
+    "n_criteria_final": 9,
+    "n_dropped_misaligned": 0,
+    "ref_answer_self_score": null,
+    "weak_answer_self_score": null,
+    "generated_at": "2026-05-22T07:17:28.922279+00:00",
+    "schema_version": "1.0"
+  },
+  "item_idx": 33
+}

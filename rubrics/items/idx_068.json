@@ -1,0 +1,128 @@
+{
+  "question_id": "69",
+  "question": "在远场水下爆炸模拟中，声学材料对Taylor理论的适用性有何影响？",
+  "reference_answer": "影响机制：声学材料具有吸收声波的性质，反射率不为100%。误差来源：Taylor理论假设入射波等于反射波，若直接用于声学材料会产生较大误差。修正方向：必须根据特定材料的吸收特性重新推导总压力载荷计算公式。",
+  "question_type": "主观题",
+  "difficulty": "困难",
+  "scenario": "单文档多段落",
+  "source": "第3章，第38页，第105页",
+  "source_grounding": {
+    "parsed_docs": [
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson"
+    ],
+    "pages": [
+      38,
+      38
+    ],
+    "retrieved_chunk_ids": [
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p38-p38:c259",
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p38-p38:c263",
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p38-p38:c266"
+    ],
+    "ground_status": "page_specific"
+  },
+  "criteria": [
+    {
+      "id": "c1",
+      "text": "指出声学材料具有吸收声波的性质",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "声学材料具有吸收声波的性质"
+    },
+    {
+      "id": "c2",
+      "text": "指出声学材料的反射率不为100%",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "反射率不为100%"
+    },
+    {
+      "id": "c3",
+      "text": "指出 Taylor 理论假设入射波等于反射波",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "Taylor理论假设入射波等于反射波"
+    },
+    {
+      "id": "c4",
+      "text": "说明把 Taylor 理论直接用于声学材料会产生较大误差",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "若直接用于声学材料会产生较大误差"
+    },
+    {
+      "id": "c5",
+      "text": "说明误差来源于声学材料的吸收使入射波等于反射波这一假设失效",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "吸收声波的性质；Taylor理论假设入射波等于反射波"
+    },
+    {
+      "id": "c6",
+      "text": "指出需要根据特定材料的吸收特性重新推导计算公式",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "必须根据特定材料的吸收特性重新推导"
+    },
+    {
+      "id": "c7",
+      "text": "明确重新推导的是总压力载荷计算公式",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "process_completeness",
+      "evidence_quote": "重新推导总压力载荷计算公式"
+    },
+    {
+      "id": "c8",
+      "text": "对比声学材料与100%反射边界在反射特性上的差异",
+      "category": "Optional",
+      "weight": 1,
+      "sign": "positive",
+      "criterion_type": "comparative_balance",
+      "evidence_quote": "反射率不为100%"
+    },
+    {
+      "id": "c9",
+      "text": "回答以套话/开场白/元评论开头而无实质内容",
+      "category": "Pitfall",
+      "weight": 4,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c10",
+      "text": "回答篇幅冗长，包含大量与问题无关的背景铺垫或重复",
+      "category": "Pitfall",
+      "weight": 3,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    }
+  ],
+  "rubric_metadata": {
+    "generation_model": "openai/gpt-5.4-mini",
+    "generation_passes": 3,
+    "n_criteria_initial": 10,
+    "n_criteria_final": 10,
+    "n_dropped_misaligned": 0,
+    "ref_answer_self_score": null,
+    "weak_answer_self_score": null,
+    "generated_at": "2026-05-22T09:41:39.975357+00:00",
+    "schema_version": "1.0"
+  },
+  "item_idx": 68
+}

@@ -1,0 +1,125 @@
+{
+  "question_id": "5",
+  "question": "请对比LS-DYNA中Lagrangian方法、ALE方法和USA代码在处理潜艇复合材料面板冲击仿真时的优缺点。",
+  "reference_answer": "Lagrangian： 节点重合（Coincident）建模最自然，水流描述好，但复杂几何网格划分极难；ALE： 能处理大变形且无网格畸变，但计算成本极高（比USA慢一个数量级以上）；USA： 采用边界元法，无需建立水域有限元模型，计算速度极快（仅需几百秒），最适合大范围远场冲击模拟。",
+  "question_type": "简答题",
+  "difficulty": "中等",
+  "scenario": "单文档单段落",
+  "source": "ThyssenKrupp论文, 第462, 470, 475页",
+  "source_grounding": {
+    "parsed_docs": [
+      "oezarmut_thyssenkrupp_Fluid-Composite_Structure-Interaction_in_Underwater_Shock_Simulations"
+    ],
+    "pages": [],
+    "retrieved_chunk_ids": [
+      "oezarmut_thyssenkrupp_Fluid-Composite_Structure-Interaction_in_Underwater_Shock_Simulations:p6-p6:c66",
+      "oezarmut_thyssenkrupp_Fluid-Composite_Structure-Interaction_in_Underwater_Shock_Simulations:p0-p0:c4",
+      "oezarmut_thyssenkrupp_Fluid-Composite_Structure-Interaction_in_Underwater_Shock_Simulations:p11-p11:c103"
+    ],
+    "ground_status": "doc_only"
+  },
+  "criteria": [
+    {
+      "id": "c1",
+      "text": "指出 Lagrangian 方法下节点重合（coincident）建模最自然",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "coincident meshing of Lagrangian elements"
+    },
+    {
+      "id": "c2",
+      "text": "指出 Lagrangian 方法对水流的描述效果较好",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": null
+    },
+    {
+      "id": "c3",
+      "text": "指出 Lagrangian 方法在复杂几何条件下网格划分很困难",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": null
+    },
+    {
+      "id": "c4",
+      "text": "指出 ALE 方法能够处理大变形",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": null
+    },
+    {
+      "id": "c5",
+      "text": "指出 ALE 方法比 USA 至少慢一个数量级",
+      "category": "Important",
+      "weight": 4,
+      "sign": "positive",
+      "criterion_type": "numeric_precision",
+      "evidence_quote": null
+    },
+    {
+      "id": "c6",
+      "text": "指出 USA 代码采用边界元法（BEM）",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": null
+    },
+    {
+      "id": "c7",
+      "text": "解释 USA 代码不需要建立水域有限元模型是其计算速度很高的原因",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "out the FE model of the water is the most important advantage of the USA code"
+    },
+    {
+      "id": "c8",
+      "text": "指出 USA 代码最适合大范围远场冲击模拟",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "comparative_balance",
+      "evidence_quote": null
+    },
+    {
+      "id": "c9",
+      "text": "回答以套话/开场白/元评论开头而无实质内容",
+      "category": "Pitfall",
+      "weight": 4,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c10",
+      "text": "回答篇幅冗长，包含大量与问题无关的背景铺垫或重复",
+      "category": "Pitfall",
+      "weight": 3,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    }
+  ],
+  "rubric_metadata": {
+    "generation_model": "openai/gpt-5.4-mini",
+    "generation_passes": 3,
+    "n_criteria_initial": 10,
+    "n_criteria_final": 10,
+    "n_dropped_misaligned": 0,
+    "ref_answer_self_score": null,
+    "weak_answer_self_score": null,
+    "generated_at": "2026-05-22T06:30:14.281787+00:00",
+    "schema_version": "1.0"
+  },
+  "item_idx": 4
+}

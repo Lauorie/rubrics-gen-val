@@ -1,0 +1,110 @@
+{
+  "question_id": "50",
+  "question": "在进行远场水下爆炸仿真时，使用“2D到3D映射（Mapping）”技术的主要优势是什么？",
+  "reference_answer": "效率： 避免了直接建立全尺度3D流体网格带来的庞大计算开销。精度： 首先在2D轴对称ALE模型中通过精细网格模拟炸药爆轰和冲击波的球形扩展，确保波头压力准确；随后将压力场作为边界载荷映射到包含复杂结构的3D模型中，能更好地描述冲击波的球面扩散效应。",
+  "question_type": "简答题",
+  "difficulty": "中等",
+  "scenario": "单文档多段落",
+  "source": "ThyssenKrupp论文, 第9页",
+  "source_grounding": {
+    "parsed_docs": [
+      "oezarmut_thyssenkrupp_Fluid-Composite_Structure-Interaction_in_Underwater_Shock_Simulations"
+    ],
+    "pages": [
+      9,
+      9
+    ],
+    "retrieved_chunk_ids": [
+      "oezarmut_thyssenkrupp_Fluid-Composite_Structure-Interaction_in_Underwater_Shock_Simulations:p9-p9:c83",
+      "oezarmut_thyssenkrupp_Fluid-Composite_Structure-Interaction_in_Underwater_Shock_Simulations:p9-p9:c82",
+      "oezarmut_thyssenkrupp_Fluid-Composite_Structure-Interaction_in_Underwater_Shock_Simulations:p9-p9:c84"
+    ],
+    "ground_status": "page_specific"
+  },
+  "criteria": [
+    {
+      "id": "c1",
+      "text": "回答明确指出 2D 到 3D 映射（Mapping）的主要优势同时包括“效率”和“精度”两个方面",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "more accurate and efficient way of simulating an underwater explosion"
+    },
+    {
+      "id": "c2",
+      "text": "回答明确指出该方法避免了直接建立全尺度 3D 流体网格",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "Avoided direct full-scale 3D fluid mesh"
+    },
+    {
+      "id": "c3",
+      "text": "回答明确指出先在 2D 轴对称 ALE 模型中使用精细网格模拟炸药爆轰和冲击波的球形扩展",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "the pressure profile obtained from the 2D ALE simulation"
+    },
+    {
+      "id": "c4",
+      "text": "回答明确指出将 2D 计算得到的压力场作为边界载荷或分布压力载荷映射到 3D 模型",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "applied as a distributed pressure load to the segment sets defined in the relevant 3D simulations"
+    },
+    {
+      "id": "c5",
+      "text": "解释 2D-ALE 到 3D 的映射能更好描述冲击波的球面扩散或球形传播",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "the spherical spreading of the shock wave is better described"
+    },
+    {
+      "id": "c6",
+      "text": "解释效率提升来自只需计算 2D 源场而不必对整个 3D 水域进行离散建模",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "a more accurate and efficient way"
+    },
+    {
+      "id": "c7",
+      "text": "回答以套话/开场白/元评论开头而无实质内容",
+      "category": "Pitfall",
+      "weight": 4,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c8",
+      "text": "回答篇幅冗长，包含大量与问题无关的背景铺垫或重复",
+      "category": "Pitfall",
+      "weight": 3,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    }
+  ],
+  "rubric_metadata": {
+    "generation_model": "openai/gpt-5.4-mini",
+    "generation_passes": 3,
+    "n_criteria_initial": 8,
+    "n_criteria_final": 8,
+    "n_dropped_misaligned": 0,
+    "ref_answer_self_score": null,
+    "weak_answer_self_score": null,
+    "generated_at": "2026-05-22T07:39:41.880162+00:00",
+    "schema_version": "1.0"
+  },
+  "item_idx": 49
+}

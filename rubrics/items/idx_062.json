@@ -1,0 +1,116 @@
+{
+  "question_id": "63",
+  "question": "在进行鱼雷壳体结构的数值模拟分析时，为什么必须在模型中考虑内部构件的影响？",
+  "reference_answer": "应力分布影响：鱼雷内部构件（如战斗部装药、燃料舱等）的惯性效应会导致壳体局部出现有效应力集中，尤其在隔板附近。抗冲击性能增强：战斗部装药和燃料能显著增大对应舱段壳体的抗冲击性能，减小壳体变形。毁伤结果差异：不考虑内部构件时，模拟出的壳体毁伤程度会明显减小，且毁伤区域分布会发生显著变化，导致结果与实际严重偏差。",
+  "question_type": "对比分析题",
+  "difficulty": "困难",
+  "scenario": "单文档多段落",
+  "source": "贾宪振博士论文，第94、102页",
+  "source_grounding": {
+    "parsed_docs": [
+      "PhD_基于通用程序的水下爆炸及其对结构作用的数值模拟研究"
+    ],
+    "pages": [],
+    "retrieved_chunk_ids": [
+      "PhD_基于通用程序的水下爆炸及其对结构作用的数值模拟研究:p111-p111:c387",
+      "PhD_基于通用程序的水下爆炸及其对结构作用的数值模拟研究:p111-p111:c392",
+      "PhD_基于通用程序的水下爆炸及其对结构作用的数值模拟研究:p12-p12:c59"
+    ],
+    "ground_status": "doc_only"
+  },
+  "criteria": [
+    {
+      "id": "c1",
+      "text": "提到鱼雷内部构件的具体实例，包括战斗部装药或燃料舱",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "战斗部装药、燃料舱等"
+    },
+    {
+      "id": "c2",
+      "text": "提到内部构件的惯性效应会使壳体局部、尤其隔板附近出现有效应力集中",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "构件的惯性效应会在局部出现有效应力集中现象...尤其隔板附近"
+    },
+    {
+      "id": "c4",
+      "text": "对比同一冲击工况下考虑内部构件与不考虑内部构件时的壳体毁伤程度，指出不考虑时毁伤程度更小",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "comparative_balance",
+      "evidence_quote": "不考虑内部构件时，鱼雷壳体毁伤程度明显减小"
+    },
+    {
+      "id": "c5",
+      "text": "对比考虑内部构件与不考虑内部构件时的壳体毁伤区域分布，指出分布会显著变化",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "comparative_balance",
+      "evidence_quote": "毁伤区域的分布均发生较大变化"
+    },
+    {
+      "id": "c6",
+      "text": "指出战斗部装药和燃料会增大对应舱段壳体的抗冲击性能",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "comparative_balance",
+      "evidence_quote": "战斗部装药和燃料均能增大壳体的抗冲击性能"
+    },
+    {
+      "id": "c7",
+      "text": "给出结论：鱼雷壳体数值模拟的有限元模型必须考虑内部构件影响",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "decision_logic",
+      "evidence_quote": "必须在有限元模型中考虑内部构件的影响"
+    },
+    {
+      "id": "c8",
+      "text": "回答以套话/开场白/元评论开头而无实质内容",
+      "category": "Pitfall",
+      "weight": 4,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c9",
+      "text": "回答篇幅冗长，包含大量与问题无关的背景铺垫或重复",
+      "category": "Pitfall",
+      "weight": 3,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c10",
+      "text": "只描述考虑内部构件或不考虑内部构件中的单一一方，未形成对比",
+      "category": "Pitfall",
+      "weight": 4,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    }
+  ],
+  "rubric_metadata": {
+    "generation_model": "openai/gpt-5.4-mini",
+    "generation_passes": 3,
+    "n_criteria_initial": 10,
+    "n_criteria_final": 9,
+    "n_dropped_misaligned": 1,
+    "ref_answer_self_score": null,
+    "weak_answer_self_score": null,
+    "generated_at": "2026-05-22T09:33:07.469346+00:00",
+    "schema_version": "1.0"
+  },
+  "item_idx": 62
+}

@@ -1,0 +1,109 @@
+{
+  "question_id": "40",
+  "question": "简述罚函数耦合（Penalty Coupling）中“释放（Release）”现象的成因。",
+  "reference_answer": "成因： 在冲击过程中，如果罚函数力（由弹簧系数 k 决定）过大，导致从节点（结构）与主节点（流体）在同一个时间步内既发生碰撞又发生分离。这会引起数值不稳定，通常通过引入标量因子 pf 或限制力的大小来避免。",
+  "question_type": "简答题",
+  "difficulty": "中等",
+  "scenario": "单文档单段落",
+  "source": "Benson教材, 第2.3.2节, 第66页",
+  "source_grounding": {
+    "parsed_docs": [
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson"
+    ],
+    "pages": [
+      66,
+      66
+    ],
+    "retrieved_chunk_ids": [
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p60-p70:c467",
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p60-p70:c468"
+    ],
+    "ground_status": "page_specific"
+  },
+  "criteria": [
+    {
+      "id": "c1",
+      "text": "指出罚函数力由弹簧系数 k 决定",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "罚函数力（由弹簧系数 k 决定）"
+    },
+    {
+      "id": "c2",
+      "text": "指出 release 现象发生在冲击过程中的罚函数力过大时",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "在冲击过程中，如果罚函数力...过大"
+    },
+    {
+      "id": "c3",
+      "text": "指出从节点（结构）与主节点（流体）会在同一个时间步内既发生碰撞又发生分离",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "从节点（结构）与主节点（流体）在同一个时间步内既发生碰撞又发生分离"
+    },
+    {
+      "id": "c4",
+      "text": "指出 release 会引起数值不稳定",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "这会引起数值不稳定"
+    },
+    {
+      "id": "c5",
+      "text": "解释罚函数力过大会使接触响应在同一时间步内出现“碰撞后又分离”的过冲现象",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "同一个时间步内既发生碰撞又发生分离"
+    },
+    {
+      "id": "c6",
+      "text": "提到可通过引入标量因子 pf 来避免 release",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "通常通过引入标量因子 pf"
+    },
+    {
+      "id": "c7",
+      "text": "回答以套话/开场白/元评论开头而无实质内容",
+      "category": "Pitfall",
+      "weight": 4,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c8",
+      "text": "回答篇幅冗长，包含大量与问题无关的背景铺垫或重复",
+      "category": "Pitfall",
+      "weight": 3,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    }
+  ],
+  "rubric_metadata": {
+    "generation_model": "openai/gpt-5.4-mini",
+    "generation_passes": 3,
+    "n_criteria_initial": 8,
+    "n_criteria_final": 8,
+    "n_dropped_misaligned": 0,
+    "ref_answer_self_score": null,
+    "weak_answer_self_score": null,
+    "generated_at": "2026-05-22T07:25:47.982317+00:00",
+    "schema_version": "1.0"
+  },
+  "item_idx": 39
+}

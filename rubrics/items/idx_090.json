@@ -1,0 +1,110 @@
+{
+  "question_id": "75",
+  "question": "在设计潜艇复合材料面板抗冲击仿真方案时，若需同时精确考量冲击波和气泡脉动的全过程载荷，首选哪种LS-DYNA功能？",
+  "reference_answer": "决策： 选用ALE（Arbitrary Lagrangian-Eulerian）多物质流固耦合。逻辑： ALE可以同时处理炸药爆轰形成的冲击波以及爆轰产物气泡的大变形脉动，这是USA等边界元方法难以处理的近场特性。",
+  "question_type": "决策题",
+  "difficulty": "中等",
+  "scenario": "单文档单段落",
+  "source": "ThyssenKrupp论文, 第1-2页",
+  "source_grounding": {
+    "parsed_docs": [
+      "oezarmut_thyssenkrupp_Fluid-Composite_Structure-Interaction_in_Underwater_Shock_Simulations"
+    ],
+    "pages": [
+      1,
+      2
+    ],
+    "retrieved_chunk_ids": [
+      "oezarmut_thyssenkrupp_Fluid-Composite_Structure-Interaction_in_Underwater_Shock_Simulations:p2-p3:c25",
+      "oezarmut_thyssenkrupp_Fluid-Composite_Structure-Interaction_in_Underwater_Shock_Simulations:p1-p1:c8",
+      "oezarmut_thyssenkrupp_Fluid-Composite_Structure-Interaction_in_Underwater_Shock_Simulations:p2-p3:c26"
+    ],
+    "ground_status": "page_specific"
+  },
+  "criteria": [
+    {
+      "id": "c1",
+      "text": "明确给出最终选择是 ALE（Arbitrary Lagrangian-Eulerian）多物质流固耦合",
+      "category": "Essential",
+      "weight": 6,
+      "sign": "positive",
+      "criterion_type": "decision_logic",
+      "evidence_quote": null
+    },
+    {
+      "id": "c2",
+      "text": "指出 ALE 的英文全称是 Arbitrary Lagrangian-Eulerian",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": null
+    },
+    {
+      "id": "c3",
+      "text": "指出所选功能属于 LS-DYNA 的多物质流固耦合方案",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": null
+    },
+    {
+      "id": "c4",
+      "text": "说明 ALE 可以同时处理炸药爆轰形成的冲击波",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "decision_logic",
+      "evidence_quote": null
+    },
+    {
+      "id": "c5",
+      "text": "说明 ALE 可以同时处理爆轰产物气泡的脉动全过程载荷",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "decision_logic",
+      "evidence_quote": null
+    },
+    {
+      "id": "c7",
+      "text": "对比指出 USA 或边界元方法难以处理这种近场全过程载荷",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "comparative_balance",
+      "evidence_quote": null
+    },
+    {
+      "id": "c8",
+      "text": "回答以套话/开场白/元评论开头而无实质内容",
+      "category": "Pitfall",
+      "weight": 4,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c9",
+      "text": "回答篇幅冗长，包含大量与问题无关的背景铺垫或重复",
+      "category": "Pitfall",
+      "weight": 3,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    }
+  ],
+  "rubric_metadata": {
+    "generation_model": "openai/gpt-5.4-mini",
+    "generation_passes": 3,
+    "n_criteria_initial": 9,
+    "n_criteria_final": 8,
+    "n_dropped_misaligned": 1,
+    "ref_answer_self_score": null,
+    "weak_answer_self_score": null,
+    "generated_at": "2026-05-22T08:49:54.281028+00:00",
+    "schema_version": "1.0"
+  },
+  "item_idx": 90
+}

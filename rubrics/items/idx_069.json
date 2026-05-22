@@ -1,0 +1,134 @@
+{
+  "question_id": "54",
+  "question": "为什么在显式动力学仿真中通常使用“质量归并”（Lumped Mass Matrix）而非一致质量矩阵？",
+  "reference_answer": "计算成本： 一致质量矩阵需要求解线性方程组来获取加速度，计算开销巨大。显式效率： 归并后的对角矩阵允许直接计算每个节点的加速度，极大提升了每步的计算速度，且在小时间步长下精度可接受。",
+  "question_type": "简答题",
+  "difficulty": "中等",
+  "scenario": "单文档单段落",
+  "source": "Benson教材, 第13、39页",
+  "source_grounding": {
+    "parsed_docs": [
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson"
+    ],
+    "pages": [],
+    "retrieved_chunk_ids": [
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p193-p193:c1180",
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p206-p206:c1277",
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p202-p202:c1253"
+    ],
+    "ground_status": "doc_only"
+  },
+  "criteria": [
+    {
+      "id": "c1",
+      "text": "明确指出显式动力学仿真中使用的是质量归",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "计算效率：归并后的对角矩阵允许直接计算每个节点的加速度"
+    },
+    {
+      "id": "c2",
+      "text": "矩阵（Lumped Mass Matrix）",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "计算效率：归并后的对角矩阵允许直接计算每个节点的加速度"
+    },
+    {
+      "id": "c3",
+      "text": "指出一致质量矩阵需要通过求解线性方程组来获得加速度",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "一致质量矩阵需要求解线性方程组来获取加速度"
+    },
+    {
+      "id": "c4",
+      "text": "指出质量归",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "归并后的对角矩阵"
+    },
+    {
+      "id": "c5",
+      "text": "矩阵是对角矩阵",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "归并后的对角矩阵"
+    },
+    {
+      "id": "c6",
+      "text": "指出对角形式可以直接计算各节点加速度",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "允许直接计算每个节点的加速度"
+    },
+    {
+      "id": "c7",
+      "text": "解释对角质量矩阵避免了每步的线性方程组求解或矩阵求逆，因此每步计算速度更快",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "计算开销巨大 / 极大提升了每步的计算速度"
+    },
+    {
+      "id": "c8",
+      "text": "指出在小时间步长下，质量归",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "comparative_balance",
+      "evidence_quote": "且在小时间步长下精度可接受"
+    },
+    {
+      "id": "c9",
+      "text": "矩阵带来的精度是可接受的",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "comparative_balance",
+      "evidence_quote": "且在小时间步长下精度可接受"
+    },
+    {
+      "id": "c10",
+      "text": "回答以套话/开场白/元评论开头而无实质内容",
+      "category": "Pitfall",
+      "weight": 4,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c11",
+      "text": "回答篇幅冗长，包含大量与问题无关的背景铺垫或重复",
+      "category": "Pitfall",
+      "weight": 3,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    }
+  ],
+  "rubric_metadata": {
+    "generation_model": "openai/gpt-5.4-mini",
+    "generation_passes": 3,
+    "n_criteria_initial": 8,
+    "n_criteria_final": 11,
+    "n_dropped_misaligned": 0,
+    "ref_answer_self_score": null,
+    "weak_answer_self_score": null,
+    "generated_at": "2026-05-22T08:14:00.017430+00:00",
+    "schema_version": "1.0"
+  },
+  "item_idx": 69
+}

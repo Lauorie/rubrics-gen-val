@@ -1,0 +1,128 @@
+{
+  "question_id": "71",
+  "question": "当发现ALE仿真得到的远场冲击波压力峰值远低于Cole公式理论值且无法进一步加密网格时，应采取什么技术修正？",
+  "reference_answer": "决策： 采用“等效质量法”。逻辑： 通过人为增大数值模型中的炸药药量（模拟质量），补偿粗网格引起的数值耗散，使目标爆距处的压力达到实验水平。",
+  "question_type": "决策题",
+  "difficulty": "困难",
+  "scenario": "多文档多段落",
+  "source": "贾宪振论文, 摘要及第12页",
+  "source_grounding": {
+    "parsed_docs": [
+      "PhD_基于通用程序的水下爆炸及其对结构作用的数值模拟研究"
+    ],
+    "pages": [
+      12,
+      12
+    ],
+    "retrieved_chunk_ids": [
+      "PhD_基于通用程序的水下爆炸及其对结构作用的数值模拟研究:p12-p12:c56",
+      "PhD_基于通用程序的水下爆炸及其对结构作用的数值模拟研究:p12-p12:c40",
+      "PhD_基于通用程序的水下爆炸及其对结构作用的数值模拟研究:p12-p12:c23"
+    ],
+    "ground_status": "page_specific"
+  },
+  "criteria": [
+    {
+      "id": "c1",
+      "text": "明确给出最终技术修正为“等效质量法”",
+      "category": "Essential",
+      "weight": 6,
+      "sign": "positive",
+      "criterion_type": "decision_logic",
+      "evidence_quote": "采用“等效质量法”。"
+    },
+    {
+      "id": "c2",
+      "text": "提到术语“等效质量法”本身",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "采用“等效质量法”。"
+    },
+    {
+      "id": "c3",
+      "text": "指出通过人为增大数值模型中的炸药药量（模拟质量）进行修正",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "通过人为增大数值模型中的炸药药量（模拟质量）"
+    },
+    {
+      "id": "c4",
+      "text": "说明粗网格会引起数值耗散，使远场冲击波压力峰值低于 Cole 公式理论值",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "补偿粗网格引起的数值耗散"
+    },
+    {
+      "id": "c5",
+      "text": "说明在无法进一步加密网格时，采用增大模拟炸药药量作为修正路径",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "decision_logic",
+      "evidence_quote": "且无法进一步加密网格时，应采取什么技术修正？"
+    },
+    {
+      "id": "c6",
+      "text": "说明修正目标是使目标爆距处的压力达到实验水平",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "decision_logic",
+      "evidence_quote": "使目标爆距处的压力达到实验水平"
+    },
+    {
+      "id": "c8",
+      "text": "回答以套话/开场白/元评论开头而无实质内容",
+      "category": "Pitfall",
+      "weight": 4,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c9",
+      "text": "回答篇幅冗长，包含大量与问题无关的背景铺垫或重复",
+      "category": "Pitfall",
+      "weight": 3,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c10",
+      "text": "给出多个",
+      "category": "Pitfall",
+      "weight": 5,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c11",
+      "text": "列修正办法但不明确最终选择等效质量法",
+      "category": "Pitfall",
+      "weight": 5,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    }
+  ],
+  "rubric_metadata": {
+    "generation_model": "openai/gpt-5.4-mini",
+    "generation_passes": 3,
+    "n_criteria_initial": 10,
+    "n_criteria_final": 10,
+    "n_dropped_misaligned": 1,
+    "ref_answer_self_score": null,
+    "weak_answer_self_score": null,
+    "generated_at": "2026-05-22T08:43:42.292113+00:00",
+    "schema_version": "1.0"
+  },
+  "item_idx": 86
+}

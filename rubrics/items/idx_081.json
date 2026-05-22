@@ -1,0 +1,128 @@
+{
+  "question_id": "66",
+  "question": "在进行混凝土重力坝抗爆性能评估时，若起爆深度从10m增加到40m（深水），破坏模式应如何预测变化？",
+  "reference_answer": "决策： 破坏重心从坝头转向下游折坡处。逻辑： 随着深度增加，挡水坝段颈部抗爆性能增强。深水下，冲击波受水压影响，能量主要通过应力波传递，在下游面反射引起震塌和折坡处开裂。",
+  "question_type": "决策题",
+  "difficulty": "中等",
+  "scenario": "单文档多段落",
+  "source": "混凝土重力坝论文 p509, 512",
+  "source_grounding": {
+    "parsed_docs": [
+      "水下爆炸冲击荷载作用下混凝土重力坝的破坏模式"
+    ],
+    "pages": [
+      509,
+      509
+    ],
+    "retrieved_chunk_ids": [
+      "水下爆炸冲击荷载作用下混凝土重力坝的破坏模式:p5-p5:c28",
+      "水下爆炸冲击荷载作用下混凝土重力坝的破坏模式:p5-p5:c29",
+      "水下爆炸冲击荷载作用下混凝土重力坝的破坏模式:p0-p0:c1"
+    ],
+    "ground_status": "fallback_semantic"
+  },
+  "criteria": [
+    {
+      "id": "c1",
+      "text": "明确给出最终结论：破坏重心从坝头转向下游折坡处",
+      "category": "Essential",
+      "weight": 6,
+      "sign": "positive",
+      "criterion_type": "decision_logic",
+      "evidence_quote": null
+    },
+    {
+      "id": "c2",
+      "text": "说明起爆深度增大后，挡水坝段颈部抗爆性能增强",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "decision_logic",
+      "evidence_quote": null
+    },
+    {
+      "id": "c3",
+      "text": "说明深水工况下的主导破坏判断依据是下游面反射引起的受损区",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "decision_logic",
+      "evidence_quote": null
+    },
+    {
+      "id": "c5",
+      "text": "指出深水下冲击波受水压影响，能量主要通过应力波传递",
+      "category": "Important",
+      "weight": 4,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": null
+    },
+    {
+      "id": "c6",
+      "text": "指出下游面反射会引起震塌和下游折坡处开裂",
+      "category": "Important",
+      "weight": 4,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": null
+    },
+    {
+      "id": "c7",
+      "text": "与10 m工况相比，40 m深水下的主导破坏部位从坝头转向下游折坡处",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "comparative_balance",
+      "evidence_quote": null
+    },
+    {
+      "id": "c8",
+      "text": "给出多个",
+      "category": "Pitfall",
+      "weight": 5,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c9",
+      "text": "列破坏部位或多个备选答案而不做最终判断",
+      "category": "Pitfall",
+      "weight": 5,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c10",
+      "text": "回答以套话/开场白/元评论开头而无实质内容",
+      "category": "Pitfall",
+      "weight": 4,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c11",
+      "text": "回答篇幅冗长，包含大量与问题无关的背景铺垫或重复",
+      "category": "Pitfall",
+      "weight": 3,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    }
+  ],
+  "rubric_metadata": {
+    "generation_model": "openai/gpt-5.4-mini",
+    "generation_passes": 3,
+    "n_criteria_initial": 10,
+    "n_criteria_final": 10,
+    "n_dropped_misaligned": 1,
+    "ref_answer_self_score": null,
+    "weak_answer_self_score": null,
+    "generated_at": "2026-05-22T08:34:52.881376+00:00",
+    "schema_version": "1.0"
+  },
+  "item_idx": 81
+}

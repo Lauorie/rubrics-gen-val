@@ -1,0 +1,107 @@
+{
+  "question_id": "22",
+  "question": "鱼雷壳体在遭受侧向冲击时，为什么最大等效应变点往往不在正对爆心的位置？",
+  "reference_answer": "因为内部构件（如燃料、炸药）的分布改变了局部刚度和惯性。例如，内部填满炸药的舱段抗冲击能力增强，导致变形向构件边缘（如隔板处）转移。",
+  "question_type": "简答题",
+  "difficulty": "中等",
+  "scenario": "单文档多段落",
+  "source": "贾宪振博士论文 第96, 97页",
+  "source_grounding": {
+    "parsed_docs": [
+      "PhD_基于通用程序的水下爆炸及其对结构作用的数值模拟研究"
+    ],
+    "pages": [],
+    "retrieved_chunk_ids": [
+      "PhD_基于通用程序的水下爆炸及其对结构作用的数值模拟研究:p106-p106:c372",
+      "PhD_基于通用程序的水下爆炸及其对结构作用的数值模拟研究:p105-p106:c371",
+      "PhD_基于通用程序的水下爆炸及其对结构作用的数值模拟研究:p109-p109:c381"
+    ],
+    "ground_status": "doc_only"
+  },
+  "criteria": [
+    {
+      "id": "c2",
+      "text": "指出内部构件（如燃料、炸药）的分布会改变局部刚度",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "由于鱼雷各舱室的内部组件不同"
+    },
+    {
+      "id": "c3",
+      "text": "指出内部构件（如燃料、炸药）的分布会改变局部惯性",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "内部的燃料增大惯性效应"
+    },
+    {
+      "id": "c4",
+      "text": "指出内部装填炸药会提高该舱段的抗冲击能力",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "鱼雷战斗部内装填的炸药增大了战斗部壳体的抗冲击性能"
+    },
+    {
+      "id": "c5",
+      "text": "指出等效应变会向构件边缘或隔板处转移",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "导致变形向构件边缘（如隔板处）转移"
+    },
+    {
+      "id": "c6",
+      "text": "指出在相同冲击波载荷下，不同舱室的动态响应会不同",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "comparative_balance",
+      "evidence_quote": "即使它们经受冲击波载荷相同，各舱室壳体的动态响应也不是相同"
+    },
+    {
+      "id": "c7",
+      "text": "解释局部刚度或抗冲击能力提高后，等效应变会在相邻边缘或隔板处集中",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "装填的炸药增大了战斗部壳体的抗冲击性能"
+    },
+    {
+      "id": "c8",
+      "text": "回答以套话/开场白/元评论开头而无实质内容",
+      "category": "Pitfall",
+      "weight": 4,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c9",
+      "text": "回答篇幅冗长，包含大量与问题无关的背景铺垫或重复",
+      "category": "Pitfall",
+      "weight": 3,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    }
+  ],
+  "rubric_metadata": {
+    "generation_model": "openai/gpt-5.4-mini",
+    "generation_passes": 3,
+    "n_criteria_initial": 9,
+    "n_criteria_final": 8,
+    "n_dropped_misaligned": 1,
+    "ref_answer_self_score": null,
+    "weak_answer_self_score": null,
+    "generated_at": "2026-05-22T06:57:40.854658+00:00",
+    "schema_version": "1.0"
+  },
+  "item_idx": 21
+}

@@ -1,0 +1,98 @@
+{
+  "question_id": "13",
+  "question": "罚函数耦合（Penalty Coupling）算法是如何处理拉格朗日结构与欧拉流体界面的？",
+  "reference_answer": "识别穿透： 程序会追踪Lagrangian节点相对于Eulerian网格的相对位移，检查节点是否贯穿了流体表面。力学传递： 一旦发生贯穿，系统通过界面力（类似于弹簧-阻尼系统）将界面力分布到流体节点上，界面力大小通常与贯穿深度成正比。",
+  "question_type": "流程描述题",
+  "difficulty": "困难",
+  "scenario": "单文档单段落",
+  "source": "贾宪振博士论文 第84、85页",
+  "source_grounding": {
+    "parsed_docs": [
+      "PhD_基于通用程序的水下爆炸及其对结构作用的数值模拟研究"
+    ],
+    "pages": [],
+    "retrieved_chunk_ids": [
+      "PhD_基于通用程序的水下爆炸及其对结构作用的数值模拟研究:p95-p95:c327",
+      "PhD_基于通用程序的水下爆炸及其对结构作用的数值模拟研究:p94-p94:c318",
+      "PhD_基于通用程序的水下爆炸及其对结构作用的数值模拟研究:p94-p94:c317"
+    ],
+    "ground_status": "doc_only"
+  },
+  "criteria": [
+    {
+      "id": "c1",
+      "text": "明确指出罚函数耦合用于处理 Lagrangian 结构与 Eulerian 流体界面之间的约束/耦合",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "罚函数约束"
+    },
+    {
+      "id": "c2",
+      "text": "将界面力的作用机制表述为类似弹簧-阻尼系统",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "界面力（类似于弹簧-阻尼系统）"
+    },
+    {
+      "id": "c3",
+      "text": "说明程序会追踪 Lagrangian 节点相对于 Eulerian 网格的相对位移",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "process_completeness",
+      "evidence_quote": "程序会追踪 Lagrangian节点相对于Eulerian网格的相对位移"
+    },
+    {
+      "id": "c5",
+      "text": "说明一旦发生贯穿，界面力会被分布到欧拉流体节点上",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "process_completeness",
+      "evidence_quote": "界面力就会分布到欧拉流体的节点上"
+    },
+    {
+      "id": "c6",
+      "text": "说明界面力大小与贯穿深度成正比，或写出 F = k d",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "numeric_precision",
+      "evidence_quote": "F = k d"
+    },
+    {
+      "id": "c7",
+      "text": "回答以套话/开场白/元评论开头而无实质内容",
+      "category": "Pitfall",
+      "weight": 4,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c8",
+      "text": "回答篇幅冗长，包含大量与问题无关的背景铺垫或重复",
+      "category": "Pitfall",
+      "weight": 3,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    }
+  ],
+  "rubric_metadata": {
+    "generation_model": "openai/gpt-5.4-mini",
+    "generation_passes": 3,
+    "n_criteria_initial": 8,
+    "n_criteria_final": 7,
+    "n_dropped_misaligned": 1,
+    "ref_answer_self_score": null,
+    "weak_answer_self_score": null,
+    "generated_at": "2026-05-22T06:41:27.218562+00:00",
+    "schema_version": "1.0"
+  },
+  "item_idx": 12
+}

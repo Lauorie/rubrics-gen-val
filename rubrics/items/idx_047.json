@@ -1,0 +1,110 @@
+{
+  "question_id": "48",
+  "question": "在处理流体粒子位移时，为什么“Adams-Bashforth”方案比一阶显式欧拉法更优？",
+  "reference_answer": "精度与稳定性： Adams-Bashforth 是二阶多步法，它利用了前一个时间步的速度信息进行外推，在处理长路径流体追踪或颗粒运动时具有更高的轨迹精确度。",
+  "question_type": "简答题",
+  "difficulty": "中等",
+  "scenario": "单文档单段落",
+  "source": "Benson教材, 第262-263页",
+  "source_grounding": {
+    "parsed_docs": [
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson"
+    ],
+    "pages": [
+      262,
+      263
+    ],
+    "retrieved_chunk_ids": [
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p263-p264:c1608",
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p262-p262:c1592",
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p263-p263:c1601"
+    ],
+    "ground_status": "page_specific"
+  },
+  "criteria": [
+    {
+      "id": "c1",
+      "text": "明确指出 Adams-Bashforth 是二阶多步法",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "Adams-Bashforth 是二阶多步法"
+    },
+    {
+      "id": "c2",
+      "text": "明确指出 Adams-Bashforth 会利用前一时间步的速度信息",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "它利用了前一个时间步的速度信息进行外推"
+    },
+    {
+      "id": "c5",
+      "text": "明确指出 Adams-Bashforth 适用于长路径流体追踪",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "在处理长路径流体追踪或颗粒运动时"
+    },
+    {
+      "id": "c6",
+      "text": "解释 Adams-Bashforth 通过前一时间步速度外推来更新粒子位移",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "利用了前一个时间步的速度信息进行外推"
+    },
+    {
+      "id": "c7",
+      "text": "解释长路径流体追踪中轨迹误差会因 Adams-Bashforth 的外推格式而更小",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "在处理长路径流体追踪...时具有更高的轨迹精确度"
+    },
+    {
+      "id": "c8",
+      "text": "回答以套话/开场白/元评论开头而无实质内容",
+      "category": "Pitfall",
+      "weight": 4,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c9",
+      "text": "回答篇幅冗长，包含大量与问题无关的背景铺垫或重复",
+      "category": "Pitfall",
+      "weight": 3,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c10",
+      "text": "只说“更高阶”或“更稳定”而不提二阶多步、前一时间步速度外推或轨迹精度",
+      "category": "Pitfall",
+      "weight": 3,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    }
+  ],
+  "rubric_metadata": {
+    "generation_model": "openai/gpt-5.4-mini",
+    "generation_passes": 3,
+    "n_criteria_initial": 10,
+    "n_criteria_final": 8,
+    "n_dropped_misaligned": 2,
+    "ref_answer_self_score": null,
+    "weak_answer_self_score": null,
+    "generated_at": "2026-05-22T07:36:43.076279+00:00",
+    "schema_version": "1.0"
+  },
+  "item_idx": 47
+}

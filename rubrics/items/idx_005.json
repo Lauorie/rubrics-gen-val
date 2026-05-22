@@ -1,0 +1,110 @@
+{
+  "question_id": "6",
+  "question": "混凝土重力坝在水下爆炸冲击荷载作用下常见的几种破坏模式是什么？",
+  "reference_answer": "爆炸成坑： 上游迎爆面混凝土因压缩屈服被压碎，形成漏斗坑。震塌破坏： 压缩应力波传至坝顶或下游面反射形成强拉伸波，导致混凝土受拉脱落。脆性冲切破坏： 在坝头与上游直面交接处或下游折坡附近，因剪应力和拉应力集中产生贯穿性裂缝。",
+  "question_type": "简答题",
+  "difficulty": "简单",
+  "scenario": "单文档单段落",
+  "source": "混凝土重力坝破坏模式论文, 第504页",
+  "source_grounding": {
+    "parsed_docs": [
+      "水下爆炸冲击荷载作用下混凝土重力坝的破坏模式"
+    ],
+    "pages": [
+      504,
+      504
+    ],
+    "retrieved_chunk_ids": [
+      "水下爆炸冲击荷载作用下混凝土重力坝的破坏模式:p0-p0:c0",
+      "水下爆炸冲击荷载作用下混凝土重力坝的破坏模式:p5-p5:c29",
+      "水下爆炸冲击荷载作用下混凝土重力坝的破坏模式:p5-p5:c28"
+    ],
+    "ground_status": "fallback_semantic"
+  },
+  "criteria": [
+    {
+      "id": "c1",
+      "text": "明确指出“爆炸成坑”发生在坝上游迎爆面",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "坝上游迎爆面的爆炸成坑破坏"
+    },
+    {
+      "id": "c3",
+      "text": "明确指出“脆性冲切破坏”发生在坝头与上游直面交接处或下游折坡附近",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "坝头与上游直面交接处及下游折坡附近的脆性冲切破坏"
+    },
+    {
+      "id": "c4",
+      "text": "回答中至少列出 3 种破坏模式：爆炸成坑、震塌破坏、脆性冲切破坏",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "process_completeness",
+      "evidence_quote": "制导炸弹在水下爆炸引起破坏主要表现为压碎破坏、震塌破坏、脆性冲切破坏"
+    },
+    {
+      "id": "c5",
+      "text": "说明爆炸成坑是由于上游迎爆面混凝土发生压缩屈服",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "上游迎爆面混凝土因压缩屈服被压碎，形成漏斗坑"
+    },
+    {
+      "id": "c6",
+      "text": "被压碎，形成漏斗坑",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "上游迎爆面混凝土因压缩屈服被压碎，形成漏斗坑"
+    },
+    {
+      "id": "c7",
+      "text": "说明压缩应力波传至坝顶或下游面后反射形成强拉伸波，导致混凝土受拉脱落",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "压缩应力波传至坝顶或下游面反射形成强拉伸波，导致混凝土受拉脱落"
+    },
+    {
+      "id": "c8",
+      "text": "回答以套话/开场白/元评论开头而无实质内容",
+      "category": "Pitfall",
+      "weight": 4,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c9",
+      "text": "回答篇幅冗长，包含大量与问题无关的背景铺垫或重复",
+      "category": "Pitfall",
+      "weight": 3,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    }
+  ],
+  "rubric_metadata": {
+    "generation_model": "openai/gpt-5.4-mini",
+    "generation_passes": 3,
+    "n_criteria_initial": 8,
+    "n_criteria_final": 8,
+    "n_dropped_misaligned": 1,
+    "ref_answer_self_score": null,
+    "weak_answer_self_score": null,
+    "generated_at": "2026-05-22T06:31:33.965451+00:00",
+    "schema_version": "1.0"
+  },
+  "item_idx": 5
+}

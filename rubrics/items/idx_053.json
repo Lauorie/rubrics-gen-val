@@ -1,0 +1,134 @@
+{
+  "question_id": "54",
+  "question": "在处理流体与结构界面时，数值稳定性的关键因素是什么？",
+  "reference_answer": "数值稳定性受多个核心因素影响：1. 附加质量效应（Added Mass Effect）： 当流体密度与结构密度接近时，传统分区耦合算法极易不收敛，需采用全隐式单块求解法或改进的压力偏析技术来确保稳定性。2. 时间步长限制： 对于显式时间积分，步长需小于波传播过最短单元所需的时间，且增加系统阻尼会进一步减小稳定时间步长的极限。3. 稳定化技术： 在使用等阶插值单元时，必须引入稳定化矩阵以克服BBL条件的限制，避免压力震荡。4. 人工粘性（激波粘性）： 处理包含冲击波的动态问题时，引入激波粘性可抑制间断界面后的数值震荡。",
+  "question_type": "主观题",
+  "difficulty": "困难",
+  "scenario": "单文档多段落",
+  "source": "Benson教材, 第8、18、165、182页",
+  "source_grounding": {
+    "parsed_docs": [
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson"
+    ],
+    "pages": [],
+    "retrieved_chunk_ids": [
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p93-p93:c600",
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p3-p3:c46",
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p180-p180:c1093"
+    ],
+    "ground_status": "doc_only"
+  },
+  "criteria": [
+    {
+      "id": "c1",
+      "text": "明确提到附加质量效应（Added Mass Effect）",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "Various approaches have been in- vestigated to model fluid–structure interaction problems. The added mass techniques..."
+    },
+    {
+      "id": "c2",
+      "text": "指出流体密度与结构密度接近时，传统分区耦合算法容易不收敛",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "it concerns the monolithic solution of the fluid–structure interaction problem ... the iterative scheme to obtain the pressure may be difficult and even non-convergent"
+    },
+    {
+      "id": "c3",
+      "text": "指出显式时间积分的稳定步长需小于波传播经过最短单元所需的时间",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "numeric_precision",
+      "evidence_quote": null
+    },
+    {
+      "id": "c4",
+      "text": "解释附加质量效应会使流体-结构界面问题中的迭代求解出现难收敛",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "the iterative scheme to obtain the pressure may be difficult and even non-convergent"
+    },
+    {
+      "id": "c5",
+      "text": "提到全隐式单块求解法或改进的压力偏析技术可用于提高流固耦合稳定性",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": null
+    },
+    {
+      "id": "c6",
+      "text": "指出等阶插值单元需要引入稳定化矩阵以克服 BBL 条件限制",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": null
+    },
+    {
+      "id": "c7",
+      "text": "指出人工粘性（激波粘性）用于抑制冲击波问题中的间断后数值震荡",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": null
+    },
+    {
+      "id": "c8",
+      "text": "指出增加系统阻尼会进一步减小显式稳定时间步长的上限",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": null
+    },
+    {
+      "id": "c9",
+      "text": "回答至少覆盖附加质量效应、显式时间步长、稳定化矩阵、人工粘性中的 3 类因素",
+      "category": "Optional",
+      "weight": 1,
+      "sign": "positive",
+      "criterion_type": "process_completeness",
+      "evidence_quote": null
+    },
+    {
+      "id": "c10",
+      "text": "回答以套话/开场白/元评论开头而无实质内容",
+      "category": "Pitfall",
+      "weight": 4,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c11",
+      "text": "回答篇幅冗长，包含大量与问题无关的背景铺垫或重复",
+      "category": "Pitfall",
+      "weight": 3,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    }
+  ],
+  "rubric_metadata": {
+    "generation_model": "openai/gpt-5.4-mini",
+    "generation_passes": 3,
+    "n_criteria_initial": 11,
+    "n_criteria_final": 11,
+    "n_dropped_misaligned": 0,
+    "ref_answer_self_score": null,
+    "weak_answer_self_score": null,
+    "generated_at": "2026-05-22T09:13:41.996127+00:00",
+    "schema_version": "1.0"
+  },
+  "item_idx": 53
+}

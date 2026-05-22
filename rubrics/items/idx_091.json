@@ -1,0 +1,109 @@
+{
+  "question_id": "76",
+  "question": "若在罚函数耦合分析中发现流体大量“穿透”结构表面，但整体位移趋势正确，应如何调整参数？",
+  "reference_answer": "决策： 提高惩罚因子/刚度系数（Stiffness coefficient）。逻辑： 罚函数力与穿透深度成比例，通过增大刚度可产生更大的回复力将流体节点推回界面，但需警惕时间步长的下降。",
+  "question_type": "决策题",
+  "difficulty": "困难",
+  "scenario": "单文档单段落",
+  "source": "Benson教材, 第66页",
+  "source_grounding": {
+    "parsed_docs": [
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson"
+    ],
+    "pages": [
+      66,
+      66
+    ],
+    "retrieved_chunk_ids": [
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p60-p70:c467",
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p60-p70:c468"
+    ],
+    "ground_status": "page_specific"
+  },
+  "criteria": [
+    {
+      "id": "c1",
+      "text": "明确给出结论：提高惩罚因子/刚度系数（Stiffness coefficient）",
+      "category": "Essential",
+      "weight": 6,
+      "sign": "positive",
+      "criterion_type": "decision_logic",
+      "evidence_quote": "决策： 提高惩罚因子/刚度系数（Stiffness coefficient）"
+    },
+    {
+      "id": "c2",
+      "text": "指出罚函数力与穿透深度成比例",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "罚函数力与穿透深度成比例"
+    },
+    {
+      "id": "c3",
+      "text": "说明增大刚度系数会增大回复力",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "通过增大刚度可产生更大的回复力"
+    },
+    {
+      "id": "c4",
+      "text": "说明增大的回复力用于把流体节点推回界面或结构表面",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "将流体节点推回界面"
+    },
+    {
+      "id": "c5",
+      "text": "针对流体大量穿透结构表面的情况，给出应增加而不是保持原有惩罚刚度的判断",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "decision_logic",
+      "evidence_quote": "若在罚函数耦合分析中发现流体大量“穿透”结构表面"
+    },
+    {
+      "id": "c6",
+      "text": "提到增大惩罚因子或刚度系数可能使时间步长下降",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "decision_logic",
+      "evidence_quote": "但需警惕时间步长的下降"
+    },
+    {
+      "id": "c7",
+      "text": "回答以套话/开场白/元评论开头而无实质内容",
+      "category": "Pitfall",
+      "weight": 4,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c8",
+      "text": "回答篇幅冗长，包含大量与问题无关的背景铺垫或重复",
+      "category": "Pitfall",
+      "weight": 3,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    }
+  ],
+  "rubric_metadata": {
+    "generation_model": "openai/gpt-5.4-mini",
+    "generation_passes": 3,
+    "n_criteria_initial": 8,
+    "n_criteria_final": 8,
+    "n_dropped_misaligned": 0,
+    "ref_answer_self_score": null,
+    "weak_answer_self_score": null,
+    "generated_at": "2026-05-22T08:51:24.506833+00:00",
+    "schema_version": "1.0"
+  },
+  "item_idx": 91
+}

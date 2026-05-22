@@ -1,0 +1,101 @@
+{
+  "question_id": "36",
+  "question": "为什么Level Set方法在处理固体力学的ALE代码中不如VOF方法流行？",
+  "reference_answer": "主要是因为Level Set方法在算法构造上通常不能保证严格的质量守恒（Mass conservation），而VOF方法通过构造体积分数天然满足守恒性。",
+  "question_type": "对比分析题",
+  "difficulty": "中等",
+  "scenario": "单文档单段落",
+  "source": "Benson教材, 第1.6.5节, 第40页",
+  "source_grounding": {
+    "parsed_docs": [
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson"
+    ],
+    "pages": [
+      40,
+      40
+    ],
+    "retrieved_chunk_ids": [
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p40-p40:c270",
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p40-p40:c274",
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p40-p40:c273"
+    ],
+    "ground_status": "page_specific"
+  },
+  "criteria": [
+    {
+      "id": "c1",
+      "text": "指出 Level Set 方法在算法构造上通常不能保证严格质量守恒（Mass conservation）",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": null
+    },
+    {
+      "id": "c2",
+      "text": "指出 VOF 方法通过构造体积分数（volume fraction）来表征材料分布",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": null
+    },
+    {
+      "id": "c4",
+      "text": "对比两者在质量守恒上的差别：Level Set 不能严格守恒，而 VOF 具有守恒性",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "comparative_balance",
+      "evidence_quote": null
+    },
+    {
+      "id": "c7",
+      "text": "解释 VOF 更流行的直接原因是其体积分数构造使守恒性成为离散格式的一部分",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": null
+    },
+    {
+      "id": "c8",
+      "text": "回答以套话/开场白/元评论开头而无实质内容",
+      "category": "Pitfall",
+      "weight": 4,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c9",
+      "text": "回答篇幅冗长，包含大量与问题无关的背景铺垫或重复",
+      "category": "Pitfall",
+      "weight": 3,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c10",
+      "text": "回答只讨论 Level Set 的缺点而没有把 VOF 的守恒优势纳入对比",
+      "category": "Pitfall",
+      "weight": 4,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    }
+  ],
+  "rubric_metadata": {
+    "generation_model": "openai/gpt-5.4-mini",
+    "generation_passes": 3,
+    "n_criteria_initial": 10,
+    "n_criteria_final": 7,
+    "n_dropped_misaligned": 3,
+    "ref_answer_self_score": null,
+    "weak_answer_self_score": null,
+    "generated_at": "2026-05-22T07:20:29.705592+00:00",
+    "schema_version": "1.0"
+  },
+  "item_idx": 35
+}

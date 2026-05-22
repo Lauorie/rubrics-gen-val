@@ -1,0 +1,99 @@
+{
+  "question_id": "64",
+  "question": "简述水下爆炸冲击响应模拟的一般流程，哪些步骤是必不可少的？",
+  "reference_answer": "一般流程：包括炸药爆轰、爆炸载荷的生成和传播、流固耦合以及结构的响应四个步骤。必不可少步骤：爆炸载荷、流固耦合和结构响应这三个步骤是必不可少的。可省略步骤：炸药爆轰并非必要，部分通用程序（如ABAQUS）不包含此步骤，而是直接施加载荷。",
+  "question_type": "流程描述题",
+  "difficulty": "简单",
+  "scenario": "单文档单段落",
+  "source": "贾宪振博士论文，第1-2页",
+  "source_grounding": {
+    "parsed_docs": [
+      "PhD_基于通用程序的水下爆炸及其对结构作用的数值模拟研究"
+    ],
+    "pages": [
+      1,
+      2
+    ],
+    "retrieved_chunk_ids": [
+      "PhD_基于通用程序的水下爆炸及其对结构作用的数值模拟研究:p0-p12:c17"
+    ],
+    "ground_status": "page_specific"
+  },
+  "criteria": [
+    {
+      "id": "c2",
+      "text": "明确提到爆炸载荷的生成和传播",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "process_completeness",
+      "evidence_quote": "爆炸载荷的生成和传播"
+    },
+    {
+      "id": "c3",
+      "text": "明确提到流固耦合",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "process_completeness",
+      "evidence_quote": "流固耦合"
+    },
+    {
+      "id": "c4",
+      "text": "明确提到结构响应",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "process_completeness",
+      "evidence_quote": "结构的响应"
+    },
+    {
+      "id": "c6",
+      "text": "明确指出爆炸载荷、流固耦合和结构响应是必不可少步骤",
+      "category": "Important",
+      "weight": 4,
+      "sign": "positive",
+      "criterion_type": "decision_logic",
+      "evidence_quote": "爆炸载荷、流固耦合和结构响应这三个步骤是必不可少的"
+    },
+    {
+      "id": "c7",
+      "text": "提到通用程序（如 ABAQUS）可以直接施加载荷而不建炸药爆轰步骤",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "部分通用程序（如ABAQUS）不包含此步骤，而是直接施加载荷"
+    },
+    {
+      "id": "c8",
+      "text": "回答以套话/开场白/元评论开头而无实质内容",
+      "category": "Pitfall",
+      "weight": 4,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c9",
+      "text": "回答篇幅冗长，包含大量与问题无关的背景铺垫或重复",
+      "category": "Pitfall",
+      "weight": 3,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    }
+  ],
+  "rubric_metadata": {
+    "generation_model": "openai/gpt-5.4-mini",
+    "generation_passes": 3,
+    "n_criteria_initial": 9,
+    "n_criteria_final": 7,
+    "n_dropped_misaligned": 2,
+    "ref_answer_self_score": null,
+    "weak_answer_self_score": null,
+    "generated_at": "2026-05-22T09:34:34.093744+00:00",
+    "schema_version": "1.0"
+  },
+  "item_idx": 63
+}

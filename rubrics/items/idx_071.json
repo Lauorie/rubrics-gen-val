@@ -1,0 +1,128 @@
+{
+  "question_id": "56",
+  "question": "相比于Level Set方法，为什么VOF（体积分数法）在多物质ALE仿真中更受欢迎？",
+  "reference_answer": "质量守恒： VOF基于每个单元内物质的体积分数进行输运，算法设计上天然满足质量守恒。稳健性： VOF在处理剧烈界面变形和拓扑改变（如气泡破碎）时更为鲁棒，虽然界面描述可能不如Level Set光滑，但更符合工程守恒律。",
+  "question_type": "主观题",
+  "difficulty": "困难",
+  "scenario": "单文档单段落",
+  "source": "Benson教材, 第40-42页",
+  "source_grounding": {
+    "parsed_docs": [
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson"
+    ],
+    "pages": [
+      40,
+      42
+    ],
+    "retrieved_chunk_ids": [
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p40-p40:c270",
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p40-p40:c280",
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p40-p40:c269"
+    ],
+    "ground_status": "page_specific"
+  },
+  "criteria": [
+    {
+      "id": "c1",
+      "text": "指出 VOF 是按单元内体积分数（volume fraction）进行输运",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": null
+    },
+    {
+      "id": "c2",
+      "text": "指出 VOF 的算法设计天然满足质量守恒",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": null
+    },
+    {
+      "id": "c3",
+      "text": "指出 VOF 在剧烈界面变形或拓扑改变时更鲁棒",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": null
+    },
+    {
+      "id": "c4",
+      "text": "解释体积分数输运有助于避免多物质 ALE 计算中的质量丢失或质量增加",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": null
+    },
+    {
+      "id": "c5",
+      "text": "解释 VOF 在界面拉伸、卷曲、破碎等大变形场景下更稳定",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": null
+    },
+    {
+      "id": "c6",
+      "text": "解释工程上更看重守恒律而不是界面几何的光滑性",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "comparative_balance",
+      "evidence_quote": null
+    },
+    {
+      "id": "c7",
+      "text": "指出 Level Set 的界面表示通常更光滑",
+      "category": "Optional",
+      "weight": 1,
+      "sign": "positive",
+      "criterion_type": "comparative_balance",
+      "evidence_quote": null
+    },
+    {
+      "id": "c8",
+      "text": "明确给出结论：在多物质 ALE 仿真中更受欢迎的是 VOF 而不是 Level Set",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "decision_logic",
+      "evidence_quote": null
+    },
+    {
+      "id": "c9",
+      "text": "回答以套话/开场白/元评论开头而无实质内容",
+      "category": "Pitfall",
+      "weight": 4,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c10",
+      "text": "回答篇幅冗长，包含大量与问题无关的背景铺垫或重复",
+      "category": "Pitfall",
+      "weight": 3,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    }
+  ],
+  "rubric_metadata": {
+    "generation_model": "openai/gpt-5.4-mini",
+    "generation_passes": 3,
+    "n_criteria_initial": 10,
+    "n_criteria_final": 10,
+    "n_dropped_misaligned": 0,
+    "ref_answer_self_score": null,
+    "weak_answer_self_score": null,
+    "generated_at": "2026-05-22T08:16:48.454863+00:00",
+    "schema_version": "1.0"
+  },
+  "item_idx": 71
+}

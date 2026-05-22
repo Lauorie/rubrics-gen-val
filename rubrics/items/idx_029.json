@@ -1,0 +1,112 @@
+{
+  "question_id": "30",
+  "question": "请简述Level Set（水平集）方法在处理流体界面时的核心逻辑。",
+  "reference_answer": "核心逻辑： 定义一个标量函数（通常是符号距离函数 d(x)），通过其零等值面（Zero isosurface）来追踪和表示界面。它在CFD中因处理拓扑结构变化（如气泡合并/分裂）速度快且简单而流行。",
+  "question_type": "简答题",
+  "difficulty": "中等",
+  "scenario": "单文档单段落",
+  "source": "Benson教材, 第39-41页; Souli教材, 第235页",
+  "source_grounding": {
+    "parsed_docs": [
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson"
+    ],
+    "pages": [
+      39,
+      41,
+      235,
+      235
+    ],
+    "retrieved_chunk_ids": [
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p40-p40:c280",
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p40-p40:c277",
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p40-p40:c279"
+    ],
+    "ground_status": "page_specific"
+  },
+  "criteria": [
+    {
+      "id": "c1",
+      "text": "明确提到用一个标量函数（水平集函数）来表示流体界面",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "定义一个标量函数"
+    },
+    {
+      "id": "c2",
+      "text": "指出该标量函数通常取为符号距离函数 d(x)",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "通常是符号距离函数 d(x)"
+    },
+    {
+      "id": "c3",
+      "text": "指出界面由零等值面（Zero isosurface）来表示",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "通过其零等值面（Zero isosurface）来追踪和表示界面"
+    },
+    {
+      "id": "c4",
+      "text": "指出通过求 d(x)=0 或 φ=0 来追踪界面位置",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "通过其零等值面来追踪和表示界面"
+    },
+    {
+      "id": "c5",
+      "text": "提到气泡合",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "处理拓扑结构变化（如气泡合并/分裂）"
+    },
+    {
+      "id": "c6",
+      "text": "或分裂等拓扑结构变化",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "处理拓扑结构变化（如气泡合并/分裂）"
+    },
+    {
+      "id": "c8",
+      "text": "回答以套话/开场白/元评论开头而无实质内容",
+      "category": "Pitfall",
+      "weight": 4,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c9",
+      "text": "回答篇幅冗长，包含大量与问题无关的背景铺垫或重复",
+      "category": "Pitfall",
+      "weight": 3,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    }
+  ],
+  "rubric_metadata": {
+    "generation_model": "openai/gpt-5.4-mini",
+    "generation_passes": 3,
+    "n_criteria_initial": 8,
+    "n_criteria_final": 8,
+    "n_dropped_misaligned": 1,
+    "ref_answer_self_score": null,
+    "weak_answer_self_score": null,
+    "generated_at": "2026-05-22T07:10:52.734237+00:00",
+    "schema_version": "1.0"
+  },
+  "item_idx": 29
+}

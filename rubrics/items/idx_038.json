@@ -1,0 +1,109 @@
+{
+  "question_id": "39",
+  "question": "什么是“Jaumann应力速率”？其在LS-DYNA中主要解决什么问题？",
+  "reference_answer": "参考答案： 它是一种客观应力速率，通过引入旋转项修正。主要解决材料在发生大转动时，简单应力更新无法区分刚体旋转和真实形变的问题，保证应力客观性。",
+  "question_type": "简答题",
+  "difficulty": "困难",
+  "scenario": "单文档单段落",
+  "source": "Benson教材, 第1.4.5节, 第17页",
+  "source_grounding": {
+    "parsed_docs": [
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson"
+    ],
+    "pages": [
+      17,
+      17
+    ],
+    "retrieved_chunk_ids": [
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p3-p19:c97",
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p3-p19:c98"
+    ],
+    "ground_status": "page_specific"
+  },
+  "criteria": [
+    {
+      "id": "c1",
+      "text": "明确指出 Jaumann 应力速率是一种客观应力速率",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "它是一种客观应力速率"
+    },
+    {
+      "id": "c2",
+      "text": "指出其通过引入旋转项对应力更新进行修正",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "通过引入旋转项修正"
+    },
+    {
+      "id": "c3",
+      "text": "指出该应力速率主要针对材料发生大转动的情形",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "材料在发生大转动时"
+    },
+    {
+      "id": "c4",
+      "text": "指出它在 LS-DYNA 中主要用于解决材料大转动时的应力更新问题",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "主要解决材料在发生大转动时，简单应力更新无法区分刚体旋转和真实形变的问题"
+    },
+    {
+      "id": "c5",
+      "text": "解释简单应力更新无法区分刚体旋转与真实形变",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "简单应力更新无法区分刚体旋转和真实形变的问题"
+    },
+    {
+      "id": "c6",
+      "text": "说明引入 Jaumann 旋转修正的目的是保持应力客观性",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "保证应力客观性"
+    },
+    {
+      "id": "c7",
+      "text": "回答以套话/开场白/元评论开头而无实质内容",
+      "category": "Pitfall",
+      "weight": 4,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c8",
+      "text": "回答篇幅冗长，包含大量与问题无关的背景铺垫或重复",
+      "category": "Pitfall",
+      "weight": 3,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    }
+  ],
+  "rubric_metadata": {
+    "generation_model": "openai/gpt-5.4-mini",
+    "generation_passes": 3,
+    "n_criteria_initial": 8,
+    "n_criteria_final": 8,
+    "n_dropped_misaligned": 0,
+    "ref_answer_self_score": null,
+    "weak_answer_self_score": null,
+    "generated_at": "2026-05-22T07:24:32.823427+00:00",
+    "schema_version": "1.0"
+  },
+  "item_idx": 38
+}

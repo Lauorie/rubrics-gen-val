@@ -1,0 +1,101 @@
+{
+  "question_id": "45",
+  "question": "“Zalesak’s Problem”（开槽圆盘旋转）在数值算法测试中主要用来评估什么性能？",
+  "reference_answer": "评估目标： 该问题通过测试算法在旋转流场中对开槽圆盘尖锐棱角的追踪能力，主要用于评估界面追踪算法（如Level Set）的数值耗散/扩散误差以及对拓扑结构的保持能力。",
+  "question_type": "简答题",
+  "difficulty": "中等",
+  "scenario": "单文档多段落",
+  "source": "Benson教材, 第242-243页",
+  "source_grounding": {
+    "parsed_docs": [
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson"
+    ],
+    "pages": [
+      242,
+      243
+    ],
+    "retrieved_chunk_ids": [
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p243-p243:c1460",
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p242-p242:c1452",
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p243-p243:c1461"
+    ],
+    "ground_status": "page_specific"
+  },
+  "criteria": [
+    {
+      "id": "c1",
+      "text": "明确指出 Zalesak’s Problem 主要用于评估界面追踪算法",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "主要用于评估界面追踪算法（如Level Set）"
+    },
+    {
+      "id": "c2",
+      "text": "提到 Level Set 作为该问题关注的界面追踪方法示例",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "界面追踪算法（如Level Set）"
+    },
+    {
+      "id": "c3",
+      "text": "指出该问题用于评估算法的数值耗散误差",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "数值耗散/扩散误差"
+    },
+    {
+      "id": "c4",
+      "text": "指出该问题用于评估界面拓扑结构的保持能力",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "对拓扑结构的保持能力"
+    },
+    {
+      "id": "c5",
+      "text": "说明开槽圆盘在旋转流场中用于检验尖锐棱角的追踪能力",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "在旋转流场中对开槽圆盘尖锐棱角的追踪能力"
+    },
+    {
+      "id": "c6",
+      "text": "回答以套话/开场白/元评论开头而无实质内容",
+      "category": "Pitfall",
+      "weight": 4,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c7",
+      "text": "回答篇幅冗长，包含大量与问题无关的背景铺垫或重复",
+      "category": "Pitfall",
+      "weight": 3,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    }
+  ],
+  "rubric_metadata": {
+    "generation_model": "openai/gpt-5.4-mini",
+    "generation_passes": 3,
+    "n_criteria_initial": 8,
+    "n_criteria_final": 7,
+    "n_dropped_misaligned": 0,
+    "ref_answer_self_score": null,
+    "weak_answer_self_score": null,
+    "generated_at": "2026-05-22T07:32:05.873791+00:00",
+    "schema_version": "1.0"
+  },
+  "item_idx": 44
+}

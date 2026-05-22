@@ -1,0 +1,116 @@
+{
+  "question_id": "53",
+  "question": "为什么在包含复杂舱室的MM-ALE（多物质ALE）仿真中需要定义“真空（Vacuum）”？",
+  "reference_answer": "输运空间： 在多物质网格中，空腔部分通常定义为真空。这允许其他物质（如受冲击后的水流或结构碎片）在变形过程中物理性地输运或充填至该空间。数值稳定： 这样可以防止两种不相容材料在同一时间步内强行占据同一网格，从而避免压力异常升高导致的计算不稳定。",
+  "question_type": "主观题",
+  "difficulty": "中等",
+  "scenario": "单文档单段落",
+  "source": "ThyssenKrupp论文, 第6、7页",
+  "source_grounding": {
+    "parsed_docs": [
+      "oezarmut_thyssenkrupp_Fluid-Composite_Structure-Interaction_in_Underwater_Shock_Simulations"
+    ],
+    "pages": [],
+    "retrieved_chunk_ids": [
+      "oezarmut_thyssenkrupp_Fluid-Composite_Structure-Interaction_in_Underwater_Shock_Simulations:p5-p5:c57",
+      "oezarmut_thyssenkrupp_Fluid-Composite_Structure-Interaction_in_Underwater_Shock_Simulations:p6-p6:c60",
+      "oezarmut_thyssenkrupp_Fluid-Composite_Structure-Interaction_in_Underwater_Shock_Simulations:p5-p5:c55"
+    ],
+    "ground_status": "doc_only"
+  },
+  "criteria": [
+    {
+      "id": "c1",
+      "text": "指出在多物质网格中，复杂舱室的空腔部分通常定义为 vacuum",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "vacuum for the volume allocated by the panel and the connected parts"
+    },
+    {
+      "id": "c4",
+      "text": "说明 vacuum 提供了可供其他材料输运和充填的空间",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "into which material may be transported"
+    },
+    {
+      "id": "c5",
+      "text": "说明受冲击后的水流或结构碎片可以进入该 vacuum 区域",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "material may be transported"
+    },
+    {
+      "id": "c6",
+      "text": "说明若不定义 vacuum，不相容材料可能在同一时间步内强行占据同一网格，从而引发压力异常升高",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "prevent two incompatible materials from occupying the same mesh at the same time step"
+    },
+    {
+      "id": "c7",
+      "text": "导致计算不稳定",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "prevent two incompatible materials from occupying the same mesh at the same time step"
+    },
+    {
+      "id": "c8",
+      "text": "把 vacuum 解释成物理抽真空或吸力机制，而不是数值上的空腔占位",
+      "category": "Pitfall",
+      "weight": 4,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c9",
+      "text": "只说 vacuum 是“空的”，但没有提材料输运或材料占据冲突",
+      "category": "Pitfall",
+      "weight": 3,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c10",
+      "text": "回答以套话/开场白/元评论开头而无实质内容",
+      "category": "Pitfall",
+      "weight": 4,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c11",
+      "text": "回答篇幅冗长，包含大量与问题无关的背景铺垫或重复",
+      "category": "Pitfall",
+      "weight": 3,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    }
+  ],
+  "rubric_metadata": {
+    "generation_model": "openai/gpt-5.4-mini",
+    "generation_passes": 3,
+    "n_criteria_initial": 10,
+    "n_criteria_final": 9,
+    "n_dropped_misaligned": 2,
+    "ref_answer_self_score": null,
+    "weak_answer_self_score": null,
+    "generated_at": "2026-05-22T07:44:00.587704+00:00",
+    "schema_version": "1.0"
+  },
+  "item_idx": 52
+}

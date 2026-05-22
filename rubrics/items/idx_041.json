@@ -1,0 +1,119 @@
+{
+  "question_id": "42",
+  "question": "在FSI迭代过程中，为什么要引入“Aitken方法”？其核心优势是什么？",
+  "reference_answer": "原因： 在显式分区耦合中，流固界面的位移传递需要通过松弛因子平滑。优势： Aitken方法是一种自适应确定下松弛因子（Relaxation factor）的向量外推技术，能显著加速收敛，尤其是在流固交互剧烈的动态过程中，比固定松弛因子更高效。",
+  "question_type": "简答题",
+  "difficulty": "困难",
+  "scenario": "单文档单段落",
+  "source": "Benson教材, 第141-142页",
+  "source_grounding": {
+    "parsed_docs": [
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson"
+    ],
+    "pages": [
+      141,
+      142
+    ],
+    "retrieved_chunk_ids": [
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p140-p141:c848",
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p141-p142:c850",
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p142-p143:c858"
+    ],
+    "ground_status": "page_specific"
+  },
+  "criteria": [
+    {
+      "id": "c1",
+      "text": "明确指出 Aitken 方法用于显式分区耦合的 FSI 迭代过程",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "在显式分区耦合中"
+    },
+    {
+      "id": "c2",
+      "text": "明确指出 Aitken 方法作用于流固界面的位移传递",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "流固界面的位移传递"
+    },
+    {
+      "id": "c3",
+      "text": "明确指出位移传递需要通过松弛因子进行平滑",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "需要通过松弛因子平滑"
+    },
+    {
+      "id": "c4",
+      "text": "明确指出 Aitken 方法是一种向量外推技术",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "一种自适应确定下松弛因子的向量外推技术"
+    },
+    {
+      "id": "c5",
+      "text": "解释 Aitken 方法通过自适应确定 under-relaxation factor 来提高迭代收敛速度",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "自适应确定下松弛因子（Relaxation factor）"
+    },
+    {
+      "id": "c6",
+      "text": "指出 Aitken 方法在流固交互剧烈的动态过程中尤其有效",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "comparative_balance",
+      "evidence_quote": "尤其是在流固交互剧烈的动态过程中"
+    },
+    {
+      "id": "c7",
+      "text": "指出 Aitken 方法比固定松弛因子更高效",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "comparative_balance",
+      "evidence_quote": "比固定松弛因子更高效"
+    },
+    {
+      "id": "c8",
+      "text": "回答以套话/开场白/元评论开头而无实质内容",
+      "category": "Pitfall",
+      "weight": 4,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c9",
+      "text": "回答篇幅冗长，包含大量与问题无关的背景铺垫或重复",
+      "category": "Pitfall",
+      "weight": 3,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    }
+  ],
+  "rubric_metadata": {
+    "generation_model": "openai/gpt-5.4-mini",
+    "generation_passes": 3,
+    "n_criteria_initial": 9,
+    "n_criteria_final": 9,
+    "n_dropped_misaligned": 0,
+    "ref_answer_self_score": null,
+    "weak_answer_self_score": null,
+    "generated_at": "2026-05-22T07:29:09.427229+00:00",
+    "schema_version": "1.0"
+  },
+  "item_idx": 41
+}

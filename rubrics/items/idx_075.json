@@ -1,0 +1,125 @@
+{
+  "question_id": "60",
+  "question": "在LS-DYNA中模拟复合材料夹层板（FRP Sandwich）时，常用的各向同性材料模型是否适用？",
+  "reference_answer": "局限性： 不适用。复合材料（如GFRP面层）具有显著的各向异性，需要定义不同方向的模量。建模建议： 资料显示面层常用复合材料模型（如Mat 22/54），而芯材（硬质泡沫）则需使用专门的泡沫模型（如Mat 63）来描述其压溃吸能特性。",
+  "question_type": "主观题",
+  "difficulty": "中等",
+  "scenario": "多文档多段落",
+  "source": "ThyssenKrupp论文, 496-499页",
+  "source_grounding": {
+    "parsed_docs": [
+      "oezarmut_thyssenkrupp_Fluid-Composite_Structure-Interaction_in_Underwater_Shock_Simulations"
+    ],
+    "pages": [],
+    "retrieved_chunk_ids": [
+      "oezarmut_thyssenkrupp_Fluid-Composite_Structure-Interaction_in_Underwater_Shock_Simulations:p0-p0:c2",
+      "oezarmut_thyssenkrupp_Fluid-Composite_Structure-Interaction_in_Underwater_Shock_Simulations:p3-p3:c32",
+      "oezarmut_thyssenkrupp_Fluid-Composite_Structure-Interaction_in_Underwater_Shock_Simulations:p11-p11:c103"
+    ],
+    "ground_status": "doc_only"
+  },
+  "criteria": [
+    {
+      "id": "c1",
+      "text": "明确指出在 LS-DYNA 中模拟 FRP Sandwich 时，常用的各向同性材料模型不适用",
+      "category": "Essential",
+      "weight": 6,
+      "sign": "positive",
+      "criterion_type": "decision_logic",
+      "evidence_quote": "局限性：不适用"
+    },
+    {
+      "id": "c2",
+      "text": "指出 GFRP 面层具有显著的各向异性",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "复合材料（如GFRP面层）具有显著的各向异性"
+    },
+    {
+      "id": "c3",
+      "text": "指出复合材料建模需要定义不同方向的模量",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "需要定义不同方向的模量"
+    },
+    {
+      "id": "c4",
+      "text": "提到面层常用复合材料模型 Mat 22/54",
+      "category": "Important",
+      "weight": 4,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "面层常用复合材料模型（如Mat 22/54）"
+    },
+    {
+      "id": "c5",
+      "text": "提到芯材硬质泡沫常用 Mat 63",
+      "category": "Important",
+      "weight": 4,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "芯材（硬质泡沫）则需使用专门的泡沫模型（如Mat 63）"
+    },
+    {
+      "id": "c6",
+      "text": "解释 Mat 63 用于描述芯材的压溃吸能特性",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "描述其压溃吸能特性"
+    },
+    {
+      "id": "c7",
+      "text": "说明 FRP 面层与泡沫芯材应采用不同的材料模型而不是单一模型",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "process_completeness",
+      "evidence_quote": "面层...芯材...分别使用"
+    },
+    {
+      "id": "c8",
+      "text": "答案提到“是否适用”时给出明确否定结论，而不是只描述材料性质",
+      "category": "Optional",
+      "weight": 2,
+      "sign": "positive",
+      "criterion_type": "decision_logic",
+      "evidence_quote": "不适用"
+    },
+    {
+      "id": "c9",
+      "text": "回答以套话/开场白/元评论开头而无实质内容",
+      "category": "Pitfall",
+      "weight": 4,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c10",
+      "text": "回答篇幅冗长，包含大量与问题无关的背景铺垫或重复",
+      "category": "Pitfall",
+      "weight": 3,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    }
+  ],
+  "rubric_metadata": {
+    "generation_model": "openai/gpt-5.4-mini",
+    "generation_passes": 3,
+    "n_criteria_initial": 10,
+    "n_criteria_final": 10,
+    "n_dropped_misaligned": 0,
+    "ref_answer_self_score": null,
+    "weak_answer_self_score": null,
+    "generated_at": "2026-05-22T08:23:09.979784+00:00",
+    "schema_version": "1.0"
+  },
+  "item_idx": 75
+}

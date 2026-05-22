@@ -1,0 +1,119 @@
+{
+  "question_id": "49",
+  "question": "水下爆炸中的“空化效应”（Bulk Cavitation）是如何产生的？",
+  "reference_answer": "成因： 冲击波传播至水面（自由面）时发生反射，形成向下的张力波（拉伸波）。当该拉伸应力超过环境静水压力时，水体发生断裂或产生气泡，形成大面积空化区。数值处理： 在仿真中常定义非反射边界或在状态方程中设置压力阈值来模拟此现象。",
+  "question_type": "简答题",
+  "difficulty": "中等",
+  "scenario": "多文档多段落",
+  "source": "ThyssenKrupp论文, 第3页",
+  "source_grounding": {
+    "parsed_docs": [
+      "oezarmut_thyssenkrupp_Fluid-Composite_Structure-Interaction_in_Underwater_Shock_Simulations"
+    ],
+    "pages": [
+      3,
+      3
+    ],
+    "retrieved_chunk_ids": [
+      "oezarmut_thyssenkrupp_Fluid-Composite_Structure-Interaction_in_Underwater_Shock_Simulations:p2-p3:c25",
+      "oezarmut_thyssenkrupp_Fluid-Composite_Structure-Interaction_in_Underwater_Shock_Simulations:p3-p3:c27",
+      "oezarmut_thyssenkrupp_Fluid-Composite_Structure-Interaction_in_Underwater_Shock_Simulations:p3-p3:c29"
+    ],
+    "ground_status": "page_specific"
+  },
+  "criteria": [
+    {
+      "id": "c1",
+      "text": "明确指出水下爆炸冲击波传播到水面（自由面）时会发生反射",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "冲击波传播至水面（自由面）时发生反射"
+    },
+    {
+      "id": "c2",
+      "text": "明确指出反射后形成向下传播的张力波（拉伸波）",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "形成向下的张力波（拉伸波）"
+    },
+    {
+      "id": "c3",
+      "text": "明确指出拉伸应力超过环境静水压力是空化发生的条件",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "当该拉伸应力超过环境静水压力时"
+    },
+    {
+      "id": "c4",
+      "text": "明确指出水体会发生断裂或产生气泡",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "水体发生断裂或产生气泡"
+    },
+    {
+      "id": "c5",
+      "text": "明确指出最终形成大面积空化区（bulk cavitation）",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "形成大面积空化区"
+    },
+    {
+      "id": "c6",
+      "text": "解释自由面反射会把冲击压缩波转化为向下传播的拉伸波",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "冲击波传播至水面（自由面）时发生反射，形成向下的张力波"
+    },
+    {
+      "id": "c7",
+      "text": "提到仿真中可通过非反射边界或在状态方程中设置压力阈值来模拟该现象",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "process_completeness",
+      "evidence_quote": "在仿真中常定义非反射边界或在状态方程中设置压力阈值来模拟此现象"
+    },
+    {
+      "id": "c8",
+      "text": "回答以套话/开场白/元评论开头而无实质内容",
+      "category": "Pitfall",
+      "weight": 4,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c9",
+      "text": "回答篇幅冗长，包含大量与问题无关的背景铺垫或重复",
+      "category": "Pitfall",
+      "weight": 3,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    }
+  ],
+  "rubric_metadata": {
+    "generation_model": "openai/gpt-5.4-mini",
+    "generation_passes": 3,
+    "n_criteria_initial": 9,
+    "n_criteria_final": 9,
+    "n_dropped_misaligned": 0,
+    "ref_answer_self_score": null,
+    "weak_answer_self_score": null,
+    "generated_at": "2026-05-22T07:38:15.542885+00:00",
+    "schema_version": "1.0"
+  },
+  "item_idx": 48
+}

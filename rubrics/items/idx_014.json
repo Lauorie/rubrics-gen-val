@@ -1,0 +1,137 @@
+{
+  "question_id": "15",
+  "question": "在HJC本构模型中，混凝土的损伤（Damage）主要来源于什么？其演化过程如何描述？",
+  "reference_answer": "主要来源： 在大多数情况下，混凝土的损伤主要源自塑性体积应变。演化描述： 采用损伤度D（0-1）表示，损伤是等效塑性应变和塑性体积应变的累积函数。随着应变增大，材料凝聚力丧失，损伤度D从0（完整）向1（破碎）演化。",
+  "question_type": "主观题",
+  "difficulty": "中等",
+  "scenario": "单文档多段落",
+  "source": "混凝土重力坝破坏模式论文 p501-502",
+  "source_grounding": {
+    "parsed_docs": [
+      "水下爆炸冲击荷载作用下混凝土重力坝的破坏模式"
+    ],
+    "pages": [
+      501,
+      502
+    ],
+    "retrieved_chunk_ids": [
+      "基于ANSYS_LS-DYNA的钢板混凝土墙冲击实验的有限元分析:p5-p5:c32",
+      "基于ANSYS_LS-DYNA的钢板混凝土墙冲击实验的有限元分析:p0-p0:c9",
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p60-p60:c457"
+    ],
+    "ground_status": "fallback_semantic"
+  },
+  "criteria": [
+    {
+      "id": "c1",
+      "text": "指出 HJC 本构模型中混凝土损伤主要源自塑性体积应变",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "混凝土的损伤主要源自塑性体积应变"
+    },
+    {
+      "id": "c2",
+      "text": "指出损伤变量用 D 表示",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "采用损伤度D（0-1）表示"
+    },
+    {
+      "id": "c3",
+      "text": "指出损伤度 D 的取值范围为 0 到 1",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "numeric_precision",
+      "evidence_quote": "损伤度D（0-1）"
+    },
+    {
+      "id": "c4",
+      "text": "指出损伤是等效塑性应变与塑性体积应变的累积函数",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "损伤是等效塑性应变和塑性体积应变的累积函数"
+    },
+    {
+      "id": "c5",
+      "text": "说明随着应变增大，损伤度 D 逐渐增大",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "随着应变增大"
+    },
+    {
+      "id": "c6",
+      "text": "说明材料凝聚力丧失与损伤演化相关",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "材料凝聚力丧失"
+    },
+    {
+      "id": "c7",
+      "text": "说明损伤度 D 从 0（完整）向 1（破碎）演化",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "D从0（完整）向1（破碎）演化"
+    },
+    {
+      "id": "c8",
+      "text": "说明等效塑性应变参与了损伤的累积过程",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "等效塑性应变"
+    },
+    {
+      "id": "c9",
+      "text": "明确将塑性体积应变表述为主要来源，而不是把等效塑性应变表述为主要来源",
+      "category": "Optional",
+      "weight": 1,
+      "sign": "positive",
+      "criterion_type": "comparative_balance",
+      "evidence_quote": "主要源自塑性体积应变"
+    },
+    {
+      "id": "c10",
+      "text": "回答以套话/开场白/元评论开头而无实质内容",
+      "category": "Pitfall",
+      "weight": 4,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c11",
+      "text": "回答篇幅冗长，包含大量与问题无关的背景铺垫或重复",
+      "category": "Pitfall",
+      "weight": 3,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    }
+  ],
+  "rubric_metadata": {
+    "generation_model": "openai/gpt-5.4-mini",
+    "generation_passes": 3,
+    "n_criteria_initial": 11,
+    "n_criteria_final": 11,
+    "n_dropped_misaligned": 0,
+    "ref_answer_self_score": null,
+    "weak_answer_self_score": null,
+    "generated_at": "2026-05-22T06:44:12.923137+00:00",
+    "schema_version": "1.0"
+  },
+  "item_idx": 14
+}

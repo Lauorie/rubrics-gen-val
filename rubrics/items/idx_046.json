@@ -1,0 +1,119 @@
+{
+  "question_id": "47",
+  "question": "为什么实验测得的结构位移衰减往往比数值模拟快？（排除阻尼设置原因）",
+  "reference_answer": "边界效应： 在实际实验中，侧壁或支撑装置与结构之间的小缝隙会产生显著的水力阻尼效应；此外，模拟中常采用的对称边界条件忽略了真实物理环境中的三维能量耗散。",
+  "question_type": "对比分析题",
+  "difficulty": "困难",
+  "scenario": "单文档单段落",
+  "source": "Benson教材, 第149页",
+  "source_grounding": {
+    "parsed_docs": [
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson"
+    ],
+    "pages": [
+      149,
+      149
+    ],
+    "retrieved_chunk_ids": [
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p149-p149:c911",
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p149-p149:c913",
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p149-p149:c909"
+    ],
+    "ground_status": "page_specific"
+  },
+  "criteria": [
+    {
+      "id": "c1",
+      "text": "指出实验中侧壁或支撑装置与结构之间存在小缝隙",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "侧壁或支撑装置与结构之间的小缝隙"
+    },
+    {
+      "id": "c2",
+      "text": "指出数值模拟中常采用对称边界条件",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "模拟中常采用的对称边界条件"
+    },
+    {
+      "id": "c3",
+      "text": "解释小缝隙会产生显著的水力阻尼效应",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "会产生显著的水力阻尼效应"
+    },
+    {
+      "id": "c4",
+      "text": "解释对称边界条件会忽略真实物理环境中的三维能量耗散",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "忽略了真实物理环境中的三维能量耗散"
+    },
+    {
+      "id": "c5",
+      "text": "指出实验与数值模拟的差异都来自边界效应",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "comparative_balance",
+      "evidence_quote": "边界效应"
+    },
+    {
+      "id": "c6",
+      "text": "对比实验中的侧壁或支撑装置小缝隙与数值模拟中的对称边界条件",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "comparative_balance",
+      "evidence_quote": "侧壁或支撑装置与结构之间的小缝隙；对称边界条件"
+    },
+    {
+      "id": "c7",
+      "text": "指出实验中的水力阻尼和三维能量耗散比数值模拟中的理想化边界损失更强",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "comparative_balance",
+      "evidence_quote": "显著的水力阻尼效应；忽略了真实物理环境中的三维能量耗散"
+    },
+    {
+      "id": "c9",
+      "text": "回答以套话/开场白/元评论开头而无实质内容",
+      "category": "Pitfall",
+      "weight": 4,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c10",
+      "text": "回答篇幅冗长，包含大量与问题无关的背景铺垫或重复",
+      "category": "Pitfall",
+      "weight": 3,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    }
+  ],
+  "rubric_metadata": {
+    "generation_model": "openai/gpt-5.4-mini",
+    "generation_passes": 3,
+    "n_criteria_initial": 10,
+    "n_criteria_final": 9,
+    "n_dropped_misaligned": 1,
+    "ref_answer_self_score": null,
+    "weak_answer_self_score": null,
+    "generated_at": "2026-05-22T07:35:00.305851+00:00",
+    "schema_version": "1.0"
+  },
+  "item_idx": 46
+}

@@ -1,0 +1,128 @@
+{
+  "question_id": "68",
+  "question": "在对鱼雷进行水下爆炸模拟时，为何必须考虑其内部构件？",
+  "reference_answer": "惯性效应：内部大质量构件（如战斗部、燃料）的惯性效应会导致壳体在隔板连接处出现显著的应力集中。抗冲击增强：内部填充物（如炸药、燃料）能显著增大对应舱段壳体的抗冲击性能，减小变形。结果真实性：不计内部构件会使模拟出的毁伤程度显著降低，毁伤区域分布发生错误，无法反映真实物理规律。",
+  "question_type": "主观题",
+  "difficulty": "困难",
+  "scenario": "单文档多段落",
+  "source": "贾宪振博士论文，第125-135页",
+  "source_grounding": {
+    "parsed_docs": [
+      "PhD_基于通用程序的水下爆炸及其对结构作用的数值模拟研究"
+    ],
+    "pages": [
+      125,
+      135
+    ],
+    "retrieved_chunk_ids": [
+      "PhD_基于通用程序的水下爆炸及其对结构作用的数值模拟研究:p111-p111:c387",
+      "PhD_基于通用程序的水下爆炸及其对结构作用的数值模拟研究:p111-p111:c392",
+      "PhD_基于通用程序的水下爆炸及其对结构作用的数值模拟研究:p111-p111:c388"
+    ],
+    "ground_status": "fallback_semantic"
+  },
+  "criteria": [
+    {
+      "id": "c1",
+      "text": "明确指出鱼雷内部构件包括大质量构件，例如战斗部或燃料",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "内部大质量构件（如战斗部、燃料）"
+    },
+    {
+      "id": "c2",
+      "text": "指出这些内部大质量构件在水下爆炸作用下会产生惯性效应",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "构件的惯性效应"
+    },
+    {
+      "id": "c3",
+      "text": "指出惯性效应会在壳体的隔板连接处造成显著应力集中",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "壳体在隔板连接处出现显著的应力集中"
+    },
+    {
+      "id": "c4",
+      "text": "说明内部填充物例如炸药或燃料能提高对应舱段壳体的抗冲击性能",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "战斗部、燃料舱内的燃料均能增大壳体的抗冲击性能"
+    },
+    {
+      "id": "c5",
+      "text": "说明内部填充物或内部构件能够减小壳体变形",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "减小变形"
+    },
+    {
+      "id": "c6",
+      "text": "说明不考虑鱼雷内部构件会使模拟出的毁伤程度显著降低",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "不考虑鱼雷内部构件，那么得到的模拟结果将发生显著变化"
+    },
+    {
+      "id": "c7",
+      "text": "说明不考虑鱼雷内部构件会使毁伤区域分布发生错误",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "毁伤区域的分布均发生较大变化"
+    },
+    {
+      "id": "c8",
+      "text": "指出不同舱段由于内部组分或构件分布不同，其毁伤响应不同，不能按同一舱段响应处理",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "comparative_balance",
+      "evidence_quote": "鱼雷内部构件在鱼雷壳体各舱段的分布不同"
+    },
+    {
+      "id": "c9",
+      "text": "回答以套话/开场白/元评论开头而无实质内容",
+      "category": "Pitfall",
+      "weight": 4,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c10",
+      "text": "回答篇幅冗长，包含大量与问题无关的背景铺垫或重复",
+      "category": "Pitfall",
+      "weight": 3,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    }
+  ],
+  "rubric_metadata": {
+    "generation_model": "openai/gpt-5.4-mini",
+    "generation_passes": 3,
+    "n_criteria_initial": 10,
+    "n_criteria_final": 10,
+    "n_dropped_misaligned": 0,
+    "ref_answer_self_score": null,
+    "weak_answer_self_score": null,
+    "generated_at": "2026-05-22T09:40:09.312093+00:00",
+    "schema_version": "1.0"
+  },
+  "item_idx": 67
+}

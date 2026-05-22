@@ -1,0 +1,130 @@
+{
+  "question_id": "62",
+  "question": "在使用ABAQUS程序模拟水下爆炸时，其主要特点和局限性是什么？",
+  "reference_answer": "载荷施加方式：ABAQUS不计算炸药爆轰及载荷传播，而是直接将经验公式或实验得到的载荷施加在结构上，自动计算动态响应和流场压力分布。计算效率：由于省略了爆轰计算步骤，计算模型不含炸药，仅包含结构及周围流场，因此计算速度快、精度高，适合远场问题。模块化分析：拥有Standard（静力分析）和Explicit（显式动力分析）两个主模块，支持模块间结果传递。局限性：Explicit模块目前尚不支持静水压力载荷的直接施加，需通过用户自定义载荷子程序VDLOAD实现。",
+  "question_type": "简答题",
+  "difficulty": "困难",
+  "scenario": "单文档多段落",
+  "source": "贾宪振博士论文，第13-14页；第51页",
+  "source_grounding": {
+    "parsed_docs": [
+      "PhD_基于通用程序的水下爆炸及其对结构作用的数值模拟研究"
+    ],
+    "pages": [
+      13,
+      14,
+      51,
+      51
+    ],
+    "retrieved_chunk_ids": [
+      "PhD_基于通用程序的水下爆炸及其对结构作用的数值模拟研究:p12-p27:c73",
+      "PhD_基于通用程序的水下爆炸及其对结构作用的数值模拟研究:p50-p51:c158",
+      "PhD_基于通用程序的水下爆炸及其对结构作用的数值模拟研究:p51-p51:c159"
+    ],
+    "ground_status": "page_specific"
+  },
+  "criteria": [
+    {
+      "id": "c1",
+      "text": "明确指出 ABAQUS 是把经验公式或试验得到的水下爆炸载荷直接施加到结构上，而不是由程序自行求爆轰载荷",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "直接将经验公式或实验得到的载荷施加在结构上"
+    },
+    {
+      "id": "c2",
+      "text": "明确指出 ABAQUS 不计算炸药爆轰过程",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "不计算炸药爆轰"
+    },
+    {
+      "id": "c3",
+      "text": "明确指出 ABAQUS 不计算载荷传播过程",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "及载荷传播"
+    },
+    {
+      "id": "c4",
+      "text": "明确指出计算模型中不包含炸药，只包含结构及其周围流场",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "计算模型不含炸药，仅包含结构及周围流场"
+    },
+    {
+      "id": "c5",
+      "text": "提到 ABAQUS 的 Standard 与 Explicit 两个主模块",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "拥有 Standard（静力分析）和 Explicit（显式动力分析）两个主模块"
+    },
+    {
+      "id": "c6",
+      "text": "提到 Standard 与 Explicit 之间可以进行结果传递",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "process_completeness",
+      "evidence_quote": "支持模块间结果传递"
+    },
+    {
+      "id": "c7",
+      "text": "提到 ABAQUS 会自动计算结构的动态响应与流场压力分布",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "process_completeness",
+      "evidence_quote": "自动计算动态响应和流场压力分布"
+    },
+    {
+      "id": "c8",
+      "text": "解释省略爆轰计算步骤和炸药模型是计算速度快的原因",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "由于省略了爆轰计算步骤，计算模型不含炸药"
+    },
+    {
+      "id": "c9",
+      "text": "回答以套话/开场白/元评论开头而无实质内容",
+      "category": "Pitfall",
+      "weight": 4,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c10",
+      "text": "回答篇幅冗长，包含大量与问题无关的背景铺垫或重复",
+      "category": "Pitfall",
+      "weight": 3,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    }
+  ],
+  "rubric_metadata": {
+    "generation_model": "openai/gpt-5.4-mini",
+    "generation_passes": 3,
+    "n_criteria_initial": 10,
+    "n_criteria_final": 10,
+    "n_dropped_misaligned": 0,
+    "ref_answer_self_score": null,
+    "weak_answer_self_score": null,
+    "generated_at": "2026-05-22T09:31:14.443298+00:00",
+    "schema_version": "1.0"
+  },
+  "item_idx": 61
+}

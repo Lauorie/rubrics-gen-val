@@ -1,0 +1,119 @@
+{
+  "question_id": "32",
+  "question": "混凝土HJC模型的状态方程分为哪三个阶段？",
+  "reference_answer": "1. 线弹性阶段： 满足线性胡克定律（静水压力与体积应变关系）。2. 过渡阶段： 内部空洞逐渐坍塌产生塑性变形。3. 完全密实阶段： 气孔被压碎，材料表现为三次多项式压力关系。",
+  "question_type": "简答题",
+  "difficulty": "中等",
+  "scenario": "单文档单段落",
+  "source": "重力坝论文, 第502-503页",
+  "source_grounding": {
+    "parsed_docs": [
+      "水下爆炸冲击荷载作用下混凝土重力坝的破坏模式"
+    ],
+    "pages": [
+      502,
+      503
+    ],
+    "retrieved_chunk_ids": [
+      "水下爆炸冲击荷载作用下混凝土重力坝的破坏模式:p1-p2:c6",
+      "水下爆炸冲击荷载作用下混凝土重力坝的破坏模式:p2-p2:c7",
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p151-p151:c930"
+    ],
+    "ground_status": "fallback_semantic"
+  },
+  "criteria": [
+    {
+      "id": "c1",
+      "text": "明确指出 HJC 混凝土状态方程分为三个阶段或三段",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "process_completeness",
+      "evidence_quote": "HJC 混凝土的状态方程分三段"
+    },
+    {
+      "id": "c2",
+      "text": "指出第一阶段是线弹性阶段",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "第一阶段…线性"
+    },
+    {
+      "id": "c3",
+      "text": "指出第一阶段满足线性胡克定律或静水压力与体积应变关系",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "其线性…K 为段"
+    },
+    {
+      "id": "c4",
+      "text": "指出第二阶段是过渡阶段",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "过渡阶段"
+    },
+    {
+      "id": "c5",
+      "text": "指出第三阶段是完全密实阶段",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": null
+    },
+    {
+      "id": "c6",
+      "text": "解释第二阶段中内部空洞逐渐坍塌会产生塑性变形",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "材料内的空洞"
+    },
+    {
+      "id": "c7",
+      "text": "解释第三阶段中气孔被压碎后材料表现为三次多项式压力关系",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": null
+    },
+    {
+      "id": "c8",
+      "text": "回答以套话/开场白/元评论开头而无实质内容",
+      "category": "Pitfall",
+      "weight": 4,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c9",
+      "text": "回答篇幅冗长，包含大量与问题无关的背景铺垫或重复",
+      "category": "Pitfall",
+      "weight": 3,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    }
+  ],
+  "rubric_metadata": {
+    "generation_model": "openai/gpt-5.4-mini",
+    "generation_passes": 3,
+    "n_criteria_initial": 9,
+    "n_criteria_final": 9,
+    "n_dropped_misaligned": 0,
+    "ref_answer_self_score": null,
+    "weak_answer_self_score": null,
+    "generated_at": "2026-05-22T07:14:15.460610+00:00",
+    "schema_version": "1.0"
+  },
+  "item_idx": 31
+}

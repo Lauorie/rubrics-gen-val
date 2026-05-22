@@ -1,0 +1,110 @@
+{
+  "question_id": "70",
+  "question": "若需要模拟潜艇在大范围水域中的远场抗震性，且计算资源极其紧张，应决定采用哪种建模方式？",
+  "reference_answer": "决策： 采用USA（Underwater Shock Analysis）代码联用。逻辑： USA基于边界元法，无需建立庞大的水域有限元模型，计算时间仅需几百秒，比ALE方法快一个数量级以上。",
+  "question_type": "决策题",
+  "difficulty": "中等",
+  "scenario": "单文档多段落",
+  "source": "ThyssenKrupp论文, 第10-12页",
+  "source_grounding": {
+    "parsed_docs": [
+      "oezarmut_thyssenkrupp_Fluid-Composite_Structure-Interaction_in_Underwater_Shock_Simulations"
+    ],
+    "pages": [
+      10,
+      12
+    ],
+    "retrieved_chunk_ids": [
+      "oezarmut_thyssenkrupp_Fluid-Composite_Structure-Interaction_in_Underwater_Shock_Simulations:p11-p11:c103",
+      "oezarmut_thyssenkrupp_Fluid-Composite_Structure-Interaction_in_Underwater_Shock_Simulations:p11-p11:c106",
+      "oezarmut_thyssenkrupp_Fluid-Composite_Structure-Interaction_in_Underwater_Shock_Simulations:p11-p12:c107"
+    ],
+    "ground_status": "page_specific"
+  },
+  "criteria": [
+    {
+      "id": "c1",
+      "text": "明确给出最终建模方式是 USA（Underwater Shock Analysis）代码联用",
+      "category": "Essential",
+      "weight": 6,
+      "sign": "positive",
+      "criterion_type": "decision_logic",
+      "evidence_quote": "采用USA（Underwater Shock Analysis）代码联用"
+    },
+    {
+      "id": "c2",
+      "text": "指出 USA 基于边界元法（BEM）",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "USA基于边界元法"
+    },
+    {
+      "id": "c3",
+      "text": "说明 USA 无需建立庞大的水域有限元模型",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "无需建立庞大的水域有限元模型"
+    },
+    {
+      "id": "c4",
+      "text": "指出 USA 可作为需要建模大量水体时的替代方案",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "decision_logic",
+      "evidence_quote": "the USA code can become an alternative for cases where significant amount of water has to be modelled"
+    },
+    {
+      "id": "c5",
+      "text": "指出在不建水域模型时，计算时间可减少至少一个数量级",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "decision_logic",
+      "evidence_quote": "The computation time is reduced by at least one order of magnitude if the water is not modeled"
+    },
+    {
+      "id": "c6",
+      "text": "给出计算时间仅需几百秒",
+      "category": "Important",
+      "weight": 4,
+      "sign": "positive",
+      "criterion_type": "numeric_precision",
+      "evidence_quote": "计算时间仅需几百秒"
+    },
+    {
+      "id": "c8",
+      "text": "回答以套话/开场白/元评论开头而无实质内容",
+      "category": "Pitfall",
+      "weight": 4,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c9",
+      "text": "回答篇幅冗长，包含大量与问题无关的背景铺垫或重复",
+      "category": "Pitfall",
+      "weight": 3,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    }
+  ],
+  "rubric_metadata": {
+    "generation_model": "openai/gpt-5.4-mini",
+    "generation_passes": 3,
+    "n_criteria_initial": 9,
+    "n_criteria_final": 8,
+    "n_dropped_misaligned": 1,
+    "ref_answer_self_score": null,
+    "weak_answer_self_score": null,
+    "generated_at": "2026-05-22T08:41:41.077665+00:00",
+    "schema_version": "1.0"
+  },
+  "item_idx": 85
+}

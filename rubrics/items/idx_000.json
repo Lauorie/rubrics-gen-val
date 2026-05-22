@@ -1,0 +1,146 @@
+{
+  "question_id": "1",
+  "question": "在流固耦合（FSI）仿真中，“附加质量效应”为何会导致数值不稳定？",
+  "reference_answer": "流体与结构密度接近： 当流体密度与结构密度在同一数量级时（如生物医疗中的血液与动脉，或水与轻质结构），隐式分区算法的迭代过程极易不收敛。压力偏析： 分区方案本质上属于压力偏析解法，在计算结构域时使用的是上一迭代步的压力，这种滞后在强耦合下会放大误差导致失稳。算法限制： 松散耦合（Loosely coupled）方案在此类问题下通常是不稳定的，必须采用单块（Monolithic）方法或改进的压力投影技术。",
+  "question_type": "主观题",
+  "difficulty": "困难",
+  "scenario": "单文档多段落",
+  "source": "Benson教材, 第4章, 第166-189页",
+  "source_grounding": {
+    "parsed_docs": [
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson"
+    ],
+    "pages": [
+      166,
+      189
+    ],
+    "retrieved_chunk_ids": [
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p180-p180:c1097",
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p180-p180:c1088",
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p175-p175:c1081"
+    ],
+    "ground_status": "page_specific"
+  },
+  "criteria": [
+    {
+      "id": "c1",
+      "text": "指出流体密度与结构密度接近，或二者处于同一数量级时更容易出现 added-mass 问题",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": null
+    },
+    {
+      "id": "c2",
+      "text": "指出当 added-mass effect 很重要时，强耦合迭代过程可能变得困难甚至不收敛",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "the iterative process in the strongly coupled scheme may be difficult (even non-convergent) when the so-called “added-mass effect” is important"
+    },
+    {
+      "id": "c3",
+      "text": "指出分区方法在结构域计算时使用的是上一迭代步的压力",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": null
+    },
+    {
+      "id": "c4",
+      "text": "解释上一迭代步压力会在流体-结构耦合中引入压力滞后",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": null
+    },
+    {
+      "id": "c5",
+      "text": "解释这种压力滞后会在强耦合条件下放大误差",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": null
+    },
+    {
+      "id": "c6",
+      "text": "引发失稳",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": null
+    },
+    {
+      "id": "c7",
+      "text": "指出松散耦合（Loosely coupled）方案在该类 added-mass 问题下通常不稳定",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "decision_logic",
+      "evidence_quote": null
+    },
+    {
+      "id": "c8",
+      "text": "指出需要采用单块（Monolithic）方法或改进的压力投影技术来避免数值不稳定",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "decision_logic",
+      "evidence_quote": "a monolithic scheme seems to be necessary to avoid numerical instabilities"
+    },
+    {
+      "id": "c9",
+      "text": "比较时明确把 monolithic 方法作为 added-mass 显著时比分区/松散耦合更稳的选择",
+      "category": "Optional",
+      "weight": 1,
+      "sign": "positive",
+      "criterion_type": "comparative_balance",
+      "evidence_quote": null
+    },
+    {
+      "id": "c10",
+      "text": "回答以套话/开场白/元评论开头而无实质内容",
+      "category": "Pitfall",
+      "weight": 4,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c11",
+      "text": "回答篇幅冗长，包含大量与问题无关的背景铺垫或重复",
+      "category": "Pitfall",
+      "weight": 3,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c12",
+      "text": "把不稳定仅归因于网格粗细、时间步长或一般离散误差，而没有提到 added-mass 或 pressure segregation",
+      "category": "Pitfall",
+      "weight": 4,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    }
+  ],
+  "rubric_metadata": {
+    "generation_model": "openai/gpt-5.4-mini",
+    "generation_passes": 3,
+    "n_criteria_initial": 11,
+    "n_criteria_final": 12,
+    "n_dropped_misaligned": 0,
+    "ref_answer_self_score": null,
+    "weak_answer_self_score": null,
+    "generated_at": "2026-05-22T06:24:10.098787+00:00",
+    "schema_version": "1.0"
+  },
+  "item_idx": 0
+}

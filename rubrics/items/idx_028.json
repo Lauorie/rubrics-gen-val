@@ -1,0 +1,110 @@
+{
+  "question_id": "29",
+  "question": "什么是输运算法中的“一致性条件（Consistency Condition）”？",
+  "reference_answer": "定义： 如果一个物体在输运前具有均匀的速度场但密度空间变化，输运后的速度场应保持均匀且不变。这保证了动量输运与质量输运在逻辑上的匹配。",
+  "question_type": "简答题",
+  "difficulty": "困难",
+  "scenario": "单文档单段落",
+  "source": "Benson教材, 第37页",
+  "source_grounding": {
+    "parsed_docs": [
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson"
+    ],
+    "pages": [
+      37,
+      37
+    ],
+    "retrieved_chunk_ids": [
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p37-p37:c246",
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p37-p37:c253",
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p36-p37:c245"
+    ],
+    "ground_status": "page_specific"
+  },
+  "criteria": [
+    {
+      "id": "c2",
+      "text": "指出输运前物体具有均匀的速度场",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "如果一个物体在输运前具有均匀的速度场"
+    },
+    {
+      "id": "c3",
+      "text": "指出输运前密度在空间上变化",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "但密度空间变化"
+    },
+    {
+      "id": "c4",
+      "text": "指出输运后速度场应保持均匀且不变",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "输运后的速度场应保持均匀且不变"
+    },
+    {
+      "id": "c5",
+      "text": "指出该条件用于保证动量输运与质量输运在逻辑上的匹配",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "这保证了动量输运与质量输运在逻辑上的匹配"
+    },
+    {
+      "id": "c6",
+      "text": "解释其含义是：当仅密度发生空间变化时，输运过程不应引入速度场的非均匀性",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "均匀的速度场但密度空间变化"
+    },
+    {
+      "id": "c7",
+      "text": "说明一致性条件约束的是质量重分布后速度场仍保持原有均匀状态，而不是让速度随密度变化而改变",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "输运后的速度场应保持均匀且不变"
+    },
+    {
+      "id": "c8",
+      "text": "回答以套话/开场白/元评论开头而无实质内容",
+      "category": "Pitfall",
+      "weight": 4,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c9",
+      "text": "回答篇幅冗长，包含大量与问题无关的背景铺垫或重复",
+      "category": "Pitfall",
+      "weight": 3,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    }
+  ],
+  "rubric_metadata": {
+    "generation_model": "openai/gpt-5.4-mini",
+    "generation_passes": 3,
+    "n_criteria_initial": 9,
+    "n_criteria_final": 8,
+    "n_dropped_misaligned": 1,
+    "ref_answer_self_score": null,
+    "weak_answer_self_score": null,
+    "generated_at": "2026-05-22T07:09:15.904937+00:00",
+    "schema_version": "1.0"
+  },
+  "item_idx": 28
+}

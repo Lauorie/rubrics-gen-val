@@ -1,0 +1,110 @@
+{
+  "question_id": "55",
+  "question": "在ALE算法中，“网格松弛”（Mesh Relaxation）的主要作用是什么？",
+  "reference_answer": "保持网格质量： 当Lagrangian步导致单元严重畸变时，通过松弛算法（如Winslow或等势法）将内部节点重新分布，以保持网格的拓扑规整。提高稳定性： 良好的网格质量可以防止由于极小单元导致的时间步长骤减，从而维持计算的数值稳定性。",
+  "question_type": "简答题",
+  "difficulty": "中等",
+  "scenario": "单文档单段落",
+  "source": "Benson教材, 第25-27页",
+  "source_grounding": {
+    "parsed_docs": [
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson"
+    ],
+    "pages": [
+      25,
+      27
+    ],
+    "retrieved_chunk_ids": [
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p26-p26:c159",
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p27-p27:c168",
+      "Arbitrary_Lagrangian-Eulerian_and_Fluid-Structure_Interaction_Numerical_Simulation_Benson:p25-p26:c152"
+    ],
+    "ground_status": "page_specific"
+  },
+  "criteria": [
+    {
+      "id": "c1",
+      "text": "指出网格松弛的主要作用是保持网格质量",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "保持网格质量"
+    },
+    {
+      "id": "c2",
+      "text": "指出网格松弛在 Lagrangian 步导致单元严重畸变时使用",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "当Lagrangian步导致单元严重畸变时"
+    },
+    {
+      "id": "c3",
+      "text": "指出网格松弛会重新分布内部节点",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "将内部节点重新分布"
+    },
+    {
+      "id": "c4",
+      "text": "指出网格松弛可保持网格的拓扑规整",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "以保持网格的拓扑规整"
+    },
+    {
+      "id": "c5",
+      "text": "说明 Winslow 法或等势法可作为网格松弛算法",
+      "category": "Important",
+      "weight": 3,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": "如Winslow或等势法"
+    },
+    {
+      "id": "c6",
+      "text": "解释小单元会导致时间步长骤减，从而影响数值稳定性",
+      "category": "Important",
+      "weight": 4,
+      "sign": "positive",
+      "criterion_type": "mechanism_explanation",
+      "evidence_quote": "防止由于极小单元导致的时间步长骤减，从而维持计算的数值稳定性"
+    },
+    {
+      "id": "c7",
+      "text": "回答以套话/开场白/元评论开头而无实质内容",
+      "category": "Pitfall",
+      "weight": 4,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    },
+    {
+      "id": "c8",
+      "text": "回答篇幅冗长，包含大量与问题无关的背景铺垫或重复",
+      "category": "Pitfall",
+      "weight": 3,
+      "sign": "negative",
+      "criterion_type": "anti_hacking",
+      "evidence_quote": null
+    }
+  ],
+  "rubric_metadata": {
+    "generation_model": "openai/gpt-5.4-mini",
+    "generation_passes": 3,
+    "n_criteria_initial": 8,
+    "n_criteria_final": 8,
+    "n_dropped_misaligned": 0,
+    "ref_answer_self_score": null,
+    "weak_answer_self_score": null,
+    "generated_at": "2026-05-22T08:14:59.429501+00:00",
+    "schema_version": "1.0"
+  },
+  "item_idx": 70
+}
