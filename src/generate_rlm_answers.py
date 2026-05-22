@@ -112,6 +112,7 @@ def build_env_overrides(*, papers_dir: Path) -> dict[str, str]:
     if not api_key:
         raise ValueError("OPENAI_API_KEY not set (export it or source .env)")
     return {
+        "PYTHONPATH": f"{_RLM_ROOT / 'papers_qa'}:{_RLM_ROOT / 'rlm'}",
         "OPENAI_API_KEY": api_key,
         "OPENAI_BASE_URL": os.environ.get("OPENAI_BASE_URL", "https://aiberm.com/v1"),
         "PAPERS_QA_MODEL": os.environ.get("PAPERS_QA_MODEL", "deepseek/deepseek-v4-flash"),

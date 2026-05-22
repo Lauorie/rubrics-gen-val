@@ -152,6 +152,17 @@ def test_build_env_overrides_pins_papers_dir(monkeypatch) -> None:
     assert env["PAPERS_QA_DISABLE_DISK_LOGGER"] == "1"
 
 
+def test_build_env_overrides_includes_pythonpath_for_workers(monkeypatch) -> None:
+    """Workers need papers_qa and rlm on PYTHONPATH (neither is pip-installed)."""
+    monkeypatch.setenv("OPENAI_API_KEY", "sk-test")
+    env = build_env_overrides(papers_dir=Path("/tmp/cae"))
+    pp = env["PYTHONPATH"]
+    assert "/papers_qa" in pp
+    assert "/rlm" in pp
+    # Two entries, colon-separated
+    assert ":" in pp
+
+
 def test_build_env_overrides_requires_api_key(monkeypatch) -> None:
     monkeypatch.delenv("OPENAI_API_KEY", raising=False)
     import pytest as _pytest
