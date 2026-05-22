@@ -6,3 +6,6 @@ __pycache__/
 data/cae_chunk_index.pkl
 data/generate-*.log
 rubrics/items_v1_backup/
+data/eval_*.json
+data/CAE-anchor-scores.json
+tests/preds_*.jsonl
