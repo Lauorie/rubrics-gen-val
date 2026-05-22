@@ -36,3 +36,33 @@ def test_save_rubrics_json_pretty_2_space_indent(tmp_path: Path) -> None:
     save_rubrics_json(p, [{"a": 1}])
     expected = json.dumps([{"a": 1}], ensure_ascii=False, indent=2) + "\n"
     assert p.read_text() == expected
+
+
+from generate_rlm_answers import to_inference_items
+
+
+def test_to_inference_items_maps_question_id_to_id() -> None:
+    rubrics = [
+        {"question_id": "1", "question": "Q1", "reference_answer": "ignored"},
+        {"question_id": "2", "question": "Q2"},
+    ]
+    items = to_inference_items(rubrics)
+    assert items == [{"id": "1", "question": "Q1"}, {"id": "2", "question": "Q2"}]
+
+
+def test_to_inference_items_skips_items_missing_question() -> None:
+    rubrics = [
+        {"question_id": "1", "question": "Q1"},
+        {"question_id": "2"},  # no question — must be skipped, not crash
+    ]
+    items = to_inference_items(rubrics)
+    assert [it["id"] for it in items] == ["1"]
+
+
+def test_to_inference_items_raises_on_duplicate_id() -> None:
+    import pytest as _pytest
+    with _pytest.raises(ValueError, match="duplicate question_id"):
+        to_inference_items([
+            {"question_id": "1", "question": "Q1"},
+            {"question_id": "1", "question": "Q1-dup"},
+        ])

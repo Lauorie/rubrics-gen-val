@@ -35,3 +35,25 @@ def save_rubrics_json(path: Path, items: list[dict[str, Any]]) -> None:
         json.dump(items, f, ensure_ascii=False, indent=2)
         f.write("\n")
     os.replace(tmp, path)
+
+
+def to_inference_items(rubrics: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Project rubrics → list of {id, question} dicts for rlm_runner.
+
+    - `question_id` (str) → `id` (str)
+    - drops items without a `question` field (logs a warning)
+    - raises if two items share the same `question_id`
+    """
+    seen: set[str] = set()
+    items: list[dict[str, Any]] = []
+    for r in rubrics:
+        qid = str(r["question_id"])
+        q = r.get("question")
+        if not q:
+            logger.warning("Skipping question_id=%s: no `question` field", qid)
+            continue
+        if qid in seen:
+            raise ValueError(f"duplicate question_id: {qid}")
+        seen.add(qid)
+        items.append({"id": qid, "question": q})
+    return items
