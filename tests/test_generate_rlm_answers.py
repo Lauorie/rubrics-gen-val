@@ -1,4 +1,5 @@
 import json
+import os
 import sys
 from pathlib import Path
 from typing import Any
@@ -244,3 +245,33 @@ def test_main_invokes_run_inference_with_correct_args(tmp_path, monkeypatch) -> 
     out = json.loads(out_path.read_text())
     assert out[0]["rlm_answer"] == "A1"
     assert out[1]["rlm_answer"] == "A2"
+
+
+def test_main_propagates_pythonpath_to_parent_env(tmp_path, monkeypatch) -> None:
+    """The parent process's os.environ['PYTHONPATH'] must be set before workers spawn."""
+    in_path = tmp_path / "rubrics.json"
+    in_path.write_text(json.dumps([{"question_id": "1", "question": "Q1"}], ensure_ascii=False))
+    out_path = tmp_path / "out.json"
+    jsonl_path = tmp_path / "ans.jsonl"
+    papers = tmp_path / "papers"
+    papers.mkdir()
+    (papers / "x.md").write_text("y")
+
+    captured: dict[str, str] = {}
+
+    def fake_run_inference(*, items, out_path, max_workers, use_processes, env_overrides):
+        captured["env_at_call"] = os.environ.get("PYTHONPATH", "")
+        out_path.write_text(json.dumps({"id": "1", "answer": "A", "error": None}) + "\n")
+
+    monkeypatch.setenv("OPENAI_API_KEY", "sk-test")
+    monkeypatch.delenv("PYTHONPATH", raising=False)
+    monkeypatch.setattr(_sys, "argv", [
+        "generate_rlm_answers.py",
+        "--input", str(in_path), "--output", str(out_path),
+        "--jsonl", str(jsonl_path), "--papers-dir", str(papers),
+    ])
+    import generate_rlm_answers as mod
+    monkeypatch.setattr(mod, "run_inference", fake_run_inference)
+    assert mod.main() == 0
+    assert "/papers_qa" in captured["env_at_call"]
+    assert "/rlm" in captured["env_at_call"]

@@ -188,12 +188,21 @@ def main() -> int:
         items = to_inference_items(rubrics)
         logger.info("Running inference on %d items, workers=%d", len(items), args.workers)
         args.jsonl.parent.mkdir(parents=True, exist_ok=True)
+        env_overrides = build_env_overrides(papers_dir=args.papers_dir)
+        # Workers need papers_qa + rlm on sys.path at interpreter startup;
+        # setting it in env_overrides alone is too late (those run inside the
+        # worker after Python has already initialized sys.path). Propagate to
+        # the parent env so children inherit it during spawn/fork.
+        os.environ["PYTHONPATH"] = env_overrides["PYTHONPATH"]
+        for p in env_overrides["PYTHONPATH"].split(":"):
+            if p and p not in sys.path:
+                sys.path.insert(0, p)
         run_inference(
             items=items,
             out_path=args.jsonl,
             max_workers=args.workers,
             use_processes=True,
-            env_overrides=build_env_overrides(papers_dir=args.papers_dir),
+            env_overrides=env_overrides,
         )
 
     merged = merge_answers_into_rubrics(rubrics, args.jsonl)
