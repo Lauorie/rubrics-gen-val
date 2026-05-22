@@ -1,7 +1,7 @@
 """Generate `rlm_answer` for each item in a rubrics JSON array.
 
 Pipeline:
-  1. Load JSON array (data/CAE-v2.0-1-rubrics.json) with `question_id` + `question`.
+  1. Load JSON array (data/CAE-v2.0-1-rubrics.json) with `item_idx` + `question`.
   2. Project to {id, question} pairs.
   3. Defer to academic-eval/rlm_runner.run_inference() for concurrent + resume.
   4. Merge JSONL output back into the JSON array, adding `rlm_answer`.
@@ -19,6 +19,8 @@ from pathlib import Path
 from typing import Any
 
 logger = logging.getLogger(__name__)
+
+DEFAULT_ID_FIELD = "item_idx"
 
 
 def load_rubrics_json(path: Path) -> list[dict[str, Any]]:
@@ -40,23 +42,27 @@ def save_rubrics_json(path: Path, items: list[dict[str, Any]]) -> None:
     os.replace(tmp, path)
 
 
-def to_inference_items(rubrics: list[dict[str, Any]]) -> list[dict[str, Any]]:
+def to_inference_items(
+    rubrics: list[dict[str, Any]],
+    *,
+    id_field: str = DEFAULT_ID_FIELD,
+) -> list[dict[str, Any]]:
     """Project rubrics → list of {id, question} dicts for rlm_runner.
 
-    - `question_id` (str) → `id` (str)
+    - `id_field` (default: ``item_idx``) → `id` (str)
     - drops items without a `question` field (logs a warning)
-    - raises if two items share the same `question_id`
+    - raises if two items share the same value of `id_field`
     """
     seen: set[str] = set()
     items: list[dict[str, Any]] = []
     for r in rubrics:
-        qid = str(r["question_id"])
+        qid = str(r[id_field])
         q = r.get("question")
         if not q:
-            logger.warning("Skipping question_id=%s: no `question` field", qid)
+            logger.warning("Skipping %s=%s: no `question` field", id_field, qid)
             continue
         if qid in seen:
-            raise ValueError(f"duplicate question_id: {qid}")
+            raise ValueError(f"duplicate {id_field}: {qid}")
         seen.add(qid)
         items.append({"id": qid, "question": q})
     return items
@@ -65,6 +71,8 @@ def to_inference_items(rubrics: list[dict[str, Any]]) -> list[dict[str, Any]]:
 def merge_answers_into_rubrics(
     rubrics: list[dict[str, Any]],
     answers_jsonl: Path,
+    *,
+    id_field: str = DEFAULT_ID_FIELD,
 ) -> list[dict[str, Any]]:
     """Return a new list of rubric dicts with `rlm_answer` + `rlm_error` attached.
 
@@ -72,6 +80,9 @@ def merge_answers_into_rubrics(
     `{id, answer, error, ...}`). Last row wins per `id` so a successful retry
     overrides an earlier failure. Items missing from the JSONL get both fields
     set to None. Does NOT mutate the input list.
+
+    The join key on the rubric side is `id_field` (default: ``item_idx``);
+    it is matched against the `id` field in each JSONL row.
     """
     by_id: dict[str, dict[str, Any]] = {}
     if answers_jsonl.exists():
@@ -86,7 +97,7 @@ def merge_answers_into_rubrics(
     merged: list[dict[str, Any]] = []
     for r in rubrics:
         new = copy.deepcopy(r)
-        qid = str(r["question_id"])
+        qid = str(r[id_field])
         row = by_id.get(qid)
         new["rlm_answer"] = (row.get("answer") if row else None)
         new["rlm_error"] = (row.get("error") if row else None)
@@ -168,6 +179,11 @@ def main() -> int:
         help="Skip inference; produce output JSON with all rlm_answer=null (for I/O testing).",
     )
     parser.add_argument(
+        "--id-field",
+        default=DEFAULT_ID_FIELD,
+        help="Field in each rubric item to use as the unique join key (default: item_idx).",
+    )
+    parser.add_argument(
         "--log-level",
         default="INFO",
         choices=["DEBUG", "INFO", "WARNING", "ERROR"],
@@ -185,7 +201,7 @@ def main() -> int:
     logger.info("Loaded %d rubric items from %s", len(rubrics), args.input)
 
     if not args.dry_run:
-        items = to_inference_items(rubrics)
+        items = to_inference_items(rubrics, id_field=args.id_field)
         logger.info("Running inference on %d items, workers=%d", len(items), args.workers)
         args.jsonl.parent.mkdir(parents=True, exist_ok=True)
         env_overrides = build_env_overrides(papers_dir=args.papers_dir)
@@ -205,7 +221,7 @@ def main() -> int:
             env_overrides=env_overrides,
         )
 
-    merged = merge_answers_into_rubrics(rubrics, args.jsonl)
+    merged = merge_answers_into_rubrics(rubrics, args.jsonl, id_field=args.id_field)
     save_rubrics_json(output_path, merged)
     n_ok = sum(1 for r in merged if r["rlm_answer"] is not None)
     n_err = sum(1 for r in merged if r["rlm_error"] is not None)
