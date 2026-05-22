@@ -1,6 +1,7 @@
 import json
 import sys
 from pathlib import Path
+from typing import Any
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
@@ -66,3 +67,70 @@ def test_to_inference_items_raises_on_duplicate_id() -> None:
             {"question_id": "1", "question": "Q1"},
             {"question_id": "1", "question": "Q1-dup"},
         ])
+
+
+from generate_rlm_answers import merge_answers_into_rubrics
+
+
+def _jsonl(tmp_path: Path, rows: list[dict[str, Any]]) -> Path:
+    p = tmp_path / "answers.jsonl"
+    p.write_text("\n".join(json.dumps(r, ensure_ascii=False) for r in rows) + "\n")
+    return p
+
+
+def test_merge_attaches_rlm_answer_by_question_id(tmp_path: Path) -> None:
+    rubrics = [
+        {"question_id": "1", "question": "Q1", "reference_answer": "R1"},
+        {"question_id": "2", "question": "Q2"},
+    ]
+    answers = _jsonl(tmp_path, [
+        {"id": "1", "answer": "A1", "error": None},
+        {"id": "2", "answer": "A2", "error": None},
+    ])
+    out = merge_answers_into_rubrics(rubrics, answers)
+    assert out[0]["rlm_answer"] == "A1"
+    assert out[0]["reference_answer"] == "R1"  # original field preserved
+    assert out[1]["rlm_answer"] == "A2"
+
+
+def test_merge_marks_missing_as_null(tmp_path: Path) -> None:
+    rubrics = [{"question_id": "1", "question": "Q1"}, {"question_id": "2", "question": "Q2"}]
+    answers = _jsonl(tmp_path, [{"id": "1", "answer": "A1", "error": None}])
+    out = merge_answers_into_rubrics(rubrics, answers)
+    assert out[0]["rlm_answer"] == "A1"
+    assert out[1]["rlm_answer"] is None
+    assert out[1]["rlm_error"] is None  # not failed, just not yet processed
+
+
+def test_merge_propagates_error_string(tmp_path: Path) -> None:
+    rubrics = [{"question_id": "1", "question": "Q1"}]
+    answers = _jsonl(tmp_path, [{"id": "1", "answer": None, "error": "RuntimeError: boom"}])
+    out = merge_answers_into_rubrics(rubrics, answers)
+    assert out[0]["rlm_answer"] is None
+    assert out[0]["rlm_error"] == "RuntimeError: boom"
+
+
+def test_merge_last_row_wins_on_duplicate_id(tmp_path: Path) -> None:
+    """JSONL append can have a failed row then a retry success — keep latest."""
+    rubrics = [{"question_id": "1", "question": "Q1"}]
+    answers = _jsonl(tmp_path, [
+        {"id": "1", "answer": None, "error": "transient"},
+        {"id": "1", "answer": "A1-retry", "error": None},
+    ])
+    out = merge_answers_into_rubrics(rubrics, answers)
+    assert out[0]["rlm_answer"] == "A1-retry"
+    assert out[0]["rlm_error"] is None
+
+
+def test_merge_does_not_mutate_input(tmp_path: Path) -> None:
+    rubrics = [{"question_id": "1", "question": "Q1"}]
+    answers = _jsonl(tmp_path, [{"id": "1", "answer": "A", "error": None}])
+    merge_answers_into_rubrics(rubrics, answers)
+    assert "rlm_answer" not in rubrics[0]  # input list untouched
+
+
+def test_merge_missing_answers_file_yields_all_null(tmp_path: Path) -> None:
+    rubrics = [{"question_id": "1", "question": "Q1"}]
+    out = merge_answers_into_rubrics(rubrics, tmp_path / "nope.jsonl")
+    assert out[0]["rlm_answer"] is None
+    assert out[0]["rlm_error"] is None

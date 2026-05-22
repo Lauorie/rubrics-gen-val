@@ -9,6 +9,7 @@ Pipeline:
 """
 from __future__ import annotations
 
+import copy
 import json
 import logging
 import os
@@ -57,3 +58,35 @@ def to_inference_items(rubrics: list[dict[str, Any]]) -> list[dict[str, Any]]:
         seen.add(qid)
         items.append({"id": qid, "question": q})
     return items
+
+
+def merge_answers_into_rubrics(
+    rubrics: list[dict[str, Any]],
+    answers_jsonl: Path,
+) -> list[dict[str, Any]]:
+    """Return a new list of rubric dicts with `rlm_answer` + `rlm_error` attached.
+
+    Reads `answers_jsonl` (one JSON record per line, schema = rlm_runner output:
+    `{id, answer, error, ...}`). Last row wins per `id` so a successful retry
+    overrides an earlier failure. Items missing from the JSONL get both fields
+    set to None. Does NOT mutate the input list.
+    """
+    by_id: dict[str, dict[str, Any]] = {}
+    if answers_jsonl.exists():
+        with answers_jsonl.open(encoding="utf-8") as f:
+            for line in f:
+                line = line.strip()
+                if not line:
+                    continue
+                row = json.loads(line)
+                by_id[str(row["id"])] = row  # last write wins
+
+    merged: list[dict[str, Any]] = []
+    for r in rubrics:
+        new = copy.deepcopy(r)
+        qid = str(r["question_id"])
+        row = by_id.get(qid)
+        new["rlm_answer"] = (row.get("answer") if row else None)
+        new["rlm_error"] = (row.get("error") if row else None)
+        merged.append(new)
+    return merged
