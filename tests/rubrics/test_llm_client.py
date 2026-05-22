@@ -54,3 +54,23 @@ def test_llm_client_raises_on_non_json_response(mocker):
     client = LLMClient(cfg)
     with pytest.raises(ValueError):
         client.complete_json(system="s", user="u", schema_hint="x")
+
+
+@pytest.mark.asyncio
+async def test_llm_client_async_completion(mocker):
+    """Async path uses httpx.AsyncClient and parses JSON like the sync path."""
+    response = {
+        "choices": [{"message": {"content": json.dumps({"ok": True})}}],
+        "usage": {"prompt_tokens": 10, "completion_tokens": 5},
+    }
+    mock_resp = mocker.Mock(status_code=200, json=lambda: response)
+    mock_resp.raise_for_status = lambda: None
+
+    async def fake_post(self, *args, **kwargs):
+        return mock_resp
+
+    mocker.patch.object(httpx.AsyncClient, "post", new=fake_post)
+    cfg = LLMConfig(api_key="sk-x", base_url="https://example/v1", model="m")
+    client = LLMClient(cfg)
+    out = await client.complete_json_async(system="s", user="u", schema_hint="x")
+    assert out == {"ok": True}

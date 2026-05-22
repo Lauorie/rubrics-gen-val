@@ -81,3 +81,48 @@ class LLMClient:
         except json.JSONDecodeError as e:
             logger.error("Failed to parse JSON. Raw content (first 500 chars): %s", content[:500])
             raise ValueError(f"LLM did not return valid JSON: {e}") from e
+
+    async def complete_json_async(
+        self, system: str, user: str, schema_hint: str,
+        temperature: float | None = None, model: str | None = None,
+    ) -> Any:
+        """Async variant of complete_json. Uses a fresh httpx.AsyncClient per call.
+
+        Retries on 5xx / connection errors via tenacity AsyncRetrying.
+        """
+        from tenacity import AsyncRetrying
+
+        async def _do_call() -> dict:
+            async with httpx.AsyncClient(timeout=self.cfg.timeout_s) as ac:
+                r = await ac.post(
+                    f"{self.cfg.base_url}/chat/completions",
+                    headers={"Authorization": f"Bearer {self.cfg.api_key}"},
+                    json={
+                        "model": model or self.cfg.model,
+                        "temperature": temperature if temperature is not None else self.cfg.temperature,
+                        "messages": [
+                            {"role": "system", "content": system},
+                            {"role": "user", "content": user},
+                        ],
+                    },
+                )
+                r.raise_for_status()
+                return r.json()
+
+        data: dict | None = None
+        async for attempt in AsyncRetrying(
+            stop=stop_after_attempt(self.cfg.max_retries),
+            wait=wait_exponential(multiplier=1, min=1, max=8),
+            retry=retry_if_exception_type((httpx.HTTPStatusError, httpx.RequestError)),
+            reraise=True,
+        ):
+            with attempt:
+                data = await _do_call()
+        assert data is not None
+        content = data["choices"][0]["message"]["content"]
+        block = _extract_json_block(content)
+        try:
+            return json.loads(block)
+        except json.JSONDecodeError as e:
+            logger.error("Failed to parse JSON. Raw content (first 500): %s", content[:500])
+            raise ValueError(f"LLM did not return valid JSON: {e}") from e
