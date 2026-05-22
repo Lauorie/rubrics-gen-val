@@ -134,3 +134,104 @@ def test_merge_missing_answers_file_yields_all_null(tmp_path: Path) -> None:
     out = merge_answers_into_rubrics(rubrics, tmp_path / "nope.jsonl")
     assert out[0]["rlm_answer"] is None
     assert out[0]["rlm_error"] is None
+
+
+import subprocess
+import sys as _sys
+from unittest.mock import patch
+
+from generate_rlm_answers import build_env_overrides
+
+
+def test_build_env_overrides_pins_papers_dir(monkeypatch) -> None:
+    monkeypatch.setenv("OPENAI_API_KEY", "sk-test")
+    monkeypatch.setenv("OPENAI_BASE_URL", "https://example.invalid/v1")
+    env = build_env_overrides(papers_dir=Path("/tmp/cae"))
+    assert env["PAPERS_QA_PAPERS_DIR"] == "/tmp/cae"
+    assert env["OPENAI_API_KEY"] == "sk-test"
+    # No English-override addendum (questions are Chinese).
+    assert "PAPERS_QA_SYSTEM_PROMPT_ADDENDUM" not in env
+    assert env["PAPERS_QA_DISABLE_DISK_LOGGER"] == "1"
+
+
+def test_build_env_overrides_requires_api_key(monkeypatch) -> None:
+    monkeypatch.delenv("OPENAI_API_KEY", raising=False)
+    import pytest as _pytest
+    with _pytest.raises(ValueError, match="OPENAI_API_KEY"):
+        build_env_overrides(papers_dir=Path("/tmp/cae"))
+
+
+def test_main_dry_run_writes_output_with_null_answers(tmp_path: Path, monkeypatch) -> None:
+    """--dry-run: skip inference, just round-trip the JSON with null rlm_answer/rlm_error."""
+    in_path = tmp_path / "rubrics.json"
+    in_path.write_text(json.dumps(
+        [{"question_id": "1", "question": "Q1", "reference_answer": "R1"}],
+        ensure_ascii=False,
+    ))
+    out_path = tmp_path / "rubrics-out.json"
+    jsonl_path = tmp_path / "answers.jsonl"
+    papers = tmp_path / "papers"
+    papers.mkdir()
+    (papers / "a.md").write_text("x")
+
+    monkeypatch.setenv("OPENAI_API_KEY", "sk-test")
+    monkeypatch.setenv("OPENAI_BASE_URL", "https://example.invalid/v1")
+    monkeypatch.setattr(_sys, "argv", [
+        "generate_rlm_answers.py",
+        "--input", str(in_path),
+        "--output", str(out_path),
+        "--jsonl", str(jsonl_path),
+        "--papers-dir", str(papers),
+        "--dry-run",
+    ])
+    from generate_rlm_answers import main
+    rc = main()
+    assert rc == 0
+    out = json.loads(out_path.read_text())
+    assert out[0]["question_id"] == "1"
+    assert out[0]["reference_answer"] == "R1"
+    assert out[0]["rlm_answer"] is None
+    assert out[0]["rlm_error"] is None
+
+
+def test_main_invokes_run_inference_with_correct_args(tmp_path, monkeypatch) -> None:
+    in_path = tmp_path / "rubrics.json"
+    in_path.write_text(json.dumps(
+        [{"question_id": "1", "question": "Q1"},
+         {"question_id": "2", "question": "Q2"}],
+        ensure_ascii=False,
+    ))
+    out_path = tmp_path / "out.json"
+    jsonl_path = tmp_path / "ans.jsonl"
+    papers = tmp_path / "papers"
+    papers.mkdir()
+    (papers / "x.md").write_text("y")
+
+    # Pretend inference produced two records.
+    def fake_run_inference(*, items, out_path, max_workers, use_processes, env_overrides):
+        assert use_processes is True
+        assert env_overrides["PAPERS_QA_PAPERS_DIR"] == str(papers)
+        assert max_workers == 3
+        assert [it["id"] for it in items] == ["1", "2"]
+        out_path.write_text(
+            json.dumps({"id": "1", "answer": "A1", "error": None}) + "\n"
+            + json.dumps({"id": "2", "answer": "A2", "error": None}) + "\n"
+        )
+
+    monkeypatch.setenv("OPENAI_API_KEY", "sk-test")
+    monkeypatch.setenv("OPENAI_BASE_URL", "https://example.invalid/v1")
+    monkeypatch.setattr(_sys, "argv", [
+        "generate_rlm_answers.py",
+        "--input", str(in_path),
+        "--output", str(out_path),
+        "--jsonl", str(jsonl_path),
+        "--papers-dir", str(papers),
+        "--workers", "3",
+    ])
+    import generate_rlm_answers as mod
+    monkeypatch.setattr(mod, "run_inference", fake_run_inference)
+    rc = mod.main()
+    assert rc == 0
+    out = json.loads(out_path.read_text())
+    assert out[0]["rlm_answer"] == "A1"
+    assert out[1]["rlm_answer"] == "A2"

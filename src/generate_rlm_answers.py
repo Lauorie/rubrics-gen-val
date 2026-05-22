@@ -9,10 +9,12 @@ Pipeline:
 """
 from __future__ import annotations
 
+import argparse
 import copy
 import json
 import logging
 import os
+import sys
 from pathlib import Path
 from typing import Any
 
@@ -90,3 +92,109 @@ def merge_answers_into_rubrics(
         new["rlm_error"] = (row.get("error") if row else None)
         merged.append(new)
     return merged
+
+
+# academic-eval is a sibling top-level dir, not on sys.path by default.
+_RLM_ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(_RLM_ROOT / "academic-eval"))
+from rlm_runner import run_inference  # noqa: E402
+
+
+def build_env_overrides(*, papers_dir: Path) -> dict[str, str]:
+    """Env vars passed to each PapersQA worker process.
+
+    Pins PAPERS_QA_PAPERS_DIR to the CAE corpus. Inherits OPENAI creds and
+    PapersQA tuning knobs from the current process env (with safe defaults).
+    Deliberately omits PAPERS_QA_SYSTEM_PROMPT_ADDENDUM — questions are Chinese
+    and we want the default bilingual prompt unchanged.
+    """
+    api_key = os.environ.get("OPENAI_API_KEY")
+    if not api_key:
+        raise ValueError("OPENAI_API_KEY not set (export it or source .env)")
+    return {
+        "OPENAI_API_KEY": api_key,
+        "OPENAI_BASE_URL": os.environ.get("OPENAI_BASE_URL", "https://aiberm.com/v1"),
+        "PAPERS_QA_MODEL": os.environ.get("PAPERS_QA_MODEL", "deepseek/deepseek-v4-flash"),
+        "PAPERS_QA_PAPERS_DIR": str(papers_dir),
+        "PAPERS_QA_TEMPERATURE": os.environ.get("PAPERS_QA_TEMPERATURE", "0.2"),
+        "PAPERS_QA_MAX_ITERATIONS": os.environ.get("PAPERS_QA_MAX_ITERATIONS", "30"),
+        "PAPERS_QA_MAX_DEPTH": os.environ.get("PAPERS_QA_MAX_DEPTH", "2"),
+        "PAPERS_QA_MAX_BUDGET_USD": os.environ.get("PAPERS_QA_MAX_BUDGET_USD", "2.0"),
+        "PAPERS_QA_MAX_TIMEOUT_S": os.environ.get("PAPERS_QA_MAX_TIMEOUT_S", "900"),
+        "PAPERS_QA_THINKING_MODE": os.environ.get("PAPERS_QA_THINKING_MODE", "disabled"),
+        "PAPERS_QA_DISABLE_DISK_LOGGER": "1",
+    }
+
+
+def main() -> int:
+    """CLI entrypoint: generate rlm_answer for each item in a rubrics JSON array."""
+    parser = argparse.ArgumentParser(
+        description="Generate rlm_answer for each item in a rubrics JSON array.",
+    )
+    parser.add_argument(
+        "--input",
+        type=Path,
+        default=Path("/home/juli/RLM/data/CAE-v2.0-1-rubrics.json"),
+        help="Rubrics JSON array (read).",
+    )
+    parser.add_argument(
+        "--output",
+        type=Path,
+        default=None,
+        help="Output JSON path (default: same as --input, in-place).",
+    )
+    parser.add_argument(
+        "--jsonl",
+        type=Path,
+        default=Path("/home/juli/RLM/outputs/rlm-answers/cae-v2.0-1.jsonl"),
+        help="Intermediate JSONL path (resume source-of-truth).",
+    )
+    parser.add_argument(
+        "--papers-dir",
+        type=Path,
+        default=Path("/home/juli/RLM/CAE-MDs"),
+        help="Knowledge-base directory of *.md files.",
+    )
+    parser.add_argument("--workers", type=int, default=4)
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Skip inference; produce output JSON with all rlm_answer=null (for I/O testing).",
+    )
+    parser.add_argument("--log-level", default="INFO")
+    args = parser.parse_args()
+
+    logging.basicConfig(
+        level=getattr(logging, args.log_level),
+        format="%(asctime)s %(name)s %(levelname)s: %(message)s",
+    )
+
+    output_path = args.output or args.input
+    rubrics = load_rubrics_json(args.input)
+    logger.info("Loaded %d rubric items from %s", len(rubrics), args.input)
+
+    if not args.dry_run:
+        items = to_inference_items(rubrics)
+        logger.info("Running inference on %d items, workers=%d", len(items), args.workers)
+        args.jsonl.parent.mkdir(parents=True, exist_ok=True)
+        run_inference(
+            items=items,
+            out_path=args.jsonl,
+            max_workers=args.workers,
+            use_processes=True,
+            env_overrides=build_env_overrides(papers_dir=args.papers_dir),
+        )
+
+    merged = merge_answers_into_rubrics(rubrics, args.jsonl)
+    save_rubrics_json(output_path, merged)
+    n_ok = sum(1 for r in merged if r["rlm_answer"] is not None)
+    n_err = sum(1 for r in merged if r["rlm_error"] is not None)
+    logger.info(
+        "Wrote %s — %d/%d answered, %d errored.",
+        output_path, n_ok, len(merged), n_err,
+    )
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
