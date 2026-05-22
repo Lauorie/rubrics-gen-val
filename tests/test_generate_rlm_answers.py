@@ -136,9 +136,7 @@ def test_merge_missing_answers_file_yields_all_null(tmp_path: Path) -> None:
     assert out[0]["rlm_error"] is None
 
 
-import subprocess
 import sys as _sys
-from unittest.mock import patch
 
 from generate_rlm_answers import build_env_overrides
 

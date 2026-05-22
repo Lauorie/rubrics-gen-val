@@ -155,13 +155,23 @@ def main() -> int:
         default=Path("/home/juli/RLM/CAE-MDs"),
         help="Knowledge-base directory of *.md files.",
     )
-    parser.add_argument("--workers", type=int, default=4)
+    parser.add_argument(
+        "--workers",
+        type=int,
+        default=4,
+        help="Number of parallel PapersQA worker processes (default: 4).",
+    )
     parser.add_argument(
         "--dry-run",
         action="store_true",
         help="Skip inference; produce output JSON with all rlm_answer=null (for I/O testing).",
     )
-    parser.add_argument("--log-level", default="INFO")
+    parser.add_argument(
+        "--log-level",
+        default="INFO",
+        choices=["DEBUG", "INFO", "WARNING", "ERROR"],
+        help="Logging verbosity (default: INFO).",
+    )
     args = parser.parse_args()
 
     logging.basicConfig(
