@@ -15,19 +15,14 @@ _PROMPT = (Path(__file__).parent / "templates" / "misalignment_judge_prompt.txt"
 def _judge_one(
     judge_client: LLMClient, question: str, candidate: str, criterion: dict,
 ) -> bool:
-    user = (
-        f"[题目] {question}\n"
-        f"[候选回答] {candidate}\n"
-        f"[criterion] {criterion['text']}\n"
-        f"[criterion 类型] {criterion['criterion_type']}"
-    )
-    try:
-        out = judge_client.complete_json(system=_PROMPT, user=user, schema_hint="{met, reason}")
-        return bool(out.get("met", False))
-    except Exception as e:
-        logger.warning("Judge call failed for criterion %s: %s — treating as inconclusive (keep)", criterion.get("id"), e)
-        # Conservative: keep on judge failure (don't lose criteria to flaky API)
+    """Boolean shim for the generation-stage filter.
+    Returns conservative True for positive / False for negative on judge failure.
+    """
+    from rubrics.judge import judge_one_sync
+    result = judge_one_sync(judge_client, question, candidate, criterion)
+    if "error" in result:
         return True if criterion["sign"] == "positive" else False
+    return result["met"]
 
 
 def filter_misaligned(
