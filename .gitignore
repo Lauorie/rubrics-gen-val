@@ -9,3 +9,5 @@ rubrics/items_v1_backup/
 data/eval_*.json
 data/CAE-anchor-scores.json
 tests/preds_*.jsonl
+data/*.backup-*.json
+data/merge.json
