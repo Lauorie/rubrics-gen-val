@@ -431,10 +431,10 @@ python run/04_score_predictions.py \
 
 每题的原始分（`scoring.py:score_response`）：
 
-```text
-raw_score = (Σ w_i · met_i  for positive  −  Σ w_i · met_i  for pitfall) / Σ w_i  for positive
-clipped   = max(0, min(1, raw_score))
-```
+$raw\_score = \frac{\sum w_i \cdot met_i \text{ for positive} - \sum w_i \cdot met_i \text{ for pitfall}}{\sum w_i \text{ for positive}}$
+
+$clipped = \max(0, \min(1, raw\_score))$
+
 
 举例：一条 rubric 有正向权重 `[5, 5, 5, 3, 3, 3, 3]`（合计 27），陷阱 `[4, 3]`。某回答命中前 5 条正向、未触发陷阱：
 
