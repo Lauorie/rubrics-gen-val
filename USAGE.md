@@ -43,7 +43,46 @@
 
 ## 2. 30 分钟跑通
 
-_TBD_
+这一节用仓库自带的 2 题 smoke 输入跑通**评估**全流程，验证环境是否 OK。**不需要源文档、不需要重新生成 rubrics**（94 份已经在 `rubrics/items/` 里）。
+
+```bash
+# 1. 装依赖
+python3.11 -m venv .venv && source .venv/bin/activate
+pip install -e ".[dev]"
+
+# 2. 配 LLM
+cp .env.example .env
+# 编辑 .env，至少填好 LLM_API_KEY / LLM_BASE_URL / LLM_MODEL
+# 默认 LLM_BASE_URL=https://aiberm.com/v1，LLM_MODEL=openai/gpt-5.4-mini
+
+# 3. 跑一次 smoke 评估
+python run/04_score_predictions.py \
+    --predictions tests/preds_sample.jsonl \
+    --out data/eval_smoke.json \
+    --concurrency 8
+
+# 4. 看聚合分
+jq '.aggregate' data/eval_smoke.json
+```
+
+预期输出（数字会略有差异，量级一致即可）：
+
+```json
+{
+  "n_predictions": 2,
+  "n_scored_ok": 2,
+  "n_errors": 0,
+  "mean_score": 0.86,
+  "mean_anchored": 0.86,
+  "by_question_type": { "主观题": { "n": 1, "mean": 0.84 }, "数值提取题": { "n": 1, "mean": 0.89 } }
+}
+```
+
+如果跑通了，恭喜，环境 OK。接下来你可以：
+
+- 想**生成**新的 rubric → 跳到 §5（需要源文档 + embedding 模型）。
+- 想**评估**自己的模型 → 跳到 §6（只需要把预测整理成 JSONL）。
+- 想**换到非 CAE 数据** → 跳到 §7。
 
 ## 3. 环境准备
 
