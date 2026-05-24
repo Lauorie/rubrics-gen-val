@@ -470,8 +470,12 @@ async def compute_anchor_for_rubric(rubric, judge_client, weak_answer="我不知
 
 **归一化公式**（`scorer.py:_compute_anchored`）：
 
+
 $$
-\text{normalized} = \mathrm{clip}_{[0,1]}\left( \frac{\text{score} - \text{weak\_score}}{\text{ref\_score} - \text{weak\_score}} \right)
+\text{normalized} = \mathrm{clip}_{[0,1]}\left(
+\frac{\mathrm{score} - \mathrm{weak\_score}}
+{\mathrm{ref\_score} - \mathrm{weak\_score}}
+\right)
 $$
 
 退化情况：当 `ref_score <= weak_score` 时（rubric 校准失败，参考答案得分不如"我不知道"），返回 `normalized=null` 并打 warning。这通常意味着该 rubric 的 criterion 太宽或参考答案太短，需要回到 Stage 3 重新生成。
