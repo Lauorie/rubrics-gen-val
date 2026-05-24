@@ -267,6 +267,8 @@ JSON 数组，每条是一道题：
 
 ## 5. 生成 Rubrics
 
+> 想看 RAG 检索 / 三阶段精炼 / 失准过滤的算法细节、prompt 结构、阈值选择理由，请看 [`ALGORITHMS.md §2`](ALGORITHMS.md#2-rubric-生成算法)。本节只讲怎么跑。
+
 ### 5.1 流程总览
 
 ```text
@@ -360,6 +362,8 @@ python run/02_generate_rubrics.py --resume
 它会扫 `rubrics/items/` 跳过已有的 `idx_NNN.json`，跑完后从所有 per-item 文件重新聚合 `CAE-v2.0-1-rubrics.json`，所以前一次的成果不丢。
 
 ## 6. 评估模型预测
+
+> 想看得分公式推导、anchor 归一化原理、聚合维度设计、asyncio.Semaphore 并发模型，请看 [`ALGORITHMS.md §3`](ALGORITHMS.md#3-评估算法)。本节只讲怎么跑。
 
 ### 6.1 三步流程
 
