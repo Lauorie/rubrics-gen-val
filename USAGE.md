@@ -715,4 +715,77 @@ LLM-as-judge 都有这个问题。两个缓解办法：
 
 ## 10. 项目结构索引
 
-_TBD_
+```text
+rlm-rubrics/
+├── README.md                      # 英文 quickstart
+├── USAGE.md                       # 本文档
+├── pyproject.toml                 # Python 3.11+ 依赖
+├── .env.example                   # 环境变量模板
+│
+├── data/
+│   ├── CAE-v2.0-1.json            # 94 道 CAE 源题（输入）
+│   ├── cae_chunk_index.pkl        # 源文档 embedding 索引（中间产物）
+│   ├── CAE-v2.0-1-rubrics.json    # 94 份 rubric 聚合（输出）
+│   ├── CAE-anchor-scores.json     # anchor 缓存
+│   └── eval_*.json                # 评估输出
+│
+├── CAE-MDs/                       # 8 份源文档（gitignore，自备）
+├── CAE-PDFs/                      # 对应 PDF（gitignore，自备）
+│
+├── rubrics/items/
+│   └── idx_NNN.json               # 每题一个 rubric 文件
+│
+├── src/rubrics/                   # 核心包
+│   ├── schema.py                  # Pydantic 模型 + 7 题型 + 4 category + 7 criterion_type
+│   ├── chunker.py                 # markdown 分块 + 页码抽取
+│   ├── source_parser.py           # 来源 字段 → (doc, pages)
+│   ├── index.py                   # BGE-zh embedding 索引
+│   ├── retriever.py               # page-first + semantic fallback
+│   ├── llm_client.py              # OpenAI 兼容客户端（sync + async + tenacity 重试）
+│   ├── generator.py               # Stage 1 初稿
+│   ├── refiner.py                 # Stage 2 拆分 + 去重 + 默认 pitfall
+│   ├── misalignment_filter.py     # Stage 3 ref/weak 过滤
+│   ├── pipeline.py                # 端到端 build_rubric_for_item
+│   ├── judge.py                   # 通用 per-criterion judge（sync + async）
+│   ├── anchor.py                  # ref/weak anchor + 缓存
+│   ├── scorer.py                  # 异步评分主类（semaphore）
+│   ├── scoring.py                 # 权重公式
+│   ├── aggregate.py               # 聚合报告
+│   └── templates/
+│       ├── system_prompt.txt          # generator 总 prompt
+│       ├── misalignment_judge_prompt.txt
+│       ├── type_rules/{7种题型}.txt    # 每题型一份 rubric 结构规则
+│       └── exemplars/gold_rubrics.json # 3 条 few-shot 示例
+│
+├── run/                           # 4 个入口脚本
+│   ├── 01_build_index.py          # 建索引
+│   ├── 02_generate_rubrics.py     # 跑生成
+│   ├── 03_validate.py             # QC
+│   └── 04_score_predictions.py    # 评估
+│
+├── tests/rubrics/                 # 57 个测试
+│   └── preds_sample.jsonl         # 2 条 smoke 预测
+│
+└── docs/superpowers/
+    ├── specs/                     # 设计文档（中文）
+    │   ├── 2026-05-22-cae-rubrics-design.md           # 生成管线设计
+    │   └── 2026-05-22-cae-rubrics-scorer-design.md    # 评分管线设计
+    └── plans/                     # 实现计划（中文）
+```
+
+### 阅读顺序建议
+
+想搞清楚某个模块：
+
+- 想懂得分公式 → `scoring.py` + `aggregate.py`（< 100 行）
+- 想懂生成管线 → `pipeline.py` → `generator.py` → `refiner.py` → `misalignment_filter.py`
+- 想懂 RAG → `chunker.py` → `index.py` → `source_parser.py` → `retriever.py`
+- 想看设计动机 → `docs/superpowers/specs/2026-05-22-cae-rubrics-design.md`
+
+### 学术参考
+
+策略综合自约 22 篇 rubric / LLM-as-judge 文献：HealthBench、RubricRAG、Rubrics-as-Rewards、OpenRubrics、AdaRubric、Auto-Rubric、RIFT、RubricHub 等。完整理由见 `docs/superpowers/specs/2026-05-22-cae-rubrics-design.md`。
+
+### License
+
+代码：MIT。`CAE-MDs/`、`CAE-PDFs/`、`rubrics-papers-md/` 默认不入库（版权原因），需自备。
