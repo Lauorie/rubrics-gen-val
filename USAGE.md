@@ -267,7 +267,97 @@ JSON 数组，每条是一道题：
 
 ## 5. 生成 Rubrics
 
-_TBD_
+### 5.1 流程总览
+
+```text
+data/CAE-v2.0-1.json   ──┐
+                          ▼
+CAE-MDs/*.md ──→ chunk_index.pkl ──→ retrieve_context ──→ 3 阶段生成 ──→ rubrics/items/idx_NNN.json
+```
+
+三阶段：
+
+1. **Stage 1 — 初稿**（`generator.py`）：把题目 + 参考答案 + 检索到的源文档 chunks + 题型规则 + 3 个 few-shot 示例塞进 prompt，让 LLM 一次性吐 8-12 条 criterion。
+2. **Stage 2 — 精炼**（`refiner.py`）：拆复合断言（"X 且 Y" → 两条），按 embedding 相似度（阈值 0.9）去重，注入两条默认 anti-hacking pitfall（套话开场白 + 冗长铺垫）。
+3. **Stage 3 — 失准过滤**（`misalignment_filter.py`）：对每条正向 criterion，用 judge 跑两次：在**参考答案**上必须 met=true（否则说明 criterion 写错了），在**"我不知道"**上必须 met=false（否则说明 criterion 太松、能被任何回答触发）。Pitfall 不过滤，靠 template 保证质量。
+
+### 5.2 三步命令
+
+```bash
+# 步骤 1：embedding 8 份源 markdown，建索引（~1-2 分钟，BGE-zh 模型首次会下载 ~400MB）
+python run/01_build_index.py \
+    --mds-dir CAE-MDs \
+    --out data/cae_chunk_index.pkl \
+    --chunk-size 400 \
+    --overlap 100
+
+# 步骤 2：跑生成（94 题串行 ~2.5 小时，gpt-5.4-mini 大约 $0.5）
+python run/02_generate_rubrics.py \
+    --data data/CAE-v2.0-1.json \
+    --index data/cae_chunk_index.pkl \
+    --items-dir rubrics/items \
+    --out data/CAE-v2.0-1-rubrics.json \
+    --resume    # 强烈推荐，断点续跑
+
+# 步骤 3：质检（秒级）
+python run/03_validate.py \
+    --rubrics data/CAE-v2.0-1-rubrics.json \
+    --source-data data/CAE-v2.0-1.json
+```
+
+`03_validate.py` 输出形如：
+
+```text
+Rubrics: 94 / 94 items
+criteria/item: min=5 max=12 mean=8.9
+By type: {'主观题': 30, '简答题': 28, ...}
+items with <2 Pitfall: 0 → []
+ground_status: {'page_specific': 68, 'doc_only': 16, 'fallback_semantic': 10}
+dropped/item: mean=0.5 max=4
+```
+
+### 5.3 来源字段怎么被解析
+
+`来源` 字段决定 RAG 检索范围。`source_parser.py` 能识别这些写法：
+
+| 写法 | 解析结果 |
+|---|---|
+| `Benson教材, 第4章, 第166-189页` | doc=Benson, pages=(166,189) |
+| `贾宪振博士论文 第17页; ThyssenKrupp论文 第5页` | 两条 ref（分号 / 逗号都行） |
+| `ThyssenKrupp论文, 第462, 470, 475页` | doc=ThyssenKrupp, pages=(462,462)（多页列表只取第一段） |
+| `贾宪振博士论文，第12、89、90页` | doc=贾宪振, pages=(12,12)（中文逗号 / 顿号同样） |
+| `第3章，第38页` | doc 默认推断为 Benson |
+
+合法别名见 `src/rubrics/source_parser.py:DOC_ALIASES`（11 个）。`Souli教材` 这种当前没有 md 文件的会被识别但 retriever 拿不到 chunks，落到 semantic fallback。
+
+### 5.4 常用参数
+
+`02_generate_rubrics.py`：
+
+| 参数 | 默认 | 说明 |
+|---|---|---|
+| `--limit N` | 无 | 只跑前 N 题，debug 用 |
+| `--dry-run` | 关 | 只跑 1 题然后退出 |
+| `--resume` | 关 | 跳过 `items-dir` 里已存在的 `idx_NNN.json` |
+| `--seed` | 42 | 影响 Python / numpy / hash 种子 |
+
+`01_build_index.py`：
+
+| 参数 | 默认 | 说明 |
+|---|---|---|
+| `--chunk-size` | 400 | 字符数（≈中文 token 数），别小于 100 |
+| `--overlap` | 100 | 相邻 chunk 重叠字符数 |
+| `--model` | `BAAI/bge-base-zh-v1.5` | sentence-transformers 模型 ID |
+
+### 5.5 中断了怎么办
+
+`02_generate_rubrics.py` 是按题循环、单题失败 `try/except` 直接跳过（错误打到日志），所以崩了重跑加 `--resume` 即可：
+
+```bash
+python run/02_generate_rubrics.py --resume
+```
+
+它会扫 `rubrics/items/` 跳过已有的 `idx_NNN.json`，跑完后从所有 per-item 文件重新聚合 `CAE-v2.0-1-rubrics.json`，所以前一次的成果不丢。
 
 ## 6. 评估模型预测
 
