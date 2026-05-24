@@ -638,7 +638,80 @@ python run/04_score_predictions.py --judge-model anthropic/claude-sonnet-4-6 ...
 
 ## 9. 常见问题与排查
 
-_TBD_
+### Q1: `KeyError: 'LLM_API_KEY'`
+
+`.env` 没复制 / 没填 / 不在仓库根目录。`python-dotenv` 只从当前工作目录读 `.env`。**从仓库根目录运行命令**。
+
+### Q2: `FileNotFoundError: CAE-MDs/...`
+
+源 markdown 不在仓库（默认 gitignore），需要自备。如果只想跑评估不重新生成，**完全不需要 CAE-MDs**（rubric 已经在 `rubrics/items/`）。
+
+### Q3: `pydantic.ValidationError: Pitfall must have sign=negative`
+
+LLM 返回了不合法的 criterion（如把 Essential 标成 negative）。`schema.py` 在最后一关拦截。检查日志看 prompt 出在哪一题，必要时改 prompt 再 `--resume` 重试该题（删掉对应的 `rubrics/items/idx_NNN.json` 即可）。
+
+### Q4: `LLM did not return valid JSON: ...`
+
+LLM 输出夹了文字解释或 markdown fence。`llm_client.py:_extract_json_block` 会先尝试剥 ` ```json ... ``` ` 围栏，失败再原样解析。常见原因：
+
+- 模型太弱不稳定 → 换大一点的模型
+- temperature 太高 → 默认 0.3 已经够低，别调高
+- 该模型不支持中文 system prompt → 换中文友好模型（gpt-5.4-mini / qwen / glm 都 OK）
+
+### Q5: 生成出来 `ground_status` 全是 `fallback_semantic`
+
+说明 `来源` 字段没被 `source_parser.py` 识别。检查：
+
+1. 别名是否在 `DOC_ALIASES` 字典里
+2. 别名前后是否有正确的中文标点（"Benson教材,第5页" 没空格也行，但 "Benson 教材 第 5 页" 有的版本会断错）
+3. md 文件是否在 `--mds-dir` 指向的目录
+
+跑一行 Python 直接看解析结果：
+
+```python
+from rubrics.source_parser import parse_source
+print(parse_source("Benson教材, 第4章, 第166-189页"))
+# [SourceRef(doc_alias='Benson', pages=(166, 189))]
+```
+
+### Q6: 评估时 `n_errors > 0`
+
+可能原因：
+
+- 预测 JSONL 里的 `item_idx` 在 `rubrics/items/` 里没有对应 `idx_NNN.json` → 报错信息：`no rubric found for item_idx=N`
+- 某条 judge 调用 3 次重试都失败 → 看日志里的 `Scorer crashed on item_idx=N`
+- 网络抖动 → 单纯 `--resume` 重跑
+
+### Q7: `score_anchored.normalized == null` + warning "ref_score <= weak_score"
+
+参考答案在 rubric 上的分数不高于 "我不知道"。说明这道题的 rubric **校准失败**，criterion 太宽松或参考答案太短。两个修复方向：
+
+- 删掉对应的 `rubrics/items/idx_NNN.json` + `--resume` 重新生成
+- 在 `data/CAE-v2.0-1.json` 里扩写 `参考答案` 字段，让它涵盖更多 criterion
+
+### Q8: `pickle.UnpicklingError` 加载 chunk_index.pkl
+
+不同机器 / 不同 sentence-transformers 版本之间 pickle 不兼容。删掉重建：
+
+```bash
+rm data/cae_chunk_index.pkl
+python run/01_build_index.py
+```
+
+### Q9: 想看每条 criterion 的判定理由
+
+```bash
+jq '.per_candidate[0].breakdown[] | {id, text, met, reason}' data/eval_modelA.json
+```
+
+每行带 judge 给的中文 reason，方便排查 false negative。
+
+### Q10: judge 模型偏好特定文风（如总打高分）
+
+LLM-as-judge 都有这个问题。两个缓解办法：
+
+- **anchor 归一化**（默认开）：`(score - weak) / (ref - weak)` 抹掉 judge 的整体偏置
+- **换 judge 模型**：用更严的模型（如 `claude-sonnet-4-6`），同一 rubric 跑两遍取均值 / 取严的那次
 
 ## 10. 项目结构索引
 
