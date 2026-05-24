@@ -86,7 +86,49 @@ jq '.aggregate' data/eval_smoke.json
 
 ## 3. 环境准备
 
-_TBD_
+### 3.1 Python 与依赖
+
+- **Python 3.11+**（`pyproject.toml` 强制）
+- 关键依赖：`pydantic>=2.6`、`httpx`、`tenacity`、`python-dotenv`、`sentence-transformers`、`faiss-cpu`、`numpy`、`regex`、`tqdm`
+- 开发依赖（可选）：`pytest`、`pytest-asyncio`、`pytest-mock`、`ruff`、`mypy`
+
+```bash
+python3.11 -m venv .venv
+source .venv/bin/activate
+pip install -e ".[dev]"
+```
+
+### 3.2 .env 配置
+
+复制 `.env.example` 为 `.env`，填入 LLM 凭据。仓库默认走 OpenAI 兼容协议，任何提供 `/v1/chat/completions` 的服务（OpenAI、Azure、本地 vLLM、aiberm、dubrify、One-API、LiteLLM 代理…）都可以接：
+
+```bash
+LLM_API_KEY=sk-xxxx                              # 必填
+LLM_BASE_URL=https://aiberm.com/v1               # 必填，含 /v1
+LLM_MODEL=openai/gpt-5.4-mini                    # 必填，模型 ID 由服务方约定
+EMBEDDING_MODEL=BAAI/bge-base-zh-v1.5            # 可选，默认值即此
+```
+
+`.env.example` 里还有 `LLM_FALLBACK_*` 三项，目前在 `LLMClient` 里**未启用**（保留扩展位），填不填都不影响。
+
+### 3.3 Embedding 模型
+
+`BAAI/bge-base-zh-v1.5` ~400MB，首次 `sentence-transformers` 调用时自动从 HuggingFace 下载。如果网络受限：
+
+- 离线方式：先在外网机器 `huggingface-cli download BAAI/bge-base-zh-v1.5`，把权重拷到 `~/.cache/huggingface/hub/`
+- 换模型：在 `.env` 设 `EMBEDDING_MODEL=你的-模型-id`，注意 `src/rubrics/index.py` 里写死了 BGE 的中文 query 前缀 `为这个句子生成表示以用于检索相关文章：`，换非 BGE 模型时需要同步改这个前缀
+
+### 3.4 验证
+
+```bash
+pytest tests/rubrics/ -q
+```
+
+预期：~57 个测试全过，少数会因为依赖外网 LLM 被 skip 也属正常（看输出里的 `s` 数）。
+
+### 3.5 项目根目录约定
+
+代码用了一些相对路径默认值（`data/`、`rubrics/items/`、`CAE-MDs/`），所有命令请**从仓库根目录运行**，例如 `python run/01_build_index.py` 而不是 `cd run && python 01_build_index.py`。
 
 ## 4. 数据格式
 
