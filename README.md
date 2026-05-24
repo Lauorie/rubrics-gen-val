@@ -2,6 +2,8 @@
 
 RAG-grounded rubric **generation** + LLM-judge **evaluation** for Chinese-language CAE / engineering-simulation expert QA.
 
+> 中文完整教程见 [`USAGE.md`](USAGE.md)。
+
 ## What's here
 
 Given a small expert QA dataset (94 Chinese CAE items in `data/CAE-v2.0-1.json`, mixed types: 简答题/主观题/决策题/对比分析题/数值提取题/流程描述题/数值关系题) plus 8 source documents that were used to author the answers, this repo:
