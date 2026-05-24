@@ -509,7 +509,86 @@ jq '.per_candidate[].breakdown[] | select(.category == "Essential" and .met == f
 
 ## 7. 移植到非 CAE 领域
 
-_TBD_
+仓库默认绑定 CAE 数据，但核心代码（generator / refiner / judge / scorer / aggregate）是领域无关的。要把它换成你自己的领域（医疗 QA、法律 QA、金融 QA 等），按下面 6 步改：
+
+### 7.1 准备同 schema 的源数据 JSON
+
+把你的题目转成跟 `data/CAE-v2.0-1.json` **完全一样的中文字段名**：`编号 / 问题描述 / 参考答案 / 题型 / 难易程度 / 来源`（其它字段可有可无）。题型必须是 7 种之一（见 §4.1），否则 `generator.py` 找不到 `templates/type_rules/{题型}.txt` 会崩。
+
+如果你的题型不在这 7 种里，**两个选项**：
+
+- **快**：把每道题映射到最接近的现有题型（如 "翻译题" → "简答题"）
+- **正经**：复制 `src/rubrics/templates/type_rules/简答题.txt` 改成你自己的 `templates/type_rules/翻译题.txt`，同时在 `schema.py:QuestionType` 的 `Literal` 里加 `"翻译题"`，pydantic 才会放行
+
+### 7.2 准备源文档 + 别名映射
+
+如果你的题目能追溯到具体文档：
+
+1. 把文档转成 markdown 放进 `CAE-MDs/`（建议改个目录名如 `source-mds/`，命令里用 `--mds-dir source-mds`）
+2. **改 `src/rubrics/source_parser.py:DOC_ALIASES`**：把 11 条 CAE 别名换成你自己的，例如：
+
+   ```python
+   DOC_ALIASES = {
+       "GINA2024": "Global_Initiative_for_Asthma_2024.md",
+       "GOLD指南": "GOLD_Report_2024.md",
+   }
+   ```
+
+3. 你的 `来源` 字段就可以写 `GINA2024, 第12-15页`、`GOLD指南 第5页` 等。页码格式支持中文 `第N页` / `第N-M页` 和英文 `pN` / `pN-M`，详见 §5.3。
+
+**没有源文档怎么办**：把 `来源` 字段留空字符串，`retriever.py` 会全部走 `fallback_semantic`，效果会差一些但能跑。如果连 markdown 都没有，跳过 `01_build_index.py`，但 `02_generate_rubrics.py` 仍然需要一个空 index（手动跑一遍 build_index 把空 `CAE-MDs/` 喂进去会生成 0-chunk 的 pkl，可用）。
+
+### 7.3 处理页码标记
+
+`chunker.py` 用正则 `page_(\d+)_block_\d+` 抽页码（mineru 转出来的 markdown 自带）。如果你的 markdown 没有这种锚点：
+
+- **方案 A**：用 mineru 转一遍 PDF，自动带上
+- **方案 B**：手动按页拆成多个 md 文件，每个文件第一行加 `<!-- page_NNN_block_001 -->` 注释（被正则匹配）
+- **方案 C**：放弃页码精度，所有页码字段留空，`ground_status` 全部是 `doc_only` 或 `fallback_semantic`
+
+### 7.4 换 embedding 模型
+
+如果你的领域是英文 / 多语言：
+
+- 在 `.env` 里改 `EMBEDDING_MODEL`，例如 `BAAI/bge-base-en-v1.5` 或 `BAAI/bge-m3`
+- **同时改 `src/rubrics/index.py:_encode_query` 里的中文 prefix**，BGE-en 用 `Represent this sentence for searching relevant passages:`，BGE-m3 不需要 prefix（直接传空字符串）。这是当前唯一一处硬编码语言的位置
+
+### 7.5 调整 system prompt
+
+`src/rubrics/templates/system_prompt.txt` 写死了 "CAE / 工程仿真领域的高级评审专家"。换领域时建议：
+
+1. 把第一段 "CAE / 工程仿真" 换成你的领域名
+2. 第 7 条 "严禁形容词" 列表里的 `good / clear / comprehensive` 可以保留，再补几条领域无关的 hedging 词
+3. **不要动 JSON schema 段落和 7 种 criterion_type 定义**，下游代码依赖这些
+
+### 7.6 重写 few-shot 示例
+
+`src/rubrics/templates/exemplars/gold_rubrics.json` 是 3 个 CAE 题的"金标 rubric"，会被 `generator.py:_format_exemplars` 随机选 3 条塞进 prompt。换领域时务必改：
+
+```json
+[
+  {
+    "question_type": "简答题",
+    "question": "（你的领域里一道有代表性的简答题）",
+    "reference_answer": "（参考答案）",
+    "criteria": [
+      { "id": "c1", "text": "...", "category": "Essential", "weight": 5, "sign": "positive", "criterion_type": "factual_anchor" }
+    ]
+  }
+]
+```
+
+7 种题型每种至少 1 条，避免某些题型完全没有 few-shot。生成质量极大依赖这份示例的质量，**值得花时间手工打磨**。
+
+### 7.7 改完之后
+
+跑一遍 smoke test：
+
+```bash
+python run/02_generate_rubrics.py --limit 2 --dry-run
+```
+
+确认 1 题能跑通、生成的 rubric 字段都合法，再放开 `--limit` 跑全量。
 
 ## 8. 调参与成本
 
