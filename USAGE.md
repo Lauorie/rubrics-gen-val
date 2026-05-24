@@ -132,7 +132,138 @@ pytest tests/rubrics/ -q
 
 ## 4. 数据格式
 
-_TBD_
+本仓库总共涉及 5 种文件格式。你只需要关心**输入**那两种：源数据 JSON 和预测 JSONL；其余 3 种是中间产物。
+
+### 4.1 源数据：`data/CAE-v2.0-1.json`（输入 ①）
+
+JSON 数组，每条是一道题：
+
+```json
+{
+  "编号": "1",
+  "问题描述": "在流固耦合（FSI）仿真中，\"附加质量效应\"为何会导致数值不稳定？",
+  "参考答案": "流体与结构密度接近：……（多个要点用中文标点分隔）",
+  "题型": "主观题",
+  "难易程度": "困难",
+  "难度场景": "单文档多段落",
+  "语言": "中文",
+  "来源": "Benson教材, 第4章, 第166-189页"
+}
+```
+
+字段说明：
+
+| 字段 | 必填 | 取值 | 说明 |
+|---|---|---|---|
+| `编号` | 是 | 字符串 | 显示用题号，可以重复（评估时用数组下标 `item_idx` 做唯一键） |
+| `问题描述` | 是 | 字符串 | 题面 |
+| `参考答案` | 是 | 字符串 | 用于生成 rubric + 计算 ref anchor 分 |
+| `题型` | 是 | 7 选 1 | 见下表 |
+| `难易程度` | 是 | `简单`/`中等`/`困难` | 用于聚合报告分组 |
+| `难度场景` | 否 | 字符串 | 元数据，会原样写入 rubric 文件 |
+| `语言` | 否 | 字符串 | 未参与逻辑 |
+| `来源` | 是 | 字符串 | RAG 的关键 — 见 §5.3 来源解析 |
+
+**7 种题型**（不能用其它值，否则会找不到 `templates/type_rules/*.txt`）：
+
+`简答题` `主观题` `决策题` `对比分析题` `数值提取题` `流程描述题` `数值关系题`
+
+### 4.2 源文档：`CAE-MDs/*.md`（输入 ②，仅生成 rubric 时需要）
+
+8 份 markdown 文件，用 mineru 从 PDF 转换而来。关键约定：
+
+- **页码靠图片 URL 锚点**：mineru 在每页第一张图片插入形如 `page_000_block_001` 的 URL，`src/rubrics/chunker.py` 用正则 `page_(\d+)_block_\d+` 抽取，**1-indexed 存储**（即 URL 里的 `page_000` 在内部记为第 1 页）。
+- **文件名 → 短别名**：`source_parser.py` 里 `DOC_ALIASES` 字典硬编码了 11 个别名（如 `Benson` → `Arbitrary_Lagrangian-Eulerian_..._Benson.md`），`来源` 字段里用别名，文件名用全称。
+- 仓库不带这 8 份 md，需自备。文件不存在时，rubric 生成会退化为纯 semantic fallback 检索（仍能跑，只是检索质量下降）。
+
+### 4.3 预测：`*.jsonl`（输入 ③，仅评估时需要）
+
+每行一个 JSON，至少两个字段：
+
+```jsonl
+{"item_idx": 0, "answer": "在流固耦合中……"}
+{"item_idx": 3, "answer": "JWL 方程的核心参数包括 A 和 B……"}
+```
+
+字段说明：
+
+| 字段 | 必填 | 说明 |
+|---|---|---|
+| `item_idx` | 是 | 整数，与源数据 JSON 数组下标一一对应（从 0 起）。用 `item_idx` 而非 `编号`，因为 `编号` 有重复 |
+| `answer` | 是 | 模型给出的回答字符串 |
+| 其它 | 否 | 评估器会忽略 |
+
+样例见 `tests/preds_sample.jsonl`。
+
+### 4.4 中间产物：`data/cae_chunk_index.pkl`
+
+`run/01_build_index.py` 输出的 pickle：包含 chunks（每条带 `doc_slug` + 页码范围）和它们的 embedding 矩阵 + 模型名。生成 rubric 时被 `run/02_generate_rubrics.py` 反序列化复用。
+
+### 4.5 中间产物：`rubrics/items/idx_NNN.json` + `data/CAE-v2.0-1-rubrics.json`
+
+每道题一个 `idx_NNN.json`（`NNN` 即 `item_idx` 三位零填充），同时聚合为一个 `CAE-v2.0-1-rubrics.json`。结构对应 `src/rubrics/schema.py:RubricItem`：
+
+```json
+{
+  "question_id": "1",
+  "question": "...",
+  "reference_answer": "...",
+  "question_type": "主观题",
+  "difficulty": "困难",
+  "scenario": "...",
+  "source": "Benson教材, 第4章, 第166-189页",
+  "source_grounding": {
+    "parsed_docs": ["Arbitrary_Lagrangian-Eulerian_..._Benson"],
+    "pages": [166, 189],
+    "retrieved_chunk_ids": ["...:p180-p180:c1097", "..."],
+    "ground_status": "page_specific"
+  },
+  "criteria": [
+    {
+      "id": "c1",
+      "text": "指出流体密度与结构密度接近……",
+      "category": "Essential",
+      "weight": 5,
+      "sign": "positive",
+      "criterion_type": "factual_anchor",
+      "evidence_quote": null
+    }
+  ],
+  "rubric_metadata": { "generation_model": "...", "n_criteria_final": 12 },
+  "item_idx": 0
+}
+```
+
+字段语义：
+
+- **category** ∈ {`Essential`, `Important`, `Optional`, `Pitfall`}：决定默认权重（5/3/1/3-5）和聚合报告分组
+- **sign** ∈ {`positive`, `negative`}：Pitfall 必须 `negative`，其余必须 `positive`（pydantic 模型自动校验）
+- **weight** ∈ `[1, 8]`：得分公式里的乘数
+- **criterion_type** 7 选 1：`factual_anchor` / `mechanism_explanation` / `numeric_precision` / `decision_logic` / `comparative_balance` / `process_completeness` / `anti_hacking`（`anti_hacking` 只能配 Pitfall）
+- **ground_status** 3 选 1：`page_specific`（按页码命中）/ `doc_only`（命中文档但页码不准）/ `fallback_semantic`（来源解析失败，纯语义检索）
+
+### 4.6 评估输出：`data/eval_*.json`
+
+`run/04_score_predictions.py` 的输出，两段：
+
+```json
+{
+  "per_candidate": [
+    {
+      "item_idx": 0,
+      "score": 0.84,
+      "score_anchored": { "ref_score": 1.0, "weak_score": 0.0, "normalized": 0.84 },
+      "breakdown": [ { "id": "c1", "met": true, "reason": "...", "contribution": 5 } ]
+    }
+  ],
+  "aggregate": {
+    "n_predictions": 2, "n_scored_ok": 2, "mean_score": 0.86,
+    "by_question_type": { },
+    "by_difficulty": { },
+    "by_criterion_type": { }
+  }
+}
+```
 
 ## 5. 生成 Rubrics
 
