@@ -592,7 +592,49 @@ python run/02_generate_rubrics.py --limit 2 --dry-run
 
 ## 8. 调参与成本
 
-_TBD_
+### 8.1 LLM 选型
+
+| 角色 | 默认模型 | 备注 |
+|---|---|---|
+| Generator（Stage 1） | `LLM_MODEL`（默认 `openai/gpt-5.4-mini`） | 主要成本，建议用便宜模型 |
+| Misalignment judge（Stage 3） | 同 generator | 跑 2N 次（ref + weak），是 generator 调用数的 ~2 倍 |
+| Score judge（评估期） | `--judge-model` 或 `LLM_MODEL` | 跑 M × C 次（M 个回答 × C 条 criterion） |
+
+**省钱建议**：generation 可以用便宜模型（`gpt-5.4-mini` / `qwen2.5-7b` / `glm-4-flash`），score judge 用更强的模型（`gpt-5.4` / `claude-sonnet-4-6`）。命令上：
+
+```bash
+# 评估时单独换 judge 模型
+python run/04_score_predictions.py --judge-model anthropic/claude-sonnet-4-6 ...
+```
+
+### 8.2 并发与 rate limit
+
+- `04_score_predictions.py --concurrency 16` 是 asyncio.Semaphore 上限。你的 LLM 服务如果限 RPM/TPM，根据限额估算上限：例如 600 RPM 平均 5s 一次响应，理论上限 `600/60 * 5 ≈ 50`，留余量取 20-30。
+- `02_generate_rubrics.py` 是**纯串行**（94 题循环），单题 ~3 次 LLM call（generator + ref-judge × N + weak-judge × N）。94 题串行约 2.5h，可以容忍。如果嫌慢，可以拆批跑（如分两台机器 `--limit 47` 各跑一半）+ `--resume` 合并。
+
+### 8.3 成本估算（94 题样例）
+
+| 步骤 | LLM 调用次数 | gpt-5.4-mini 成本 |
+|---|---|---|
+| Generator | 94 × 1 = 94 | ~$0.05 |
+| Misalignment filter | 94 × N_criteria × 2 ≈ 94 × 9 × 2 = 1692 | ~$0.20 |
+| Anchor 计算 | 94 × N_criteria × 2 = 1692 | ~$0.10 |
+| Score（评估 1 模型） | 94 × N_criteria = 846 | ~$0.10 |
+| **合计** | **~4300 calls** | **~$0.5** |
+
+实测同模型在 CAE 数据上 ~$0.5，跨数据集线性外推：题数 × 平均 criterion 数 × 4。
+
+### 8.4 关键阈值
+
+| 位置 | 参数 | 默认 | 改它的影响 |
+|---|---|---|---|
+| `chunker.py` | `chunk_size` / `overlap` | 400 / 100 | 太小检索碎、太大召回少 |
+| `refiner.py` | `dedup_threshold` | 0.9 | 越低越激进去重；0.85 可能误伤 |
+| `retriever.py` | `score_threshold` | 0.3（fallback 时） | 越高越保守、越容易退到 semantic fallback |
+| `retriever.py` | `k` | 3 | 上下文 chunk 数，调大会显著增加 generation token |
+| `pipeline.py` | `generation_passes` | 3（固定） | 改不了，写在 metadata 里只是记账 |
+| `llm_client.py` | `temperature` | 0.3 | rubric 生成需要稳定，不建议提高 |
+| `anchor.py` | `WEAK_ANSWER` | `"我不知道。"` | 想加强 anti-hacking 检测可换成 `"这个问题很有意思，让我从多个角度来回答……"` 之类的灌水回答 |
 
 ## 9. 常见问题与排查
 
