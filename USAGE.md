@@ -361,7 +361,151 @@ python run/02_generate_rubrics.py --resume
 
 ## 6. 评估模型预测
 
-_TBD_
+### 6.1 三步流程
+
+```text
+predictions.jsonl ──┐
+                    ├─→ anchor 缓存（ref/weak 各跑 1 遍 judge）
+rubrics/items/*  ──┘
+                    │
+                    ▼
+              per-criterion judge（异步 + semaphore）
+                    │
+                    ▼
+              得分公式 + anchor 归一化
+                    │
+                    ▼
+              eval_*.json
+```
+
+### 6.2 一条命令跑评估
+
+```bash
+# 1. 准备预测 JSONL（每行 {"item_idx": N, "answer": "..."}）
+cat > my_preds.jsonl <<'EOF'
+{"item_idx": 0, "answer": "..."}
+{"item_idx": 1, "answer": "..."}
+EOF
+
+# 2. 跑评估
+python run/04_score_predictions.py \
+    --predictions my_preds.jsonl \
+    --rubrics-dir rubrics/items \
+    --anchor-cache data/CAE-anchor-scores.json \
+    --out data/eval_modelA.json \
+    --concurrency 16
+```
+
+### 6.3 参数速查
+
+| 参数 | 默认 | 说明 |
+|---|---|---|
+| `--predictions` | 必填 | JSONL 文件路径 |
+| `--rubrics-dir` | `rubrics/items` | 含 `idx_*.json` 的目录 |
+| `--anchor-cache` | `data/CAE-anchor-scores.json` | ref/weak anchor 分数缓存 |
+| `--out` | 必填 | 输出 JSON 路径 |
+| `--concurrency` | 16 | judge 异步并发上限（semaphore） |
+| `--judge-model` | 跟 `.env` | 评估时单独覆盖 LLM_MODEL |
+| `--refresh-anchors` | 关 | 强制重算 anchor 缓存（rubric 改了就开） |
+| `--no-anchors` | 关 | 跳过 anchor 归一化（更快但失去可比性） |
+| `--resume` | 关 | 跳过 `--out` 里已有 `score!=null` 的样本 |
+
+### 6.4 Anchor 缓存机制
+
+每道题的 rubric 会先跑两遍 judge：
+
+- **ref 分**：用题目自带 `reference_answer` 当 candidate。理想情况下接近 1.0。
+- **weak 分**：用字符串 `"我不知道。"` 当 candidate。理想情况下接近 0.0。
+
+结果缓存到 `data/CAE-anchor-scores.json`，按 `item_idx` 做 key：
+
+```json
+{
+  "0": { "ref_score": 1.0, "weak_score": 0.0, "judge_model": "openai/gpt-5.4-mini", "computed_at": "..." }
+}
+```
+
+后续评估同一批 rubric 时自动命中缓存。**改了 rubric 一定要 `--refresh-anchors`**，否则 anchor 和 rubric 不一致。
+
+### 6.5 得分公式
+
+每题的原始分（`scoring.py:score_response`）：
+
+```text
+raw_score = (Σ w_i · met_i  for positive  −  Σ w_i · met_i  for pitfall) / Σ w_i  for positive
+clipped   = max(0, min(1, raw_score))
+```
+
+举例：一条 rubric 有正向权重 `[5, 5, 5, 3, 3, 3, 3]`（合计 27），陷阱 `[4, 3]`。某回答命中前 5 条正向、未触发陷阱：
+
+```text
+pos_score = 5+5+5+3+3 = 21
+penalty   = 0
+score     = 21 / 27 ≈ 0.78
+```
+
+如果还触发了"开场白套话"（weight 4）：
+
+```text
+score = (21 − 4) / 27 ≈ 0.63
+```
+
+### 6.6 Anchor 归一化
+
+不同 rubric 的"天花板"不同（有的 ref 答案只能拿 0.85，有的能拿 1.0），所以聚合时用 anchor 重标：
+
+```text
+normalized = (score − weak) / (ref − weak)
+```
+
+clip 到 `[0, 1]`。`ref ≤ weak`（rubric 校准失败）时 `normalized=null` 并打 warning。
+
+聚合报告里 `mean_score` 是 raw，`mean_anchored` 是归一化后的，**建议横向比较模型时看 `mean_anchored`**。
+
+### 6.7 读懂聚合报告
+
+```bash
+jq '.aggregate' data/eval_modelA.json
+```
+
+字段含义：
+
+```json
+{
+  "n_predictions": 94,
+  "n_scored_ok": 92,
+  "n_errors": 2,
+  "mean_score": 0.74,
+  "mean_anchored": 0.81,
+  "by_question_type": {
+    "决策题": { "n": 12, "mean": 0.68, "mean_anchored": 0.75 }
+  },
+  "by_difficulty": {
+    "困难": { "n": 30, "mean": 0.62, "mean_anchored": 0.71 }
+  },
+  "by_criterion_type": {
+    "anti_hacking": { "n_criteria": 188, "met_rate": 0.05 }
+  }
+}
+```
+
+- `n_predictions` 输入预测条数
+- `n_scored_ok` 成功打分条数（n_predictions − n_errors）
+- `n_errors` 失败条数（item_idx 对不上 rubric 或 judge 崩了）
+- `mean_score` 原始分均值
+- `mean_anchored` anchor 归一化均值（推荐看这个）
+- `by_criterion_type.anti_hacking.met_rate` pitfall 触发率，越低越好
+
+### 6.8 看单题明细
+
+```bash
+# 看第 0 题的所有 criterion 判定
+jq '.per_candidate[] | select(.item_idx == 0)' data/eval_modelA.json
+
+# 列出所有未命中的 Essential criterion，按贡献度排序
+jq '.per_candidate[].breakdown[] | select(.category == "Essential" and .met == false)' \
+   data/eval_modelA.json
+```
 
 ## 7. 移植到非 CAE 领域
 
