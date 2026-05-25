@@ -434,7 +434,9 @@ def score_response(criteria, met_by_text):
     return max(0.0, min(1.0, raw))     # clip 到 [0, 1]
 ```
 
-**形式化**：设 criterion 集 $C$，正向子集 $C^+ = \{c \in C : \text{sign}(c) = \text{positive}\}$，陷阱子集 $C^- = \{c \in C : \text{sign}(c) = \text{negative}\}$，$w_c$ 为权重，$m_c \in \{0, 1\}$ 为 judge 判定：
+$$
+\text{设 criterion 集 } C \text{，正向子集 } C^+ = \{c \in C : \mathrm{sign}(c) = \mathrm{positive}\} \text{，陷阱子集 } C^- = \{c \in C : \mathrm{sign}(c) = \mathrm{negative}\} \text{，} w_c \text{ 为权重，} m_c \in \{0, 1\} \text{ 为 judge 判定：}
+$$
 
 $$
 \text{score} = \mathrm{clip}_{[0,1]}\left( \frac{\displaystyle\sum_{c \in C^+} w_c m_c - \sum_{c \in C^-} w_c m_c}{\displaystyle\sum_{c \in C^+} w_c} \right)
