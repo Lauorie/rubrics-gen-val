@@ -177,3 +177,47 @@ def test_main_invokes_scorer_for_pending_items(tmp_path, monkeypatch) -> None:
     assert {r["item_idx"] for r in saved} == {0, 1}
     md = report_path.read_text()
     assert "# CAE-v2.0-1 RLM Scoring Report" in md
+
+
+def test_run_scoring_returns_empty_list_when_pending_is_empty(tmp_path, monkeypatch) -> None:
+    """_run_scoring short-circuits without building Scorer when nothing's pending."""
+    import asyncio as _asyncio
+    from score_rlm_answers import _run_scoring
+
+    class ExplodingScorer:
+        def __init__(self, **kw):
+            raise AssertionError("Scorer must NOT be built when pending=[]")
+
+    import score_rlm_answers as mod
+    monkeypatch.setattr(mod, "Scorer", ExplodingScorer)
+    out = _asyncio.run(_run_scoring({}, [], {}, judge_client=object(), concurrency=1))
+    assert out == []
+
+
+def test_attach_question_text_joins_on_item_idx() -> None:
+    """_attach_question_text adds _question_text from the matching rubric by item_idx."""
+    from score_rlm_answers import _attach_question_text
+    rubrics = [
+        {"item_idx": 0, "question": "Q-zero"},
+        {"item_idx": 1, "question": "Q-one"},
+    ]
+    results = [{"item_idx": 1, "score": 0.5}, {"item_idx": 0, "score": 0.8}]
+    out = _attach_question_text(results, rubrics)
+    by_idx = {r["item_idx"]: r["_question_text"] for r in out}
+    assert by_idx == {0: "Q-zero", 1: "Q-one"}
+
+
+def test_attach_question_text_handles_missing_rubric_with_empty_string() -> None:
+    """If a result's item_idx isn't in rubrics, the joined question is ''."""
+    from score_rlm_answers import _attach_question_text
+    out = _attach_question_text([{"item_idx": 99, "score": 0.1}], [])
+    assert out[0]["_question_text"] == ""
+
+
+def test_merge_results_output_is_sorted_by_item_idx() -> None:
+    """merge_results returns items sorted by item_idx ascending."""
+    out = merge_results(
+        existing=[{"item_idx": 5}, {"item_idx": 2}],
+        new=[{"item_idx": 7}, {"item_idx": 0}],
+    )
+    assert [r["item_idx"] for r in out] == [0, 2, 5, 7]

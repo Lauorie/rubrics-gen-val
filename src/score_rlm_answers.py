@@ -10,9 +10,13 @@ Pipeline:
 """
 from __future__ import annotations
 
+import argparse
+import asyncio
+import datetime as dt
 import json
 import logging
 import os
+import sys
 import tempfile
 from pathlib import Path
 from typing import Any
@@ -68,11 +72,6 @@ def filter_pending(
         pending.append(r)
     return pending
 
-
-import argparse
-import asyncio
-import datetime as dt
-import sys
 
 _RLM_ROOT = Path(__file__).resolve().parents[1]
 if str(_RLM_ROOT / "src") not in sys.path:
