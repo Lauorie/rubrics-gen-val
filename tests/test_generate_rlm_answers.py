@@ -282,3 +282,83 @@ def test_main_propagates_pythonpath_to_parent_env(tmp_path, monkeypatch) -> None
     assert mod.main() == 0
     assert "/papers_qa" in captured["env_at_call"]
     assert "/rlm" in captured["env_at_call"]
+
+
+def test_peek_flag_requires_workers_one(tmp_path, monkeypatch) -> None:
+    """--peek-map-out with --workers > 1 must error before any LLM call."""
+    in_path = tmp_path / "rubrics.json"
+    in_path.write_text(json.dumps([{"item_idx": 0, "question": "Q", "rlm_answer": None}], ensure_ascii=False))
+    papers = tmp_path / "papers"; papers.mkdir(); (papers / "x.md").write_text("y")
+
+    monkeypatch.setenv("OPENAI_API_KEY", "sk-test")
+    monkeypatch.setenv("OPENAI_BASE_URL", "https://example.invalid/v1")
+    monkeypatch.setattr(_sys, "argv", [
+        "generate_rlm_answers.py",
+        "--input", str(in_path),
+        "--output", str(tmp_path / "out.json"),
+        "--jsonl", str(tmp_path / "ans.jsonl"),
+        "--papers-dir", str(papers),
+        "--workers", "4",
+        "--peek-map-out", str(tmp_path / "map.json"),
+    ])
+    import generate_rlm_answers as mod
+    import pytest as _pytest
+    with _pytest.raises(SystemExit):
+        mod.main()
+
+
+def test_peek_flag_runs_serial_with_single_policy(tmp_path, monkeypatch) -> None:
+    """--peek-map-out causes serial execution and a single shared CachePolicy."""
+    in_path = tmp_path / "rubrics.json"
+    in_path.write_text(json.dumps(
+        [{"item_idx": 0, "question": "Q0", "rlm_answer": None},
+         {"item_idx": 1, "question": "Q1", "rlm_answer": None}],
+        ensure_ascii=False,
+    ))
+    out_path = tmp_path / "out.json"
+    jsonl_path = tmp_path / "ans.jsonl"
+    map_path = tmp_path / "map.json"
+    papers = tmp_path / "papers"; papers.mkdir(); (papers / "x.md").write_text("y")
+
+    monkeypatch.setenv("OPENAI_API_KEY", "sk-test")
+    monkeypatch.setenv("OPENAI_BASE_URL", "https://example.invalid/v1")
+
+    captured: dict[str, Any] = {}
+
+    class FakePapersQA:
+        def __init__(self, cfg, *, peek_policy=None):
+            captured.setdefault("policies", []).append(peek_policy)
+            self.peek_policy = peek_policy
+        def ask(self, question):
+            captured.setdefault("questions", []).append(question)
+            from papers_qa.runner import AskResult
+            return AskResult(question=question, answer="A", cost_usd=None,
+                             duration_s=0.0, trajectory=None)
+
+    saved_paths: list[str] = []
+    class FakePolicy:
+        current_map_text = "## CONTEXT ROADMAP\n"
+        evolving = True
+        def update(self, **kw): return None
+        def save(self, p): saved_paths.append(str(p))
+
+    def fake_build_policy(cfg, client=None):
+        return FakePolicy()
+
+    monkeypatch.setattr(_sys, "argv", [
+        "generate_rlm_answers.py",
+        "--input", str(in_path),
+        "--output", str(out_path),
+        "--jsonl", str(jsonl_path),
+        "--papers-dir", str(papers),
+        "--workers", "1",
+        "--peek-map-out", str(map_path),
+    ])
+    import generate_rlm_answers as mod
+    monkeypatch.setattr(mod, "PapersQA", FakePapersQA)
+    monkeypatch.setattr(mod, "build_peek_policy", fake_build_policy)
+
+    assert mod.main() == 0
+    assert len(captured["policies"]) == 1
+    assert captured["questions"] == ["Q0", "Q1"]
+    assert saved_paths

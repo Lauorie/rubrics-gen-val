@@ -108,7 +108,12 @@ def merge_answers_into_rubrics(
 # academic-eval is a sibling top-level dir, not on sys.path by default.
 _RLM_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(_RLM_ROOT / "academic-eval"))
-from rlm_runner import run_inference  # noqa: E402
+sys.path.insert(0, str(_RLM_ROOT / "papers_qa"))
+sys.path.insert(0, str(_RLM_ROOT / "rlm"))
+from rlm_runner import load_done_ids, run_inference, write_record  # noqa: E402
+from papers_qa.config import PapersQAConfig  # noqa: E402
+from papers_qa.peek_integration import PeekCfg, build_peek_policy  # noqa: E402
+from papers_qa.runner import PapersQA  # noqa: E402
 
 
 def build_env_overrides(*, papers_dir: Path) -> dict[str, str]:
@@ -189,6 +194,19 @@ def main() -> int:
         choices=["DEBUG", "INFO", "WARNING", "ERROR"],
         help="Logging verbosity (default: INFO).",
     )
+    parser.add_argument(
+        "--peek-map-out",
+        type=Path,
+        default=None,
+        help="Enable PEEK orientation cache; save the frozen map JSON to this path. "
+             "Forces --workers=1.",
+    )
+    parser.add_argument("--peek-token-budget", type=int, default=1024,
+                        help="PEEK map size limit in tokens (default: 1024).")
+    parser.add_argument("--peek-evolve-steps", type=int, default=30,
+                        help="How many questions PEEK evolves the map before freezing.")
+    parser.add_argument("--peek-distiller-model", default="deepseek/deepseek-v4-flash",
+                        help="LLM used by PEEK's Distiller + Cartographer.")
     args = parser.parse_args()
 
     logging.basicConfig(
@@ -196,30 +214,72 @@ def main() -> int:
         format="%(asctime)s %(name)s %(levelname)s: %(message)s",
     )
 
+    if args.peek_map_out is not None:
+        if args.workers != 1:
+            parser.error("--peek-map-out requires --workers 1 (single-process for shared cache)")
+        args.peek_map_out.parent.mkdir(parents=True, exist_ok=True)
+
     output_path = args.output or args.input
     rubrics = load_rubrics_json(args.input)
     logger.info("Loaded %d rubric items from %s", len(rubrics), args.input)
 
     if not args.dry_run:
         items = to_inference_items(rubrics, id_field=args.id_field)
-        logger.info("Running inference on %d items, workers=%d", len(items), args.workers)
         args.jsonl.parent.mkdir(parents=True, exist_ok=True)
-        env_overrides = build_env_overrides(papers_dir=args.papers_dir)
-        # Workers need papers_qa + rlm on sys.path at interpreter startup;
-        # setting it in env_overrides alone is too late (those run inside the
-        # worker after Python has already initialized sys.path). Propagate to
-        # the parent env so children inherit it during spawn/fork.
-        os.environ["PYTHONPATH"] = env_overrides["PYTHONPATH"]
-        for p in env_overrides["PYTHONPATH"].split(":"):
-            if p and p not in sys.path:
-                sys.path.insert(0, p)
-        run_inference(
-            items=items,
-            out_path=args.jsonl,
-            max_workers=args.workers,
-            use_processes=True,
-            env_overrides=env_overrides,
-        )
+
+        if args.peek_map_out is not None:
+            # Serial PEEK loop — one PapersQA + one shared CachePolicy.
+            logger.info("Running serial PEEK loop on %d items (workers=1)", len(items))
+            done = load_done_ids(args.jsonl)
+            todo = [it for it in items if it["id"] not in done]
+            logger.info("PEEK serial: %d todo (%d already done)", len(todo), len(done))
+
+            peek_cfg = PeekCfg(
+                token_budget=args.peek_token_budget,
+                evolve_steps=args.peek_evolve_steps,
+                distiller_model=args.peek_distiller_model,
+            )
+            policy = build_peek_policy(peek_cfg)
+            pq_cfg = PapersQAConfig.from_env()
+            pq_cfg = type(pq_cfg)(**{**pq_cfg.__dict__, "papers_dir": args.papers_dir})
+            qa = PapersQA(pq_cfg, peek_policy=policy)
+
+            for i, item in enumerate(todo):
+                try:
+                    res = qa.ask(item["question"])
+                    record = {"id": item["id"], "answer": res.answer,
+                              "cost_usd": res.cost_usd, "duration_s": res.duration_s,
+                              "error": None}
+                except Exception as e:
+                    logger.exception("PEEK serial ask failed: id=%s", item["id"])
+                    record = {"id": item["id"], "answer": None, "cost_usd": None,
+                              "duration_s": None, "error": f"{type(e).__name__}: {e}"}
+                write_record(args.jsonl, record)
+                logger.info("[peek %d/%d] id=%s status=%s",
+                            i + 1, len(todo), item["id"],
+                            "ok" if record["error"] is None else "ERROR")
+                # Save policy at the evolve_steps boundary and at the end.
+                if not policy.evolving or (i + 1) == args.peek_evolve_steps:
+                    policy.save(args.peek_map_out)
+            policy.save(args.peek_map_out)
+        else:
+            logger.info("Running inference on %d items, workers=%d", len(items), args.workers)
+            env_overrides = build_env_overrides(papers_dir=args.papers_dir)
+            # Workers need papers_qa + rlm on sys.path at interpreter startup;
+            # setting it in env_overrides alone is too late (those run inside the
+            # worker after Python has already initialized sys.path). Propagate to
+            # the parent env so children inherit it during spawn/fork.
+            os.environ["PYTHONPATH"] = env_overrides["PYTHONPATH"]
+            for p in env_overrides["PYTHONPATH"].split(":"):
+                if p and p not in sys.path:
+                    sys.path.insert(0, p)
+            run_inference(
+                items=items,
+                out_path=args.jsonl,
+                max_workers=args.workers,
+                use_processes=True,
+                env_overrides=env_overrides,
+            )
 
     merged = merge_answers_into_rubrics(rubrics, args.jsonl, id_field=args.id_field)
     save_rubrics_json(output_path, merged)
