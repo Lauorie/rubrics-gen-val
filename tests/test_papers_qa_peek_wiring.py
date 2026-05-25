@@ -82,3 +82,38 @@ def test_papersqa_calls_policy_update_after_completion(tiny_corpus, monkeypatch)
     assert kwargs["question"] == "Q1"
     assert "final answer" in kwargs["trajectory"]
     assert "thinking" in kwargs["trajectory"]
+
+
+def test_papersqa_brace_escapes_peek_map_to_avoid_format_crash(tiny_corpus, monkeypatch):
+    """PEEK map text with literal {} must not crash RLM's downstream str.format."""
+    from papers_qa.config import PapersQAConfig
+    from papers_qa.runner import PapersQA
+    cfg = PapersQAConfig.from_env()
+
+    fake_policy = MagicMock()
+    # A map containing braces — common in PEEK output (e.g. item-id references).
+    fake_policy.current_map_text = "[roadmap-{-1}] foo\n[const-1] bar = {x}\n"
+    fake_policy.update = MagicMock(return_value=None)
+
+    qa = PapersQA(cfg, peek_policy=fake_policy)
+    fake_completion = MagicMock()
+    fake_completion.response = "ans"
+    fake_completion.metadata = {"iterations": [], "run_metadata": {}}
+    fake_completion.usage_summary = None
+    fake_completion.execution_time = 0.1
+    qa.rlm.completion = MagicMock(return_value=fake_completion)
+    qa.ask("Q1")
+
+    # In the mutated system_prompt, every original `{` must be doubled.
+    assert "{{-1}}" in qa.rlm.system_prompt
+    assert "{{x}}" in qa.rlm.system_prompt
+    # And ZERO un-doubled single braces from the PEEK map should survive.
+    # (The base system prompt may contain other braces — we only check the map region.)
+    map_region = qa.rlm.system_prompt.split("================ Context Map (PEEK) ================\n", 1)[1]
+    map_region = map_region.split("================ End of Context Map ================", 1)[0]
+    # Every `{` and `}` in the map region must be doubled.
+    assert "{{" in map_region and "}}" in map_region
+    # No lone `{` followed by a non-`{` (that would be a format placeholder).
+    import re
+    assert re.search(r"(?<!\{)\{(?!\{)", map_region) is None
+    assert re.search(r"(?<!\})\}(?!\})", map_region) is None
