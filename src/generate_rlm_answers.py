@@ -112,7 +112,7 @@ sys.path.insert(0, str(_RLM_ROOT / "papers_qa"))
 sys.path.insert(0, str(_RLM_ROOT / "rlm"))
 from rlm_runner import load_done_ids, run_inference, write_record  # noqa: E402
 from papers_qa.config import PapersQAConfig  # noqa: E402
-from papers_qa.peek_integration import PeekCfg, build_peek_policy  # noqa: E402
+from papers_qa.peek_integration import PeekCfg, build_peek_policy, DISTILLER_DECISIONS_ADDENDUM  # noqa: E402
 from papers_qa.runner import PapersQA  # noqa: E402
 
 
@@ -141,6 +141,42 @@ def build_env_overrides(*, papers_dir: Path) -> dict[str, str]:
         "PAPERS_QA_THINKING_MODE": os.environ.get("PAPERS_QA_THINKING_MODE", "disabled"),
         "PAPERS_QA_DISABLE_DISK_LOGGER": "1",
     }
+
+
+def _parse_item_filter(spec: str | None) -> set[int] | None:
+    """Parse --include-items or --skip-items spec strings.
+
+    Accepts comma-separated ints and 'lo-hi' ranges, e.g.:
+      '0-29'          → {0..29}
+      '0,5,10'        → {0,5,10}
+      '0-5,10,15-20'  → {0..5} ∪ {10} ∪ {15..20}
+    Returns None when spec is None (= no filter).
+    """
+    if spec is None:
+        return None
+    out: set[int] = set()
+    for part in spec.split(","):
+        part = part.strip()
+        if not part:
+            continue
+        if "-" in part:
+            lo, hi = part.split("-", 1)
+            out.update(range(int(lo), int(hi) + 1))
+        else:
+            out.add(int(part))
+    return out
+
+
+def _frozen_map_to_addendum(map_path: Path) -> str:
+    """Read PEEK map JSON, brace-escape map_text, wrap in delimiters."""
+    payload = json.loads(map_path.read_text(encoding="utf-8"))
+    map_text = payload.get("map_text", "")
+    escaped = map_text.replace("{", "{{").replace("}", "}}")
+    return (
+        "\n================ Context Map (PEEK frozen) ================\n"
+        + escaped
+        + "\n================ End of Context Map ================\n"
+    )
 
 
 def main() -> int:
@@ -207,6 +243,18 @@ def main() -> int:
                         help="How many questions PEEK evolves the map before freezing.")
     parser.add_argument("--peek-distiller-model", default="deepseek/deepseek-v4-flash",
                         help="LLM used by PEEK's Distiller + Cartographer.")
+    parser.add_argument("--peek-map-in", type=Path, default=None,
+                        help="Load a frozen PEEK map JSON; inject its text into PAPERS_QA_SYSTEM_PROMPT_ADDENDUM. "
+                             "No live PEEK calls. Compatible with --workers > 1.")
+    parser.add_argument("--peek-distiller-addendum-preset", choices=["none", "decisions"], default="none",
+                        help="Append a preset addendum to the PEEK distiller prompt. "
+                             "'decisions' invites canonical-decision caching into REUSABLE RESULTS. "
+                             "Only meaningful with --peek-map-out.")
+    parser.add_argument("--include-items", default=None,
+                        help="Filter rubric items by item_idx. Range syntax: '0-29' or '30-93,7' or '5'. "
+                             "Applied BEFORE --skip-items.")
+    parser.add_argument("--skip-items", default=None,
+                        help="CSV list of item_idx to skip, e.g., '46,48'.")
     args = parser.parse_args()
 
     logging.basicConfig(
@@ -219,9 +267,29 @@ def main() -> int:
             parser.error("--peek-map-out requires --workers 1 (single-process for shared cache)")
         args.peek_map_out.parent.mkdir(parents=True, exist_ok=True)
 
+    if args.peek_map_in is not None:
+        if args.peek_map_out is not None:
+            parser.error("--peek-map-in and --peek-map-out are mutually exclusive")
+        if not args.peek_map_in.exists():
+            parser.error(f"--peek-map-in path does not exist: {args.peek_map_in}")
+
     output_path = args.output or args.input
     rubrics = load_rubrics_json(args.input)
     logger.info("Loaded %d rubric items from %s", len(rubrics), args.input)
+
+    _include = _parse_item_filter(args.include_items)
+    _skip = _parse_item_filter(args.skip_items)
+    def _keep(r: dict) -> bool:
+        idx = int(r["item_idx"])
+        if _include is not None and idx not in _include:
+            return False
+        if _skip is not None and idx in _skip:
+            return False
+        return True
+    n_before = len(rubrics)
+    rubrics = [r for r in rubrics if _keep(r)]
+    if n_before != len(rubrics):
+        logger.info("after include/skip filter: %d rubric items (was %d)", len(rubrics), n_before)
 
     if not args.dry_run:
         items = to_inference_items(rubrics, id_field=args.id_field)
@@ -234,10 +302,12 @@ def main() -> int:
             todo = [it for it in items if it["id"] not in done]
             logger.info("PEEK serial: %d todo (%d already done)", len(todo), len(done))
 
+            addendum = DISTILLER_DECISIONS_ADDENDUM if args.peek_distiller_addendum_preset == "decisions" else None
             peek_cfg = PeekCfg(
                 token_budget=args.peek_token_budget,
                 evolve_steps=args.peek_evolve_steps,
                 distiller_model=args.peek_distiller_model,
+                distiller_addendum=addendum,
             )
             policy = build_peek_policy(peek_cfg)
             pq_cfg = PapersQAConfig.from_env()
@@ -265,6 +335,10 @@ def main() -> int:
         else:
             logger.info("Running inference on %d items, workers=%d", len(items), args.workers)
             env_overrides = build_env_overrides(papers_dir=args.papers_dir)
+            if args.peek_map_in is not None:
+                env_overrides["PAPERS_QA_SYSTEM_PROMPT_ADDENDUM"] = _frozen_map_to_addendum(args.peek_map_in)
+                logger.info("Injected frozen PEEK map (%d chars) into PAPERS_QA_SYSTEM_PROMPT_ADDENDUM",
+                            len(env_overrides["PAPERS_QA_SYSTEM_PROMPT_ADDENDUM"]))
             # Workers need papers_qa + rlm on sys.path at interpreter startup;
             # setting it in env_overrides alone is too late (those run inside the
             # worker after Python has already initialized sys.path). Propagate to

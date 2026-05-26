@@ -362,3 +362,144 @@ def test_peek_flag_runs_serial_with_single_policy(tmp_path, monkeypatch) -> None
     assert len(captured["policies"]) == 1
     assert captured["questions"] == ["Q0", "Q1"]
     assert saved_paths
+
+
+def test_include_items_range_filter(tmp_path, monkeypatch) -> None:
+    """--include-items '0-1' processes only item_idx 0 and 1."""
+    in_path = tmp_path / "rubrics.json"
+    in_path.write_text(json.dumps(
+        [{"item_idx": i, "question": f"Q{i}", "rlm_answer": None} for i in range(5)],
+        ensure_ascii=False,
+    ))
+    papers = tmp_path / "papers"; papers.mkdir(); (papers / "x.md").write_text("y")
+    out_path = tmp_path / "out.json"; jsonl_path = tmp_path / "ans.jsonl"
+
+    captured = {"questions": []}
+    class FakePQ:
+        def __init__(self, cfg, *, peek_policy=None): pass
+        def ask(self, q):
+            captured["questions"].append(q)
+            from papers_qa.runner import AskResult
+            return AskResult(question=q, answer="A", cost_usd=None, duration_s=0, trajectory=None)
+
+    monkeypatch.setenv("OPENAI_API_KEY", "sk-test")
+    monkeypatch.setenv("OPENAI_BASE_URL", "https://example.invalid/v1")
+    monkeypatch.setattr(_sys, "argv", [
+        "generate_rlm_answers.py",
+        "--input", str(in_path), "--output", str(out_path), "--jsonl", str(jsonl_path),
+        "--papers-dir", str(papers), "--workers", "1",
+        "--include-items", "0-1",
+        "--peek-map-out", str(tmp_path / "map.json"),
+    ])
+    import generate_rlm_answers as mod
+    monkeypatch.setattr(mod, "PapersQA", FakePQ)
+    class FakePolicy:
+        current_map_text = ""
+        evolving = True
+        def update(self, **k): pass
+        def save(self, p): pass
+    monkeypatch.setattr(mod, "build_peek_policy", lambda cfg, client=None: FakePolicy())
+    assert mod.main() == 0
+    assert captured["questions"] == ["Q0", "Q1"]
+
+
+def test_skip_items_filter(tmp_path, monkeypatch) -> None:
+    """--skip-items '1,3' excludes those item_idxs."""
+    in_path = tmp_path / "rubrics.json"
+    in_path.write_text(json.dumps(
+        [{"item_idx": i, "question": f"Q{i}", "rlm_answer": None} for i in range(5)],
+        ensure_ascii=False,
+    ))
+    papers = tmp_path / "papers"; papers.mkdir(); (papers / "x.md").write_text("y")
+    out_path = tmp_path / "out.json"; jsonl_path = tmp_path / "ans.jsonl"
+    captured = {"questions": []}
+    class FakePQ:
+        def __init__(self, cfg, *, peek_policy=None): pass
+        def ask(self, q):
+            captured["questions"].append(q)
+            from papers_qa.runner import AskResult
+            return AskResult(question=q, answer="A", cost_usd=None, duration_s=0, trajectory=None)
+    monkeypatch.setenv("OPENAI_API_KEY", "sk-test")
+    monkeypatch.setenv("OPENAI_BASE_URL", "https://example.invalid/v1")
+    monkeypatch.setattr(_sys, "argv", [
+        "generate_rlm_answers.py",
+        "--input", str(in_path), "--output", str(out_path), "--jsonl", str(jsonl_path),
+        "--papers-dir", str(papers), "--workers", "1",
+        "--skip-items", "1,3",
+        "--peek-map-out", str(tmp_path / "map.json"),
+    ])
+    import generate_rlm_answers as mod
+    monkeypatch.setattr(mod, "PapersQA", FakePQ)
+    class FakePolicy:
+        current_map_text = ""
+        evolving = True
+        def update(self, **k): pass
+        def save(self, p): pass
+    monkeypatch.setattr(mod, "build_peek_policy", lambda cfg, client=None: FakePolicy())
+    assert mod.main() == 0
+    assert captured["questions"] == ["Q0", "Q2", "Q4"]
+
+
+def test_peek_map_in_allows_workers_gt_one(tmp_path, monkeypatch) -> None:
+    """--peek-map-in + workers>1 must NOT error (since no live PEEK)."""
+    in_path = tmp_path / "rubrics.json"
+    in_path.write_text(json.dumps([{"item_idx": 0, "question": "Q", "rlm_answer": None}], ensure_ascii=False))
+    papers = tmp_path / "papers"; papers.mkdir(); (papers / "x.md").write_text("y")
+    map_path = tmp_path / "map.json"
+    map_path.write_text(json.dumps({"map_text": "## ROADMAP\n[r-0] hi\n", "scores": {}, "steps": 30, "token_budget": 1024, "evolve_steps": 30}))
+    monkeypatch.setenv("OPENAI_API_KEY", "sk-test")
+    monkeypatch.setenv("OPENAI_BASE_URL", "https://example.invalid/v1")
+    captured = {}
+    def fake_run_inference(*, items, out_path, max_workers, use_processes, env_overrides):
+        captured["env"] = env_overrides
+        out_path.write_text(json.dumps({"id": "0", "answer": "A", "error": None}) + "\n")
+    monkeypatch.setattr(_sys, "argv", [
+        "generate_rlm_answers.py",
+        "--input", str(in_path), "--output", str(tmp_path / "out.json"), "--jsonl", str(tmp_path / "ans.jsonl"),
+        "--papers-dir", str(papers), "--workers", "4",
+        "--peek-map-in", str(map_path),
+    ])
+    import generate_rlm_answers as mod
+    monkeypatch.setattr(mod, "run_inference", fake_run_inference)
+    assert mod.main() == 0
+    # frozen map text was injected into addendum env var, brace-escaped
+    assert "PAPERS_QA_SYSTEM_PROMPT_ADDENDUM" in captured["env"]
+    addendum = captured["env"]["PAPERS_QA_SYSTEM_PROMPT_ADDENDUM"]
+    assert "## ROADMAP" in addendum
+    assert "[r-0] hi" in addendum
+
+
+def test_peek_distiller_addendum_preset_decisions(tmp_path, monkeypatch) -> None:
+    """--peek-distiller-addendum-preset decisions threads the addendum through to PeekCfg."""
+    in_path = tmp_path / "rubrics.json"
+    in_path.write_text(json.dumps([{"item_idx": 0, "question": "Q", "rlm_answer": None}], ensure_ascii=False))
+    papers = tmp_path / "papers"; papers.mkdir(); (papers / "x.md").write_text("y")
+    monkeypatch.setenv("OPENAI_API_KEY", "sk-test")
+    monkeypatch.setenv("OPENAI_BASE_URL", "https://example.invalid/v1")
+    captured_cfg = {}
+    class FakePolicy:
+        current_map_text = ""
+        evolving = True
+        def update(self, **k): pass
+        def save(self, p): pass
+    def fake_build(cfg, client=None):
+        captured_cfg["cfg"] = cfg
+        return FakePolicy()
+    class FakePQ:
+        def __init__(self, cfg, *, peek_policy=None): pass
+        def ask(self, q):
+            from papers_qa.runner import AskResult
+            return AskResult(question=q, answer="A", cost_usd=None, duration_s=0, trajectory=None)
+    monkeypatch.setattr(_sys, "argv", [
+        "generate_rlm_answers.py",
+        "--input", str(in_path), "--output", str(tmp_path / "out.json"), "--jsonl", str(tmp_path / "ans.jsonl"),
+        "--papers-dir", str(papers), "--workers", "1",
+        "--peek-map-out", str(tmp_path / "map.json"),
+        "--peek-distiller-addendum-preset", "decisions",
+    ])
+    import generate_rlm_answers as mod
+    monkeypatch.setattr(mod, "build_peek_policy", fake_build)
+    monkeypatch.setattr(mod, "PapersQA", FakePQ)
+    assert mod.main() == 0
+    assert captured_cfg["cfg"].distiller_addendum is not None
+    assert "canonical" in captured_cfg["cfg"].distiller_addendum.lower()
