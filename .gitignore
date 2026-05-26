@@ -11,3 +11,8 @@ data/CAE-anchor-scores.json
 tests/preds_*.jsonl
 data/*.backup-*.json
 data/merge.json
+
+# Runtime / housekeeping
+outputs/logs/
+outputs/**/*-smoke-*
+outputs/**/*.pid
