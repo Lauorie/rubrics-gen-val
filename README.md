@@ -2,7 +2,8 @@
 
 RAG-grounded rubric **generation** + LLM-judge **evaluation** for Chinese-language CAE / engineering-simulation expert QA.
 
-> 中文完整教程见 [`USAGE.md`](USAGE.md)。算法细节见 [`ALGORITHMS.md`](ALGORITHMS.md)。
+> 中文完整教程见 [`USAGE.md`](USAGE.md)。算法细节见 [`ALGORITHMS.md`](ALGORITHMS.md)。  
+> 用本工具链对 `papers_qa` 做的 5 轮迭代实验总结见 [`EXPERIMENTS.md`](EXPERIMENTS.md)。
 
 ## What's here
 
