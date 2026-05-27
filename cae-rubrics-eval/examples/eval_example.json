@@ -1,0 +1,450 @@
+{
+  "per_candidate": [
+    {
+      "item_idx": 0,
+      "question_id": "1",
+      "question_type": "主观题",
+      "difficulty": "困难",
+      "candidate_answer": "在流固耦合中，当流体与结构密度接近时，隐式分区算法的迭代会不收敛。压力滞后被强耦合放大导致失稳，因此需要采用 monolithic 方法或改进的压力投影技术。",
+      "score": 0.6451612903225806,
+      "score_anchored": {
+        "ref_score": 1.0,
+        "weak_score": 0.0,
+        "normalized": 0.6451612903225806
+      },
+      "breakdown": [
+        {
+          "id": "c1",
+          "text": "指出流体密度与结构密度接近，或二者处于同一数量级时更容易出现 added-mass 问题",
+          "category": "Essential",
+          "weight": 5,
+          "sign": "positive",
+          "criterion_type": "factual_anchor",
+          "met": true,
+          "reason": "候选回答明确指出“当流体与结构密度接近时”更容易出现失稳，符合该 criterion。",
+          "contribution": 5
+        },
+        {
+          "id": "c2",
+          "text": "指出当 added-mass effect 很重要时，强耦合迭代过程可能变得困难甚至不收敛",
+          "category": "Essential",
+          "weight": 5,
+          "sign": "positive",
+          "criterion_type": "factual_anchor",
+          "met": true,
+          "reason": "回答明确指出在流体与结构密度接近、附加质量效应显著时，隐式强耦合/分区迭代可能不收敛。",
+          "contribution": 5
+        },
+        {
+          "id": "c3",
+          "text": "指出分区方法在结构域计算时使用的是上一迭代步的压力",
+          "category": "Essential",
+          "weight": 5,
+          "sign": "positive",
+          "criterion_type": "factual_anchor",
+          "met": false,
+          "reason": "候选回答只提到“压力滞后”导致失稳，但没有明确指出分区方法在结构域计算时使用的是上一迭代步的压力。",
+          "contribution": 0
+        },
+        {
+          "id": "c4",
+          "text": "解释上一迭代步压力会在流体-结构耦合中引入压力滞后",
+          "category": "Important",
+          "weight": 3,
+          "sign": "positive",
+          "criterion_type": "mechanism_explanation",
+          "met": false,
+          "reason": "候选回答只提到“压力滞后”会被强耦合放大，但没有说明上一迭代步的压力如何引入这种压力滞后。",
+          "contribution": 0
+        },
+        {
+          "id": "c5",
+          "text": "解释这种压力滞后会在强耦合条件下放大误差",
+          "category": "Important",
+          "weight": 3,
+          "sign": "positive",
+          "criterion_type": "mechanism_explanation",
+          "met": true,
+          "reason": "候选回答明确提到“压力滞后被强耦合放大导致失稳”，直接解释了该机制。",
+          "contribution": 3
+        },
+        {
+          "id": "c6",
+          "text": "引发失稳",
+          "category": "Important",
+          "weight": 3,
+          "sign": "positive",
+          "criterion_type": "mechanism_explanation",
+          "met": true,
+          "reason": "候选回答明确说明了“压力滞后被强耦合放大导致失稳”，属于对引发数值不稳定机制的直接解释。",
+          "contribution": 3
+        },
+        {
+          "id": "c7",
+          "text": "指出松散耦合（Loosely coupled）方案在该类 added-mass 问题下通常不稳定",
+          "category": "Important",
+          "weight": 3,
+          "sign": "positive",
+          "criterion_type": "decision_logic",
+          "met": false,
+          "reason": "候选回答只提到隐式分区算法迭代不收敛，并未明确指出松散耦合（Loosely coupled）方案在 added-mass 问题下通常不稳定。",
+          "contribution": 0
+        },
+        {
+          "id": "c8",
+          "text": "指出需要采用单块（Monolithic）方法或改进的压力投影技术来避免数值不稳定",
+          "category": "Important",
+          "weight": 3,
+          "sign": "positive",
+          "criterion_type": "decision_logic",
+          "met": true,
+          "reason": "候选回答明确提到需要采用 monolithic 方法或改进的压力投影技术来避免失稳。",
+          "contribution": 3
+        },
+        {
+          "id": "c9",
+          "text": "比较时明确把 monolithic 方法作为 added-mass 显著时比分区/松散耦合更稳的选择",
+          "category": "Optional",
+          "weight": 1,
+          "sign": "positive",
+          "criterion_type": "comparative_balance",
+          "met": true,
+          "reason": "候选回答明确指出分区隐式算法在附加质量显著时会失稳/不收敛，并因此需要采用 monolithic 方法，体现了其相比分区或松散耦合更稳的比较关系。",
+          "contribution": 1
+        },
+        {
+          "id": "c10",
+          "text": "回答以套话/开场白/元评论开头而无实质内容",
+          "category": "Pitfall",
+          "weight": 4,
+          "sign": "negative",
+          "criterion_type": "anti_hacking",
+          "met": false,
+          "reason": "回答开头直接给出实质性解释，没有套话、开场白或元评论。",
+          "contribution": 0
+        },
+        {
+          "id": "c11",
+          "text": "回答篇幅冗长，包含大量与问题无关的背景铺垫或重复",
+          "category": "Pitfall",
+          "weight": 3,
+          "sign": "negative",
+          "criterion_type": "anti_hacking",
+          "met": false,
+          "reason": "候选回答简洁直接，没有明显冗长、无关背景铺垫或重复内容。",
+          "contribution": 0
+        },
+        {
+          "id": "c12",
+          "text": "把不稳定仅归因于网格粗细、时间步长或一般离散误差，而没有提到 added-mass 或 pressure segregation",
+          "category": "Pitfall",
+          "weight": 4,
+          "sign": "negative",
+          "criterion_type": "anti_hacking",
+          "met": false,
+          "reason": "候选回答明确提到了流体-结构密度接近导致的迭代失稳以及压力滞后/强耦合问题，没有把不稳定仅归因于网格、时间步长或一般离散误差。",
+          "contribution": 0
+        }
+      ],
+      "judge_model": "openai/gpt-5.4-mini",
+      "scored_at": "2026-05-27T09:22:56.955031+00:00"
+    },
+    {
+      "item_idx": 1,
+      "question_id": "2",
+      "question_type": "主观题",
+      "difficulty": "中等",
+      "candidate_answer": "我不知道。",
+      "score": 0.0,
+      "score_anchored": {
+        "ref_score": 1.0,
+        "weak_score": 0.0,
+        "normalized": 0.0
+      },
+      "breakdown": [
+        {
+          "id": "c2",
+          "text": "提到高加载率下混凝土抗压强度可提高到约 2 倍",
+          "category": "Essential",
+          "weight": 5,
+          "sign": "positive",
+          "criterion_type": "numeric_precision",
+          "met": false,
+          "reason": "候选回答只说“我不知道”，没有提到高加载率下混凝土抗压强度可提高到约2倍。",
+          "contribution": 0
+        },
+        {
+          "id": "c3",
+          "text": "提到损伤变量 D 的取值范围是 0 到 1",
+          "category": "Important",
+          "weight": 3,
+          "sign": "positive",
+          "criterion_type": "factual_anchor",
+          "met": false,
+          "reason": "候选回答仅表示不知道，没有提到损伤变量 D 的取值范围为 0 到 1。",
+          "contribution": 0
+        },
+        {
+          "id": "c4",
+          "text": "提到损伤主要来源于塑性体积应变",
+          "category": "Important",
+          "weight": 3,
+          "sign": "positive",
+          "criterion_type": "mechanism_explanation",
+          "met": false,
+          "reason": "候选回答仅表示不知道，没有提到损伤主要来源于塑性体积应变。",
+          "contribution": 0
+        },
+        {
+          "id": "c6",
+          "text": "提到高压效应采用三段式状态方程",
+          "category": "Important",
+          "weight": 3,
+          "sign": "positive",
+          "criterion_type": "factual_anchor",
+          "met": false,
+          "reason": "候选回答仅表示不知道，没有提到高压效应采用三段式状态方程。",
+          "contribution": 0
+        },
+        {
+          "id": "c7",
+          "text": "提到三段式状态方程包含线弹性、过渡、完全密实三个阶段",
+          "category": "Important",
+          "weight": 3,
+          "sign": "positive",
+          "criterion_type": "process_completeness",
+          "met": false,
+          "reason": "候选回答仅表示“不知道”，没有提到三段式状态方程的线弹性、过渡和完全密实三个阶段。",
+          "contribution": 0
+        },
+        {
+          "id": "c8",
+          "text": "提到状态方程描述静水压力 p 与体积应变 ε_v 的关系",
+          "category": "Optional",
+          "weight": 1,
+          "sign": "positive",
+          "criterion_type": "mechanism_explanation",
+          "met": false,
+          "reason": "候选回答仅表示“不知道”，没有提到状态方程或静水压力 p 与体积应变 ε_v 的关系。",
+          "contribution": 0
+        },
+        {
+          "id": "c9",
+          "text": "回答以套话/开场白/元评论开头而无实质内容",
+          "category": "Pitfall",
+          "weight": 4,
+          "sign": "negative",
+          "criterion_type": "anti_hacking",
+          "met": false,
+          "reason": "回答直接表达“不知道”，没有以套话、开场白或元评论开头。",
+          "contribution": 0
+        },
+        {
+          "id": "c10",
+          "text": "回答篇幅冗长，包含大量与问题无关的背景铺垫或重复",
+          "category": "Pitfall",
+          "weight": 3,
+          "sign": "negative",
+          "criterion_type": "anti_hacking",
+          "met": false,
+          "reason": "候选回答仅为“我不知道。”，没有篇幅冗长、无关背景或重复内容。",
+          "contribution": 0
+        }
+      ],
+      "judge_model": "openai/gpt-5.4-mini",
+      "scored_at": "2026-05-27T09:22:57.447909+00:00"
+    },
+    {
+      "item_idx": 2,
+      "question_id": "3",
+      "question_type": "简答题",
+      "difficulty": "困难",
+      "candidate_answer": "this answer is intentionally off-topic and in the wrong language — pineapples are tropical.",
+      "score": 0.0,
+      "score_anchored": {
+        "ref_score": 1.0,
+        "weak_score": 0.0,
+        "normalized": 0.0
+      },
+      "breakdown": [
+        {
+          "id": "c1",
+          "text": "明确指出远场水域范围庞大且受计算资源限制，水域网格通常划分较粗（如 10 cm 量级）",
+          "category": "Essential",
+          "weight": 5,
+          "sign": "positive",
+          "criterion_type": "factual_anchor",
+          "met": false,
+          "reason": "候选回答与题目无关，未明确提到远场水域范围庞大、受计算资源限制而导致水域网格通常较粗（如10 cm量级）。",
+          "contribution": 0
+        },
+        {
+          "id": "c2",
+          "text": "指出有限分辨率的离散单元难以精确处理冲击波的高频分量",
+          "category": "Essential",
+          "weight": 5,
+          "sign": "positive",
+          "criterion_type": "factual_anchor",
+          "met": false,
+          "reason": "候选回答完全偏题，未提到有限分辨率离散单元难以精确处理冲击波高频分量。",
+          "contribution": 0
+        },
+        {
+          "id": "c3",
+          "text": "明确提到为连续化处理强间断冲击波会引入人工体积粘性",
+          "category": "Essential",
+          "weight": 5,
+          "sign": "positive",
+          "criterion_type": "factual_anchor",
+          "met": false,
+          "reason": "候选回答与题目无关，未提到为连续化处理强间断冲击波会引入人工体积粘性。",
+          "contribution": 0
+        },
+        {
+          "id": "c4",
+          "text": "指出传播距离增加时计算误差会不断累积，导致远场压力值偏小",
+          "category": "Essential",
+          "weight": 5,
+          "sign": "positive",
+          "criterion_type": "factual_anchor",
+          "met": false,
+          "reason": "候选回答与题目无关，没有指出传播距离增加时误差累积导致远场压力偏小。",
+          "contribution": 0
+        },
+        {
+          "id": "c5",
+          "text": "解释粗网格会使冲击波前缘被数值平滑，从而削弱峰值压力",
+          "category": "Important",
+          "weight": 3,
+          "sign": "positive",
+          "criterion_type": "mechanism_explanation",
+          "met": false,
+          "reason": "候选回答与题目无关，没有解释粗网格导致冲击波前缘数值平滑并削弱峰值压力的机制。",
+          "contribution": 0
+        },
+        {
+          "id": "c6",
+          "text": "解释人工体积粘性会造成数值耗散",
+          "category": "Important",
+          "weight": 3,
+          "sign": "positive",
+          "criterion_type": "mechanism_explanation",
+          "met": false,
+          "reason": "候选回答完全偏题，未提到人工体积粘性或其导致数值耗散的机制。",
+          "contribution": 0
+        },
+        {
+          "id": "c7",
+          "text": "粘性系数越大峰值压力衰减越快",
+          "category": "Important",
+          "weight": 3,
+          "sign": "positive",
+          "criterion_type": "mechanism_explanation",
+          "met": false,
+          "reason": "候选回答完全离题，没有提到粘性系数与峰值压力衰减速度之间的关系。",
+          "contribution": 0
+        },
+        {
+          "id": "c8",
+          "text": "回答同时覆盖网格限制、人工体积粘性、传播距离误差累积三类原因",
+          "category": "Important",
+          "weight": 3,
+          "sign": "positive",
+          "criterion_type": "process_completeness",
+          "met": false,
+          "reason": "候选回答完全未涉及网格限制、人工体积粘性或传播距离误差累积这三类原因。",
+          "contribution": 0
+        },
+        {
+          "id": "c9",
+          "text": "回答以套话/开场白/元评论开头而无实质内容",
+          "category": "Pitfall",
+          "weight": 4,
+          "sign": "negative",
+          "criterion_type": "anti_hacking",
+          "met": true,
+          "reason": "候选回答只有元评论和无关内容，没有任何实质性答题内容。",
+          "contribution": -4
+        },
+        {
+          "id": "c10",
+          "text": "回答篇幅冗长，包含大量与问题无关的背景铺垫或重复",
+          "category": "Pitfall",
+          "weight": 3,
+          "sign": "negative",
+          "criterion_type": "anti_hacking",
+          "met": false,
+          "reason": "候选回答很短，且没有大量无关背景铺垫或重复内容，因此不符合该负向标准。",
+          "contribution": 0
+        }
+      ],
+      "judge_model": "openai/gpt-5.4-mini",
+      "scored_at": "2026-05-27T09:23:01.036498+00:00"
+    }
+  ],
+  "aggregate": {
+    "n_predictions": 3,
+    "n_scored_ok": 3,
+    "n_errors": 0,
+    "mean_score": 0.21505376344086022,
+    "mean_anchored": 0.21505376344086022,
+    "by_question_type": {
+      "主观题": {
+        "n": 2,
+        "mean": 0.3225806451612903,
+        "mean_anchored": 0.3225806451612903
+      },
+      "简答题": {
+        "n": 1,
+        "mean": 0.0,
+        "mean_anchored": 0.0
+      }
+    },
+    "by_difficulty": {
+      "困难": {
+        "n": 2,
+        "mean": 0.3225806451612903,
+        "mean_anchored": 0.3225806451612903
+      },
+      "中等": {
+        "n": 1,
+        "mean": 0.0,
+        "mean_anchored": 0.0
+      }
+    },
+    "by_criterion_type": {
+      "factual_anchor": {
+        "n_criteria": 9,
+        "met_rate": 0.2222222222222222
+      },
+      "mechanism_explanation": {
+        "n_criteria": 8,
+        "met_rate": 0.25
+      },
+      "decision_logic": {
+        "n_criteria": 2,
+        "met_rate": 0.5
+      },
+      "comparative_balance": {
+        "n_criteria": 1,
+        "met_rate": 1.0
+      },
+      "anti_hacking": {
+        "n_criteria": 7,
+        "met_rate": 0.14285714285714285
+      },
+      "numeric_precision": {
+        "n_criteria": 1,
+        "met_rate": 0.0
+      },
+      "process_completeness": {
+        "n_criteria": 2,
+        "met_rate": 0.0
+      }
+    },
+    "judge_model": "openai/gpt-5.4-mini",
+    "rubric_version": "1.0",
+    "scored_at": "2026-05-27T09:23:01.036778+00:00",
+    "elapsed_seconds": 17.11
+  }
+}
