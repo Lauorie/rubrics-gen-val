@@ -484,9 +484,11 @@ $$
 
 **Anchor 缓存**（`anchor.py:AnchorCache`）：JSON-backed，按 `item_idx` 字符串做 key，避免重复计算 — 同一批 rubric 在评估多个候选模型时复用一份 anchor。改了 rubric 必须 `--refresh-anchors`，否则 anchor 与 rubric 不一致。
 
-用大白话给你解释一下这套打分系统，其实就两步：**先算原始分，再做归一化**。
 
----
+
+## 通俗语言解释一下这套打分系统，其实就两步：**先算原始分，再做归一化**。
+
+
 
 ## 第一步：算原始分（加权二值得分）
 
