@@ -1,0 +1,3 @@
+{"item_idx": 0, "answer": "在流固耦合中，当流体与结构密度接近时，隐式分区算法的迭代会不收敛。压力滞后被强耦合放大导致失稳，因此需要采用 monolithic 方法或改进的压力投影技术。"}
+{"item_idx": 1, "answer": "我不知道。"}
+{"item_idx": 2, "answer": "this answer is intentionally off-topic and in the wrong language — pineapples are tropical."}
