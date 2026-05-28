@@ -58,12 +58,14 @@ def build_bm25(chunks: list[Chunk], pkl_path: str) -> None:
 
 
 def save_chunks(chunks: list[Chunk], path: str) -> None:
+    """Write chunks to a JSONL file (one JSON object per line)."""
     with open(path, "w", encoding="utf-8") as f:
         for c in chunks:
             f.write(json.dumps(c.__dict__, ensure_ascii=False) + "\n")
 
 
 def load_chunks(path: str) -> list[Chunk]:
+    """Load chunks from a JSONL file produced by save_chunks."""
     chunks: list[Chunk] = []
     for line in Path(path).read_text(encoding="utf-8").splitlines():
         if line.strip():

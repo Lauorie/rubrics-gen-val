@@ -23,7 +23,7 @@ def _fmt(x) -> str:
 def _delta(a, b) -> str:
     if isinstance(a, (int, float)) and isinstance(b, (int, float)):
         d = a - b
-        return f"{d:+.3f}".replace("+-", "-")
+        return f"{d:+.3f}"
     return "—"
 
 

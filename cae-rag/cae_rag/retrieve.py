@@ -2,7 +2,7 @@
 from __future__ import annotations
 import logging
 from collections import defaultdict
-from typing import TypeVar
+from typing import Any, Callable, TypeVar
 
 import jieba
 import numpy as np
@@ -31,8 +31,9 @@ def rrf_fuse(dense_ranked: list[T], sparse_ranked: list[T], k: int = 60, top_k: 
 class HybridRetriever:
     """Dense (Milvus) + sparse (BM25) retrieval fused with RRF, returns top-k chunks."""
 
-    def __init__(self, milvus, bm25, chunk_ids: list[str], chunk_lookup: dict,
-                 embed_query, top_k: int = 5, candidate_pool: int = 20, rrf_k: int = 60) -> None:
+    def __init__(self, milvus: Any, bm25: Any, chunk_ids: list[str],
+                 chunk_lookup: dict[str, tuple[str, str]], embed_query: Callable[[str], list[float]],
+                 top_k: int = 5, candidate_pool: int = 20, rrf_k: int = 60) -> None:
         """Initialise retriever with pre-built indexes and a query embedding function.
 
         Args:

@@ -18,33 +18,35 @@ EVAL_PY = EVAL_DIR / ".venv/bin/python"
 RLM_V3 = Path("/home/juli/RLM/data/CAE-v2.0-1-rubrics-v3.json")
 
 
-def score(predictions: Path, out: Path, concurrency: int) -> None:
+def score(predictions: Path, out: Path, concurrency: int, eval_dir: Path) -> None:
     """Invoke cae-rubrics-eval/score.py from inside its dir (so its .env + anchors resolve)."""
-    cmd = [str(EVAL_PY), "score.py", "--predictions", str(predictions.resolve()),
+    cmd = [str(eval_dir / ".venv/bin/python"), "score.py", "--predictions", str(predictions.resolve()),
            "--out", str(out.resolve()), "--concurrency", str(concurrency)]
     logger.info("Scoring -> %s", out)
-    subprocess.run(cmd, cwd=str(EVAL_DIR), check=True)
+    subprocess.run(cmd, cwd=str(eval_dir), check=True)
 
 
 def main() -> None:
     p = argparse.ArgumentParser()
     p.add_argument("--out-dir", default="outputs", type=Path)
     p.add_argument("--concurrency", type=int, default=16)
+    p.add_argument("--eval-dir", default=EVAL_DIR, type=Path, help="Path to cae-rubrics-eval")
+    p.add_argument("--rlm-v3", default=RLM_V3, type=Path, help="RLM v3 answers JSON")
     args = p.parse_args()
     out = args.out_dir
     out.mkdir(parents=True, exist_ok=True)
 
     # 1) score RAG
-    score(out / "predictions.jsonl", out / "eval_rag.json", args.concurrency)
+    score(out / "predictions.jsonl", out / "eval_rag.json", args.concurrency, args.eval_dir)
 
     # 2) build + score RLM v3 through the SAME pipeline
-    v3 = json.loads(RLM_V3.read_text(encoding="utf-8"))
+    v3 = json.loads(args.rlm_v3.read_text(encoding="utf-8"))
     rlm_preds = extract_rlm_predictions(v3)
     rlm_path = out / "rlm_v3_predictions.jsonl"
     with open(rlm_path, "w", encoding="utf-8") as f:
         for r in rlm_preds:
             f.write(json.dumps(r, ensure_ascii=False) + "\n")
-    score(rlm_path, out / "eval_rlm_v3.json", args.concurrency)
+    score(rlm_path, out / "eval_rlm_v3.json", args.concurrency, args.eval_dir)
 
     # 3) comparison report
     rag_agg = load_aggregate(str(out / "eval_rag.json"))
