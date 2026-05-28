@@ -1,0 +1,26 @@
+[project]
+name = "cae-rag"
+version = "0.1.0"
+description = "Hybrid-retrieval RAG over CAE-MDs, scored with cae-rubrics-eval"
+requires-python = ">=3.11"
+dependencies = [
+    "pymilvus>=2.4.2",
+    "milvus-lite>=2.4.0",
+    "openai>=1.40",
+    "tiktoken>=0.7",
+    "jieba>=0.42",
+    "rank-bm25>=0.2.2",
+    "tenacity>=8.2",
+    "python-dotenv>=1.0",
+    "numpy>=1.26",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[tool.setuptools.packages.find]
+include = ["cae_rag*"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
