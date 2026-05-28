@@ -1027,6 +1027,7 @@ def main() -> None:
     chunk_lookup = {c.chunk_id: (c.text, c.doc) for c in chunks}
     bm25, chunk_ids = load_bm25(str(args.out_dir / "bm25.pkl"))
     milvus = MilvusClient(str(args.out_dir / "cae_rag.db"))
+    milvus.load_collection(COLLECTION)  # required: a fresh process must load before search
     client = make_openai_client(cfg.api_key, cfg.base_url)
 
     def embed_query(q: str) -> list[float]:
