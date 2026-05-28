@@ -44,6 +44,7 @@ def build_milvus(db_path: str, chunks: list[Chunk], vectors: list[list[float]], 
         for i, c in enumerate(chunks)
     ]
     client.insert(COLLECTION, rows)
+    client.load_collection(COLLECTION)
     logger.info("Inserted %d vectors into Milvus Lite at %s", len(rows), db_path)
 
 
