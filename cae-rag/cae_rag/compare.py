@@ -64,3 +64,41 @@ def build_comparison_md(rag: dict, rlm: dict) -> str:
     lines.append("\n> The table above used judge `gpt-5.5`; the headline used `gpt-5.4-mini`. "
                  "Compare RAG only against the re-scored RLM v3 headline number.\n")
     return "\n".join(lines)
+
+
+def build_comparison_md_3way(rag: dict, react: dict, rlm: dict) -> str:
+    """3-way report: RAG vs ReAct vs RLM v3, all scored under the same judge."""
+    lines: list[str] = []
+    lines.append("# CAE: RAG vs ReAct vs RLM v3 — Comparison\n")
+    lines.append(f"All scored with `cae-rubrics-eval`, judge `{rag.get('judge_model')}`, identical anchors.\n")
+    lines.append("## Headline (mean_anchored — primary metric)\n")
+    lines.append("| System | mean_anchored | mean_score | n_ok | n_err | Δ vs RLM v3 |")
+    lines.append("|---|---|---|---|---|---|")
+    lines.append(f"| RAG (hybrid top-5) | {_fmt(rag.get('mean_anchored'))} | {_fmt(rag.get('mean_score'))} | {rag.get('n_scored_ok')} | {rag.get('n_errors')} | {_delta(rag.get('mean_anchored'), rlm.get('mean_anchored'))} |")
+    lines.append(f"| ReAct (iterative) | {_fmt(react.get('mean_anchored'))} | {_fmt(react.get('mean_score'))} | {react.get('n_scored_ok')} | {react.get('n_errors')} | {_delta(react.get('mean_anchored'), rlm.get('mean_anchored'))} |")
+    lines.append(f"| RLM v3 | {_fmt(rlm.get('mean_anchored'))} | {_fmt(rlm.get('mean_score'))} | {rlm.get('n_scored_ok')} | {rlm.get('n_errors')} | — |")
+    lines.append("")
+
+    def _section(title: str, key: str) -> None:
+        lines.append(f"## By {title} (mean_anchored)\n")
+        lines.append("| " + title + " | RAG | ReAct | RLM v3 |")
+        lines.append("|---|---|---|---|")
+        groups = sorted(set(rag.get(key, {})) | set(react.get(key, {})) | set(rlm.get(key, {})))
+        for g in groups:
+            ga = rag.get(key, {}).get(g, {}).get("mean_anchored")
+            ge = react.get(key, {}).get(g, {}).get("mean_anchored")
+            gl = rlm.get(key, {}).get(g, {}).get("mean_anchored")
+            lines.append(f"| {g} | {_fmt(ga)} | {_fmt(ge)} | {_fmt(gl)} |")
+        lines.append("")
+
+    _section("question_type", "by_question_type")
+    _section("difficulty", "by_difficulty")
+
+    lines.append("## Secondary context — published RLM (judge gpt-5.5, NOT comparable)\n")
+    lines.append("| version | published mean_anchored |")
+    lines.append("|---|---|")
+    for v, s in PUBLISHED_RLM.items():
+        lines.append(f"| {v} | {s:.3f} |")
+    lines.append("\n> Published numbers used judge `gpt-5.5`; the headline above used "
+                 "`gpt-5.4-mini`. Only compare within the headline table.\n")
+    return "\n".join(lines)
