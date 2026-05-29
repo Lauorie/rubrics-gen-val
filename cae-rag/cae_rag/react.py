@@ -3,7 +3,7 @@ from __future__ import annotations
 import logging
 import re
 from dataclasses import dataclass
-from typing import Any, Callable
+from typing import Any
 
 from cae_rag.ingest import Chunk
 
