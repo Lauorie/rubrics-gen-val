@@ -80,3 +80,64 @@ def read_chunk(chunk_id: str, chunks_by_id: dict[str, Chunk], window: int) -> st
         if cid in chunks_by_id:
             parts.append(f"【{cid}】\n{chunks_by_id[cid].text}")
     return "\n\n".join(parts)
+
+
+class ReactAgent:
+    """Text-based ReAct loop: Thought/Action(search|read)/Observation, then Final Answer."""
+
+    def __init__(self, client: Any, retriever: Any, chunks: list[Chunk], cfg: ReactConfig,
+                 gen_model: str, doc_names: list[str]):
+        self.client = client
+        self.retriever = retriever
+        self.cfg = cfg
+        self.gen_model = gen_model
+        self.chunks_by_id = {c.chunk_id: c for c in chunks}
+        self.system = SYSTEM_TEMPLATE.format(doc_list="\n".join(f"- {d}" for d in doc_names))
+
+    def _llm(self, scratchpad: str) -> str:
+        resp = self.client.chat.completions.create(
+            model=self.gen_model, temperature=self.cfg.temperature,
+            messages=[{"role": "system", "content": self.system},
+                      {"role": "user", "content": scratchpad}],
+        )
+        return (resp.choices[0].message.content or "").strip()
+
+    def _run_tool(self, tool: str, arg: str) -> str:
+        if tool == "search":
+            hits = self.retriever.retrieve(arg)
+            return format_search_obs(hits, self.cfg.snippet_chars)
+        if tool == "read":
+            return read_chunk(arg, self.chunks_by_id, self.cfg.read_window)
+        return f"未知工具: {tool}"
+
+    def answer(self, question: str) -> dict:
+        scratchpad = f"问题：{question}\n"
+        trace: list[dict] = []
+        for step in range(self.cfg.max_steps):
+            out = self._llm(scratchpad)
+            final = parse_final(out)
+            if final is not None:
+                return {"answer": final, "steps": step + 1, "trace": trace}
+            action = parse_action(out)
+            if action is None:
+                # one reformat nudge
+                scratchpad += ("（上一步输出格式不正确）请仅用 "
+                               "'Action: search[...]'、'Action: read[...]' 或 "
+                               "'Final Answer: ...' 之一回复。\n")
+                out = self._llm(scratchpad)
+                final = parse_final(out)
+                if final is not None:
+                    return {"answer": final, "steps": step + 1, "trace": trace}
+                action = parse_action(out)
+                if action is None:
+                    return {"answer": out, "steps": step + 1, "trace": trace}
+            tool, arg = action
+            obs = self._run_tool(tool, arg)
+            trace.append({"tool": tool, "arg": arg})
+            scratchpad += f"{out}\nObservation: {obs}\n"
+        # budget exhausted -> force a final answer
+        scratchpad += "\n请基于以上观察，现在直接给出 Final Answer（中文）。\n"
+        forced = self._llm(scratchpad)
+        final = parse_final(forced)
+        return {"answer": final if final is not None else forced,
+                "steps": self.cfg.max_steps, "trace": trace}

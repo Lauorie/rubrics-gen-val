@@ -52,3 +52,51 @@ def test_read_chunk_neighbors_and_missing():
     edge = read_chunk("d::0", by_id, window=1)  # no d::-1
     assert "text0" in edge and "text1" in edge and "text2" not in edge
     assert read_chunk("d::99", by_id, window=1) == "未找到该 chunk_id"
+
+
+from cae_rag.react import ReactAgent
+
+
+class _Msg:
+    def __init__(self, content): self.content = content
+class _Choice:
+    def __init__(self, content): self.message = _Msg(content)
+class _Resp:
+    def __init__(self, content): self.choices = [_Choice(content)]
+class _Chat:
+    def __init__(self, scripted): self.scripted = list(scripted); self.calls = 0
+    def create(self, **kw): r = _Resp(self.scripted[self.calls]); self.calls += 1; return r
+class _Client:
+    def __init__(self, scripted): self.chat = type("C", (), {"completions": _Chat(scripted)})()
+class _FakeRetriever:
+    def retrieve(self, q): return [{"chunk_id": "d::0", "doc": "d", "text": "附加质量全文内容"}]
+
+
+def test_react_agent_runs_search_read_then_final():
+    scripted = [
+        "Thought: 先检索\nAction: search[附加质量]",
+        "Thought: 读取细节\nAction: read[d::0]",
+        "Final Answer: 这是最终答案",
+    ]
+    client = _Client(scripted)
+    chunks = [Chunk("d::0", "d", "附加质量全文内容", 0, 1)]
+    agent = ReactAgent(client=client, retriever=_FakeRetriever(), chunks=chunks,
+                       cfg=ReactConfig(), gen_model="deepseek/deepseek-v4-flash",
+                       doc_names=["d"])
+    res = agent.answer("附加质量为何导致不稳定？")
+    assert res["answer"] == "这是最终答案"
+    assert res["steps"] == 3
+    tools = [t["tool"] for t in res["trace"]]
+    assert tools == ["search", "read"]
+
+
+def test_react_agent_forces_answer_on_budget_exhaustion():
+    # every step is a search; never a Final Answer until the forced call
+    scripted = ["Thought: t\nAction: search[q]"] * 6 + ["Final Answer: 兜底答案"]
+    client = _Client(scripted)
+    chunks = [Chunk("d::0", "d", "x", 0, 1)]
+    agent = ReactAgent(client=client, retriever=_FakeRetriever(), chunks=chunks,
+                       cfg=ReactConfig(max_steps=6), gen_model="m", doc_names=["d"])
+    res = agent.answer("q?")
+    assert res["answer"] == "兜底答案"
+    assert res["steps"] == 6
