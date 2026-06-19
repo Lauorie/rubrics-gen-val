@@ -34,6 +34,9 @@ def main():
     p.add_argument("--limit", type=int, default=None, help="Only process first N items (debug)")
     p.add_argument("--dry-run", action="store_true", help="Stop after 1 item")
     p.add_argument("--resume", action="store_true", help="Skip items whose per-item file already exists")
+    p.add_argument("--num-shards", type=int, default=1, help="Total number of parallel shards (process-level parallelism)")
+    p.add_argument("--shard", type=int, default=0, help="This process's shard id in [0, num_shards)")
+    p.add_argument("--no-aggregate", action="store_true", help="Skip final aggregation (let a separate step aggregate once all shards finish)")
     p.add_argument("--seed", type=int, default=42)
     args = p.parse_args()
 
@@ -61,6 +64,9 @@ def main():
         indexed = indexed[: args.limit]
     if args.dry_run:
         indexed = indexed[:1]
+    if args.num_shards > 1:
+        indexed = [(idx, item) for idx, item in indexed if idx % args.num_shards == args.shard]
+        logger.info("Shard %d/%d: %d items", args.shard, args.num_shards, len(indexed))
 
     def filename_for(idx: int) -> Path:
         return items_dir / f"idx_{idx:03d}.json"
@@ -85,6 +91,10 @@ def main():
         filename_for(idx).write_text(
             json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8",
         )
+
+    if args.no_aggregate:
+        logger.info("Shard %d done (--no-aggregate); skipping aggregation", args.shard)
+        return
 
     # Aggregate from per-item files (idx-named) so resume runs don't lose previously-generated items
     all_items = sorted(items_dir.glob("idx_*.json"))

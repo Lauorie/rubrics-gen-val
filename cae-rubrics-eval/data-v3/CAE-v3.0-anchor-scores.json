@@ -1,0 +1,566 @@
+{
+  "1": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T08:41:32.741344+00:00"
+  },
+  "5": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T08:41:33.917804+00:00"
+  },
+  "6": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T08:41:35.174748+00:00"
+  },
+  "0": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T08:41:35.544218+00:00"
+  },
+  "8": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T08:41:35.864671+00:00"
+  },
+  "2": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T08:41:40.310309+00:00"
+  },
+  "3": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T08:41:50.319381+00:00"
+  },
+  "20": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:07:28.320005+00:00"
+  },
+  "15": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:07:29.115318+00:00"
+  },
+  "16": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:07:29.582675+00:00"
+  },
+  "19": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:07:30.676241+00:00"
+  },
+  "12": {
+    "ref_score": 0.8,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:07:30.872922+00:00"
+  },
+  "7": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:07:30.873708+00:00"
+  },
+  "17": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:07:31.342483+00:00"
+  },
+  "14": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:07:32.971461+00:00"
+  },
+  "4": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:07:34.951888+00:00"
+  },
+  "11": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:07:35.224053+00:00"
+  },
+  "21": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:07:35.486581+00:00"
+  },
+  "10": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:07:36.408954+00:00"
+  },
+  "22": {
+    "ref_score": 0.875,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:07:36.662173+00:00"
+  },
+  "13": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:07:36.891545+00:00"
+  },
+  "9": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:07:37.140574+00:00"
+  },
+  "18": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:07:39.675211+00:00"
+  },
+  "24": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:07:43.676265+00:00"
+  },
+  "23": {
+    "ref_score": 0.8888888888888888,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:07:44.061337+00:00"
+  },
+  "26": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:07:44.550711+00:00"
+  },
+  "30": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:07:45.106335+00:00"
+  },
+  "29": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:07:45.405549+00:00"
+  },
+  "27": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:07:45.405698+00:00"
+  },
+  "25": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:07:46.104266+00:00"
+  },
+  "32": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:07:46.541114+00:00"
+  },
+  "33": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:07:49.616620+00:00"
+  },
+  "31": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:07:52.530582+00:00"
+  },
+  "34": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:07:53.124520+00:00"
+  },
+  "28": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:07:54.021738+00:00"
+  },
+  "38": {
+    "ref_score": 0.9,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:07:55.889673+00:00"
+  },
+  "41": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:07:57.216183+00:00"
+  },
+  "40": {
+    "ref_score": 0.88,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:07:57.793971+00:00"
+  },
+  "44": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:07:58.624890+00:00"
+  },
+  "36": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:07:59.542549+00:00"
+  },
+  "43": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:08:00.674716+00:00"
+  },
+  "46": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:08:01.015488+00:00"
+  },
+  "42": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:08:01.015636+00:00"
+  },
+  "39": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:08:01.640540+00:00"
+  },
+  "45": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:08:03.417744+00:00"
+  },
+  "48": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:08:07.211174+00:00"
+  },
+  "35": {
+    "ref_score": 0.8076923076923077,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:08:07.517806+00:00"
+  },
+  "49": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:08:07.772987+00:00"
+  },
+  "51": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:08:11.375548+00:00"
+  },
+  "50": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:08:11.728266+00:00"
+  },
+  "47": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:08:13.327370+00:00"
+  },
+  "60": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:08:14.867426+00:00"
+  },
+  "54": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:08:15.883374+00:00"
+  },
+  "52": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:08:16.306260+00:00"
+  },
+  "57": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:08:18.348031+00:00"
+  },
+  "53": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:08:19.716734+00:00"
+  },
+  "58": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:08:20.354851+00:00"
+  },
+  "61": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:08:22.357916+00:00"
+  },
+  "62": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:08:23.075385+00:00"
+  },
+  "55": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:08:23.295569+00:00"
+  },
+  "59": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:08:23.899804+00:00"
+  },
+  "63": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:08:24.180583+00:00"
+  },
+  "65": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:08:24.775702+00:00"
+  },
+  "56": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:08:25.444783+00:00"
+  },
+  "37": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:08:25.951053+00:00"
+  },
+  "64": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:08:29.573303+00:00"
+  },
+  "69": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:08:32.223761+00:00"
+  },
+  "66": {
+    "ref_score": 0.9032258064516129,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:08:32.769174+00:00"
+  },
+  "71": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:08:33.875230+00:00"
+  },
+  "68": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:08:34.209116+00:00"
+  },
+  "73": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:08:36.125074+00:00"
+  },
+  "70": {
+    "ref_score": 0.8928571428571429,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:08:39.165407+00:00"
+  },
+  "72": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:08:39.846766+00:00"
+  },
+  "77": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:08:42.427560+00:00"
+  },
+  "76": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:08:43.060471+00:00"
+  },
+  "74": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:08:43.636887+00:00"
+  },
+  "79": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:08:43.935871+00:00"
+  },
+  "75": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:08:44.716442+00:00"
+  },
+  "82": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:08:46.197298+00:00"
+  },
+  "78": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:08:46.452191+00:00"
+  },
+  "81": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:08:46.478041+00:00"
+  },
+  "80": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:08:47.194280+00:00"
+  },
+  "83": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:08:48.743727+00:00"
+  },
+  "85": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:08:50.342842+00:00"
+  },
+  "88": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:08:55.665917+00:00"
+  },
+  "84": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:08:56.064568+00:00"
+  },
+  "89": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:08:56.461430+00:00"
+  },
+  "67": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:08:56.492961+00:00"
+  },
+  "86": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:08:58.818141+00:00"
+  },
+  "87": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:09:01.349808+00:00"
+  },
+  "93": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:09:01.687635+00:00"
+  },
+  "91": {
+    "ref_score": 0.8611111111111112,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:09:03.492946+00:00"
+  },
+  "92": {
+    "ref_score": 0.975,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:09:15.359481+00:00"
+  },
+  "90": {
+    "ref_score": 1.0,
+    "weak_score": 0.0,
+    "judge_model": "openai/gpt-5.5",
+    "computed_at": "2026-06-19T09:09:23.819312+00:00"
+  }
+}

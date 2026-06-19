@@ -4,4 +4,4 @@
 - mechanism_explanation: 3-4 条（Important，针对开放性问题的多因解释）
 - comparative_balance: 可选 0-1 条
 - anti_hacking: 必填 2 条 Pitfall
-- 注意：主观题鼓励对参考答案中提出的"原因列表/影响列表"逐点拆解为独立 criterion
+- 注意：主观题可对参考答案中"相互独立"的原因/影响要点拆为独立 criterion；但每条只检查一个独立要点，不要把同一个论点拆成多条近义条目，也不要把一句话从中间切断。
