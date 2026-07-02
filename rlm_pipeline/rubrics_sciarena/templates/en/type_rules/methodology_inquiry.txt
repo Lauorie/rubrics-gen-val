@@ -1,0 +1,8 @@
+[This is a Methodology Inquiry question]
+The answer should explain how a method/approach works or how to do something, grounded in the cited literature.
+- Total criteria: 8-12
+- factual_anchor: 2-3 (Essential) — name the specific methods, techniques, datasets, or tools the ground-truth answer identifies.
+- process_completeness: 2-3 (Essential/Important) — the key steps or components of the methodology are present and in a sensible order.
+- mechanism_explanation: 2-3 (Important) — why the method works / what problem each step solves.
+- numeric_precision: 0-1 (Optional) — any quantitative settings (hyperparameters, sample sizes, metrics) stated correctly.
+- anti_hacking: at least 2 Pitfall (the two required defaults), plus optionally: "lists method names without explaining how they are applied".

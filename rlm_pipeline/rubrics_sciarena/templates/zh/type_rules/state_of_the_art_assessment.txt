@@ -1,0 +1,7 @@
+【本题为 前沿水平评估（State-of-the-Art Assessment）】
+回答应基于引用文献，综述或评估某领域当前最佳的方法/结果。
+- 总条目数：8-12
+- factual_anchor：3-5 条（Essential）——点名的具体 SOTA 方法、模型、系统或结果，尽量归因到其来源论文/作者。
+- comparative_balance：2-3 条（Important）——主流方法之间如何比较（优势、劣势、相对性能）。
+- numeric_precision：0-2 条（Optional）——关键指标或基准数值表述正确并带单位。
+- anti_hacking：至少 2 条 Pitfall（两条必填默认项），可选追加："声称某方法最佳却不点名任何具体替代方案或证据"。

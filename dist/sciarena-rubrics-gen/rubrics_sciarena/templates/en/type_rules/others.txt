@@ -1,0 +1,7 @@
+[General literature-QA question]
+The answer should address the question accurately and completely, grounded in the cited literature.
+- Total criteria: 8-12
+- factual_anchor: 2-4 (Essential) — the specific facts, entities, or findings the ground-truth answer states.
+- mechanism_explanation: 2-3 (Important) — supporting reasoning or causal explanation.
+- comparative_balance / process_completeness / numeric_precision: include as appropriate to the question.
+- anti_hacking: at least 2 Pitfall (the two required defaults).

@@ -1,0 +1,7 @@
+[This is a Challenges & Limitations question]
+The answer should identify difficulties, open problems, or limitations, grounded in the cited literature.
+- Total criteria: 8-12
+- factual_anchor: 3-5 (Essential) — each distinct challenge/limitation the ground-truth answer names becomes its own criterion.
+- mechanism_explanation: 2-3 (Important) — why each challenge arises or why it is hard to overcome.
+- comparative_balance: 0-1 (Optional) — trade-offs between competing constraints, if discussed.
+- anti_hacking: at least 2 Pitfall (the two required defaults), plus optionally: "lists generic limitations not specific to the question's topic".

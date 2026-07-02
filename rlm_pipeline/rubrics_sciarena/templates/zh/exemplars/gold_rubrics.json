@@ -1,0 +1,27 @@
+[
+  {
+    "question_type": "Conceptual Explanation",
+    "question": "为什么批归一化（Batch Normalization）能加速深度网络的训练？",
+    "reference_answer": "批归一化在每个 mini-batch 上对层输入做归一化，从而减小内部协变量偏移并平滑损失曲面，使得可以使用更大的学习率，收敛更快也更稳定。",
+    "criteria": [
+      {"id": "c1", "text": "指出批归一化使用 mini-batch 的统计量（均值与方差）对层激活进行归一化", "category": "Essential", "weight": 5, "sign": "positive", "criterion_type": "factual_anchor"},
+      {"id": "c2", "text": "解释归一化减小了训练过程中跨层的内部协变量偏移", "category": "Important", "weight": 3, "sign": "positive", "criterion_type": "mechanism_explanation"},
+      {"id": "c3", "text": "解释它平滑了优化曲面，从而允许使用更大的学习率", "category": "Important", "weight": 3, "sign": "positive", "criterion_type": "mechanism_explanation"},
+      {"id": "c4", "text": "回答以套话、开场白或元评论开头，而没有实质内容", "category": "Pitfall", "weight": 4, "sign": "negative", "criterion_type": "anti_hacking"},
+      {"id": "c5", "text": "回答冗长，包含大量与问题无关的背景铺垫或重复，没有补充有效信息", "category": "Pitfall", "weight": 3, "sign": "negative", "criterion_type": "anti_hacking"}
+    ]
+  },
+  {
+    "question_type": "Challenges & Limitations",
+    "question": "基于人类反馈的强化学习（RLHF）有哪些主要局限？",
+    "reference_answer": "RLHF 受限于人类偏好数据的成本与噪声、奖励模型的过度优化（reward hacking），以及策略优化阶段的不稳定性。",
+    "criteria": [
+      {"id": "c1", "text": "指出采集人类偏好数据的成本高、噪声大是一项局限", "category": "Essential", "weight": 5, "sign": "positive", "criterion_type": "factual_anchor"},
+      {"id": "c2", "text": "指出奖励模型的过度优化 / reward hacking 是一项局限", "category": "Essential", "weight": 5, "sign": "positive", "criterion_type": "factual_anchor"},
+      {"id": "c3", "text": "指出策略优化阶段（如 PPO）不稳定或敏感", "category": "Important", "weight": 3, "sign": "positive", "criterion_type": "factual_anchor"},
+      {"id": "c4", "text": "解释奖励过度优化为何发生（策略利用了学习到的奖励模型的缺陷）", "category": "Important", "weight": 3, "sign": "positive", "criterion_type": "mechanism_explanation"},
+      {"id": "c5", "text": "回答以套话、开场白或元评论开头，而没有实质内容", "category": "Pitfall", "weight": 4, "sign": "negative", "criterion_type": "anti_hacking"},
+      {"id": "c6", "text": "罗列与 RLHF 无关的泛泛局限", "category": "Pitfall", "weight": 3, "sign": "negative", "criterion_type": "anti_hacking"}
+    ]
+  }
+]

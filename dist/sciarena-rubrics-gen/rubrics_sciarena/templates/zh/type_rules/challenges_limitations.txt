@@ -1,0 +1,7 @@
+【本题为 挑战与局限（Challenges & Limitations）】
+回答应基于引用文献，指出困难、未解决的问题或局限性。
+- 总条目数：8-12
+- factual_anchor：3-5 条（Essential）——标准答案点名的每一个不同的挑战/局限各自成为一条 criterion。
+- mechanism_explanation：2-3 条（Important）——每个挑战为何出现，或为何难以克服。
+- comparative_balance：0-1 条（Optional）——相互竞争约束之间的权衡（若有讨论）。
+- anti_hacking：至少 2 条 Pitfall（两条必填默认项），可选追加："罗列与本题主题无关的泛泛局限"。

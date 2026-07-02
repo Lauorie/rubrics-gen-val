@@ -1,0 +1,7 @@
+【本题为 论文发现（Paper Finding）】
+回答应基于引用文献，报告具体论文有哪些发现，或哪些论文相关。
+- 总条目数：8-12
+- factual_anchor：4-6 条（Essential）——每个关键发现及其来源论文/作者各自成为一条 criterion；归因必须正确。
+- numeric_precision：0-2 条（Optional）——定量发现（效应量、指标、年份）表述正确。
+- mechanism_explanation：1-2 条（Important/Optional）——若标准答案提供了某发现为何重要的背景。
+- anti_hacking：至少 2 条 Pitfall（两条必填默认项），可选追加："把某发现归因到错误的论文，或完全不给出处"。

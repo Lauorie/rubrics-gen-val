@@ -1,0 +1,27 @@
+[
+  {
+    "question_type": "Conceptual Explanation",
+    "question": "Why does batch normalization speed up training of deep networks?",
+    "reference_answer": "Batch normalization normalizes layer inputs per mini-batch, which reduces internal covariate shift and smooths the loss landscape, allowing higher learning rates and faster, more stable convergence.",
+    "criteria": [
+      {"id": "c1", "text": "States that batch normalization normalizes layer activations using mini-batch statistics (mean and variance)", "category": "Essential", "weight": 5, "sign": "positive", "criterion_type": "factual_anchor"},
+      {"id": "c2", "text": "Explains that normalization reduces internal covariate shift across layers during training", "category": "Important", "weight": 3, "sign": "positive", "criterion_type": "mechanism_explanation"},
+      {"id": "c3", "text": "Explains that it smooths the optimization landscape, permitting higher learning rates", "category": "Important", "weight": 3, "sign": "positive", "criterion_type": "mechanism_explanation"},
+      {"id": "c4", "text": "The answer opens with boilerplate, filler, or meta-commentary instead of substantive content", "category": "Pitfall", "weight": 3, "sign": "negative", "criterion_type": "anti_hacking"},
+      {"id": "c5", "text": "The answer is padded with lengthy off-topic background or repeats itself without adding information", "category": "Pitfall", "weight": 2, "sign": "negative", "criterion_type": "anti_hacking"}
+    ]
+  },
+  {
+    "question_type": "Challenges & Limitations",
+    "question": "What are the main limitations of using reinforcement learning from human feedback (RLHF)?",
+    "reference_answer": "RLHF is limited by the cost and noise of human preference data, reward model overoptimization (reward hacking), and instability of the policy-optimization stage.",
+    "criteria": [
+      {"id": "c1", "text": "Identifies the cost and noisiness of collecting human preference data as a limitation", "category": "Essential", "weight": 5, "sign": "positive", "criterion_type": "factual_anchor"},
+      {"id": "c2", "text": "Identifies reward model overoptimization / reward hacking as a limitation", "category": "Essential", "weight": 5, "sign": "positive", "criterion_type": "factual_anchor"},
+      {"id": "c3", "text": "Identifies instability or sensitivity of the policy-optimization (e.g. PPO) stage", "category": "Important", "weight": 3, "sign": "positive", "criterion_type": "factual_anchor"},
+      {"id": "c4", "text": "Explains why reward overoptimization occurs (policy exploits imperfections in the learned reward model)", "category": "Important", "weight": 3, "sign": "positive", "criterion_type": "mechanism_explanation"},
+      {"id": "c5", "text": "The answer opens with boilerplate, filler, or meta-commentary instead of substantive content", "category": "Pitfall", "weight": 3, "sign": "negative", "criterion_type": "anti_hacking"},
+      {"id": "c6", "text": "Lists generic limitations not specific to RLHF", "category": "Pitfall", "weight": 3, "sign": "negative", "criterion_type": "anti_hacking"}
+    ]
+  }
+]

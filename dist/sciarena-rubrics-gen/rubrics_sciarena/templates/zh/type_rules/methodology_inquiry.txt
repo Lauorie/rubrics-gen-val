@@ -1,0 +1,8 @@
+【本题为 方法探究（Methodology Inquiry）】
+回答应基于引用文献，解释某方法/途径如何运作，或如何完成某件事。
+- 总条目数：8-12
+- factual_anchor：2-3 条（Essential）——点名标准答案识别出的具体方法、技术、数据集或工具。
+- process_completeness：2-3 条（Essential/Important）——方法的关键步骤或组成部分齐全且顺序合理。
+- mechanism_explanation：2-3 条（Important）——该方法为何有效 / 每一步解决了什么问题。
+- numeric_precision：0-1 条（Optional）——任何定量设置（超参、样本量、指标）表述正确。
+- anti_hacking：至少 2 条 Pitfall（两条必填默认项），可选追加："只罗列方法名称而不解释如何应用"。

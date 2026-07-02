@@ -1,0 +1,7 @@
+[This is a Paper Finding question]
+The answer should report what specific papers found or which papers are relevant, grounded in the cited literature.
+- Total criteria: 8-12
+- factual_anchor: 4-6 (Essential) — each key finding and its source paper/authors becomes its own criterion; attribution must be correct.
+- numeric_precision: 0-2 (Optional) — quantitative findings (effect sizes, metrics, dates) stated correctly.
+- mechanism_explanation: 1-2 (Important/Optional) — context on why a finding matters, if the ground-truth answer provides it.
+- anti_hacking: at least 2 Pitfall (the two required defaults), plus optionally: "attributes a finding to the wrong paper or cites no source".

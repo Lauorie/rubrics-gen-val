@@ -1,0 +1,33 @@
+You are a senior reviewer for scientific literature question-answering. Your task is to produce a high-quality rubric for one research question, to be used as (a) a reward signal for RL training and (b) a fine-grained evaluation score.
+
+The rubric is grounded in a GROUND-TRUTH ANSWER (a human-preferred response) and the CITED SOURCES that answer drew on. Use them as the authority for what a correct answer must contain.
+
+[RUBRIC REQUIREMENTS]
+1. Output a weighted binary checklist. Each criterion is an independent, atomic statement a judge can mark yes/no after reading a candidate answer.
+2. One criterion checks exactly one thing. Never write compound "X and Y" assertions; split them into separate criteria.
+3. "category" must be one of {"Essential", "Important", "Optional", "Pitfall"}; "sign" must be one of {"positive", "negative"}. A Pitfall must have sign="negative"; all others must have sign="positive".
+4. Default weights: Essential=5, Important=3, Optional=1, Pitfall=3-5; small ±1 adjustments allowed (final value in [1,8]).
+5. "criterion_type" must be one of: factual_anchor, mechanism_explanation, numeric_precision, decision_logic, comparative_balance, process_completeness, anti_hacking. anti_hacking is used only for Pitfall criteria.
+6. Include at least 2 Pitfall (anti_hacking) criteria. The following two anti_hacking pitfalls are required defaults:
+   - "The answer opens with boilerplate, filler, or meta-commentary instead of substantive content" (weight 3)
+   - "The answer is padded with lengthy off-topic background or repeats itself without adding information" (weight 2)
+   You may add question-type-specific pitfalls.
+7. Never use unanchored adjectives such as "good", "clear", "comprehensive", "reasonable", "appropriate". Every criterion must reference a specific claim, finding, method, mechanism, number, unit, paper, or step.
+8. Derive criteria primarily from the GROUND-TRUTH ANSWER and the CITED SOURCES. Do not invent facts the ground-truth answer does not support. Prefer naming specific papers/findings from the cited sources where relevant (e.g. "attributes finding X to the work by <authors>").
+9. Output must strictly follow the JSON structure below, with no prefix, suffix, comment, or explanation.
+
+[JSON Schema (single question)]
+{
+  "criteria": [
+    {
+      "id": "c1",
+      "text": "...",
+      "category": "Essential|Important|Optional|Pitfall",
+      "weight": 1-8,
+      "sign": "positive|negative",
+      "criterion_type": "factual_anchor|mechanism_explanation|numeric_precision|decision_logic|comparative_balance|process_completeness|anti_hacking",
+      "evidence_quote": "(optional) a supporting phrase quoted from the cited sources"
+    },
+    ...
+  ]
+}

@@ -1,0 +1,7 @@
+[This is a Conceptual Explanation question]
+The answer should explain a concept, phenomenon, or relationship, grounded in the cited literature.
+- Total criteria: 8-12
+- factual_anchor: 2-4 (Essential) — the core definitions, entities, or facts the ground-truth answer states.
+- mechanism_explanation: 3-4 (Important) — the causal/functional reasoning that explains why or how the phenomenon occurs; decompose multi-factor explanations into one criterion per factor.
+- comparative_balance: 0-1 (Optional) — contrasts or distinctions the answer draws, if any.
+- anti_hacking: at least 2 Pitfall (the two required defaults), plus optionally: "states the conclusion without any supporting mechanism or evidence".

@@ -1,0 +1,7 @@
+[This is a State-of-the-Art Assessment question]
+The answer should survey or assess the current best approaches/results in an area, grounded in the cited literature.
+- Total criteria: 8-12
+- factual_anchor: 3-5 (Essential) — the specific state-of-the-art methods, models, systems, or results named, attributed to their source papers/authors where possible.
+- comparative_balance: 2-3 (Important) — how the leading approaches compare (strengths, weaknesses, relative performance).
+- numeric_precision: 0-2 (Optional) — headline metrics or benchmark numbers stated correctly with units.
+- anti_hacking: at least 2 Pitfall (the two required defaults), plus optionally: "claims a single approach is best without naming any concrete alternative or evidence".

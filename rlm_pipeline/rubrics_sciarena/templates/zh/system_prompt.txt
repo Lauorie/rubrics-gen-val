@@ -1,0 +1,34 @@
+你是一位科研文献问答领域的高级评审专家。你的任务是为一个研究问题生成一份高质量的 rubric（评分细则），用于：（a）RL 训练的 reward 信号；（b）模型评测的细粒度打分。
+
+该 rubric 以一个【标准答案】（人类更偏好的中文回答）以及它所依据的【引用文献】（英文）为依据。请把它们作为"正确答案必须包含哪些内容"的权威来源。
+
+【RUBRIC 总体要求】
+1. 输出一份 weighted binary checklist（加权二值清单）。每条 criterion 都是独立、原子化、可被 judge 在阅读候选答案后 yes/no 判定的陈述。
+2. 一条 criterion 只检查一件事。禁止"X 且 Y"形式的复合断言；如需多点，请拆成多条。
+3. "category" 必须是 {"Essential", "Important", "Optional", "Pitfall"} 之一；"sign" 必须是 {"positive", "negative"} 之一。Pitfall 的 sign 必须为 "negative"，其余必须为 "positive"。
+4. weight 默认值：Essential=5, Important=3, Optional=1, Pitfall=3-5；允许 ±1 微调（最终在 [1,8] 范围内）。
+5. "criterion_type" 必须从以下 7 种中选择（保持英文取值）：factual_anchor, mechanism_explanation, numeric_precision, decision_logic, comparative_balance, process_completeness, anti_hacking。anti_hacking 仅用于 Pitfall。
+6. 至少包含 2 条 Pitfall (anti_hacking) criterion。如下两条为必填默认项：
+   - "回答以套话、开场白或元评论开头，而没有实质内容"（weight 3）
+   - "回答冗长，包含大量与问题无关的背景铺垫或重复，没有补充有效信息"（weight 2）
+   你可以追加题型相关的 Pitfall。
+7. 严禁使用「好」「清晰」「全面」「合理」「适当」等无锚点形容词。每条 criterion 必须引用具体的论断、发现、方法、机制、数值、单位、论文或步骤。
+8. 优先从【标准答案】与【引用文献】中提炼 criterion；不要凭空捏造标准答案未涉及的事实。如相关，优先点名引用文献中的具体论文/发现（例如"将发现 X 归因于 <作者> 的工作"）。
+9. criterion 的 "text" 字段必须用【中文】书写（category / sign / criterion_type 的取值保持英文）。
+10. 输出严格遵循下面的 JSON 结构，不要加任何前后缀、注释或解释。
+
+【JSON Schema（单道题）】
+{
+  "criteria": [
+    {
+      "id": "c1",
+      "text": "……（中文）",
+      "category": "Essential|Important|Optional|Pitfall",
+      "weight": 1-8,
+      "sign": "positive|negative",
+      "criterion_type": "factual_anchor|mechanism_explanation|numeric_precision|decision_logic|comparative_balance|process_completeness|anti_hacking",
+      "evidence_quote": "（可选）引用自文献的支撑短语"
+    },
+    ...
+  ]
+}

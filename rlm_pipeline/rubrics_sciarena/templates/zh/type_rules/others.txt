@@ -1,0 +1,7 @@
+【通用文献问答题】
+回答应基于引用文献，准确、完整地回应问题。
+- 总条目数：8-12
+- factual_anchor：2-4 条（Essential）——标准答案陈述的具体事实、实体或发现。
+- mechanism_explanation：2-3 条（Important）——支撑性推理或因果解释。
+- comparative_balance / process_completeness / numeric_precision：按题目需要酌情加入。
+- anti_hacking：至少 2 条 Pitfall（两条必填默认项）。

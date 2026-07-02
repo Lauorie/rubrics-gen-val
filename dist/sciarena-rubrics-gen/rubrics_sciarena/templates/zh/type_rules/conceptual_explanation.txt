@@ -1,0 +1,7 @@
+【本题为 概念解释（Conceptual Explanation）】
+回答应基于引用文献，解释某个概念、现象或关系。
+- 总条目数：8-12
+- factual_anchor：2-4 条（Essential）——标准答案陈述的核心定义、实体或事实。
+- mechanism_explanation：3-4 条（Important）——解释现象为何/如何发生的因果或功能性推理；将多因素解释逐点拆为独立 criterion。
+- comparative_balance：0-1 条（Optional）——回答中作出的对比或区分（若有）。
+- anti_hacking：至少 2 条 Pitfall（两条必填默认项），可选追加："只给出结论而没有任何支撑机制或证据"。
