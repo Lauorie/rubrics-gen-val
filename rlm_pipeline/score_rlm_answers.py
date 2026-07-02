@@ -74,8 +74,8 @@ def filter_pending(
 
 
 _RLM_ROOT = Path(__file__).resolve().parents[1]
-if str(_RLM_ROOT / "src") not in sys.path:
-    sys.path.insert(0, str(_RLM_ROOT / "src"))
+if str(_RLM_ROOT / "rlm_pipeline") not in sys.path:
+    sys.path.insert(0, str(_RLM_ROOT / "rlm_pipeline"))
 
 from rubrics.llm_client import LLMClient, LLMConfig  # noqa: E402
 from rubrics.scorer import Scorer  # noqa: E402
